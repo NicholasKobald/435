@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 ulNoActions.g 2018-01-04 11:02:09
+// $ANTLR 3.0.1 ulNoActions.g 2018-01-04 11:44:47
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class ulNoActionsLexer extends Lexer {
     public static final int NEWLINE=5;
-    public static final int Tokens=6;
     public static final int EOF=-1;
     public static final int IF=4;
+    public static final int Tokens=6;
     public ulNoActionsLexer() {;} 
     public ulNoActionsLexer(CharStream input) {
         super(input);
