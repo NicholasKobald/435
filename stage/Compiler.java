@@ -29,11 +29,12 @@ public class Compiler {
 		try {
 			parser.program();
 		}
-		catch (RecognitionException e )	{
+		catch (RecognitionException e)	{
 			// A lexical or parsing error occured.
 			// ANTLR will have already printed information on the
 			// console due to code added to the grammar.  So there is
 			// nothing to do here.
+			System.out.println("Exception: RecognitionException");
 		}
 		catch (Exception e) {
 			System.out.println(e);
