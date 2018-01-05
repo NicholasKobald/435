@@ -1,12 +1,16 @@
 lexer grammar ulNoActions;
 
-// $ANTLR src "ulNoActions.g" 33
-IF	: 'if'
-	;
+T5 : '(' ;
+T6 : ')' ;
+T7 : 'abc' ;
+T8 : 'int' ;
+T9 : 'string' ;
+T10 : '+' ;
+T11 : '-' ;
+T12 : '==' ;
+T13 : '<' ;
+T14 : '*' ;
 
-/* NB: This will not be part of your grammar.  Whitespace should be ignored.  
-       This is only here so that you have a complete example 
- */
-// $ANTLR src "ulNoActions.g" 39
-NEWLINE: '\n'
-	;
+// $ANTLR src "ulNoActions.g" 61
+WS : (' '|'\t'|'\n'|'\r')+ {skip();} ;
+

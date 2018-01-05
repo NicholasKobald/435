@@ -24,17 +24,40 @@ public void recoverFromMismatchedSet (IntStream input,
         }
 }
 
-program : IF NEWLINE
-	;
-
-
 /* Lexer */
-	 
-IF	: 'if'
-	;
 
-/* NB: This will not be part of your grammar.  Whitespace should be ignored.  
-       This is only here so that you have a complete example 
- */
-NEWLINE: '\n'
-	;
+program: expression ;
+
+
+expression : expressionT expressionP
+           | id
+           | literal
+           ;
+
+expressionT : expressionF expressionT ;
+
+expressionP : op expressionT expressionP
+            |
+            ;
+
+
+expressionF : '(' expression ')'
+            | id
+            |
+            ;
+
+id: 'abc';
+
+literal: 'int'
+       | 'string'
+       ;
+
+op: '+'
+  | '-'
+  | '=='
+  | '<'
+  | '*'
+  ;
+
+WS : (' '|'\t'|'\n'|'\r')+ {skip();} ;
+
