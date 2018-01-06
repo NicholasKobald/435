@@ -52,11 +52,12 @@ def run_on_test_file(test, reject):
         success_count += 1
 
 # TODO
-# use git to figure out what tests are new or have been changed
-# only run on those
-# fucking genius, nick
-# oh and cache failed ones!
-# this isn't reinventing the wheel.
+# -use git to figure out what tests are new or have been changed
+#   only run on those
+# - cache failed ones!
+# - can speed up accepted ones by combing them before hand.
+# - --silent mode, maybe?
+# definitely need --rejects and --accepts mode first tho
 def main():
     global success_count, fail_count
     start = time.time()

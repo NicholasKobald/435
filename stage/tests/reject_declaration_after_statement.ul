@@ -3,8 +3,6 @@ void main() {
 
     x = foo(); //now we must be in the statement block
 
-    int b; // breaks
-
-
+    int b; // breaks ¯\_(ツ)_/¯
 
 }
