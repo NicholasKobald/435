@@ -1,0 +1,2 @@
+int func(int a, string b, char d, float x) {
+}

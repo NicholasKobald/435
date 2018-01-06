@@ -1,5 +1,8 @@
 grammar ulNoActions;
-				
+options {
+    backtrack=true;
+}
+
 @members
 {
 protected void mismatch (IntStream input, int ttype, BitSet follow)
@@ -25,39 +28,84 @@ public void recoverFromMismatchedSet (IntStream input,
 }
 
 /* Lexer */
+program : function+
+        ;
 
-program: expression ;
+function : functionDecl functionBody
+         ;
 
+functionDecl : type identifier '(' formalParameters ')'
+             ;
 
-expression : expressionT expressionP
-           | id
-           | literal
-           ;
+formalParameters : compoundType identifier formals*
+                 |
+                 ;
 
-expressionT : expressionF expressionT ;
+formals : ',' compoundType identifier
+        ;
 
-expressionP : op expressionT expressionP
-            |
-            ;
+// TODO need to add option for compound thing
+compoundType : TYPE
+             ;
 
+functionBody : '{' varDec* statement* '}'
+             ;
 
-expressionF : '(' expression ')'
-            | id
-            |
-            ;
-
-id: 'abc';
-
-literal: 'int'
-       | 'string'
+varDec : compoundType ID ';'
        ;
 
-op: '+'
-  | '-'
-  | '=='
-  | '<'
-  | '*'
-  ;
+statement : ';'
+          | expr
+          | 'print' expr
+          | ID '=' expr
+          ;
 
-WS : (' '|'\t'|'\n'|'\r')+ {skip();} ;
+expr : ID
+     | literal
+     ;
 
+identifier : ID
+           ;
+
+type  : TYPE
+      ;
+
+literal: STRINGCONST
+       | INTEGERCONST
+       | TRUE
+       | FALSE
+       ;
+
+IF	: 'if'
+    ;
+
+TYPE    : 'int'
+        | 'string'
+        | 'float'
+        | 'char'
+        | 'void'
+        | 'boolean'
+        ;
+
+TRUE:  'true'   ;
+FALSE: 'false'  ;
+
+INTEGERCONST : ('0'..'9')+
+             ;
+
+//CHARCONST    : "'"('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')"'"
+//             ;
+
+
+STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
+             ;
+
+ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
+    ;
+
+
+WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
+        ;
+
+COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;}
+        ;

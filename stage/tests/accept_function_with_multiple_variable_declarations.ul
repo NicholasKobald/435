@@ -1,0 +1,11 @@
+void foo() {
+    int i;
+    int k;
+    int l;
+    int m;
+    string f;
+    string b;
+    char z;
+    char x;
+    boolean m;
+}

@@ -1,0 +1,15 @@
+int func(int a,
+        string b,
+        char c,
+        float d,
+        int abcefghijklmnop,
+        int za,
+        int zza,
+        int zzaa,
+        int zzaaa,
+        int zzaaaa,
+        int zzaaaaaaa,
+        int zzaaaaaaaa,
+        int zzaaaaaaaaa,
+        int zzaaaaaaaaaa)
+{}

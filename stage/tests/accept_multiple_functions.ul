@@ -1,0 +1,17 @@
+void foo(int a1, char b2) {
+
+}
+
+string bar(boolean b_) {
+
+}
+
+int baz(float _) {
+
+}
+
+float boozle(float c1234_) {
+
+}
+
+boolean sum(int a, int b) {}

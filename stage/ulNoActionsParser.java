@@ -1,20 +1,30 @@
-// $ANTLR 3.0.1 ulNoActions.g 2018-01-05 01:24:15
+// $ANTLR 3.0.1 ulNoActions.g 2018-01-05 23:56:37
 
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.HashMap;
 public class ulNoActionsParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "WS", "'('", "')'", "'abc'", "'int'", "'string'", "'+'", "'-'", "'=='", "'<'", "'*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "TYPE", "ID", "STRINGCONST", "INTEGERCONST", "TRUE", "FALSE", "IF", "WS", "COMMENT", "'('", "')'", "','", "'{'", "'}'", "';'", "'print'", "'='"
     };
-    public static final int WS=4;
+    public static final int INTEGERCONST=7;
+    public static final int TRUE=8;
+    public static final int COMMENT=12;
+    public static final int STRINGCONST=6;
+    public static final int FALSE=9;
+    public static final int ID=5;
+    public static final int WS=11;
     public static final int EOF=-1;
+    public static final int TYPE=4;
+    public static final int IF=10;
 
         public ulNoActionsParser(TokenStream input) {
             super(input);
-        }
+            ruleMemo = new HashMap[25+1];
+         }
         
 
     public String[] getTokenNames() { return tokenNames; }
@@ -38,15 +48,45 @@ public class ulNoActionsParser extends Parser {
 
 
     // $ANTLR start program
-    // ulNoActions.g:29:1: program : expression ;
+    // ulNoActions.g:31:1: program : ( function )+ ;
     public final void program() throws RecognitionException {
         try {
-            // ulNoActions.g:29:8: ( expression )
-            // ulNoActions.g:29:10: expression
+            // ulNoActions.g:31:9: ( ( function )+ )
+            // ulNoActions.g:31:11: ( function )+
             {
-            pushFollow(FOLLOW_expression_in_program28);
-            expression();
-            _fsp--;
+            // ulNoActions.g:31:11: ( function )+
+            int cnt1=0;
+            loop1:
+            do {
+                int alt1=2;
+                int LA1_0 = input.LA(1);
+
+                if ( (LA1_0==TYPE) ) {
+                    alt1=1;
+                }
+
+
+                switch (alt1) {
+            	case 1 :
+            	    // ulNoActions.g:0:0: function
+            	    {
+            	    pushFollow(FOLLOW_function_in_program37);
+            	    function();
+            	    _fsp--;
+            	    if (failed) return ;
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt1 >= 1 ) break loop1;
+            	    if (backtracking>0) {failed=true; return ;}
+                        EarlyExitException eee =
+                            new EarlyExitException(1, input);
+                        throw eee;
+                }
+                cnt1++;
+            } while (true);
 
 
             }
@@ -64,77 +104,24 @@ public class ulNoActionsParser extends Parser {
     // $ANTLR end program
 
 
-    // $ANTLR start expression
-    // ulNoActions.g:32:1: expression : ( expressionT expressionP | id | literal );
-    public final void expression() throws RecognitionException {
+    // $ANTLR start function
+    // ulNoActions.g:34:1: function : functionDecl functionBody ;
+    public final void function() throws RecognitionException {
         try {
-            // ulNoActions.g:32:12: ( expressionT expressionP | id | literal )
-            int alt1=3;
-            switch ( input.LA(1) ) {
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-                {
-                alt1=1;
-                }
-                break;
-            case 7:
-                {
-                alt1=2;
-                }
-                break;
-            case 8:
-            case 9:
-                {
-                alt1=3;
-                }
-                break;
-            default:
-                NoViableAltException nvae =
-                    new NoViableAltException("32:1: expression : ( expressionT expressionP | id | literal );", 1, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt1) {
-                case 1 :
-                    // ulNoActions.g:32:14: expressionT expressionP
-                    {
-                    pushFollow(FOLLOW_expressionT_in_expression38);
-                    expressionT();
-                    _fsp--;
-
-                    pushFollow(FOLLOW_expressionP_in_expression40);
-                    expressionP();
-                    _fsp--;
-
-
-                    }
-                    break;
-                case 2 :
-                    // ulNoActions.g:33:14: id
-                    {
-                    pushFollow(FOLLOW_id_in_expression55);
-                    id();
-                    _fsp--;
-
-
-                    }
-                    break;
-                case 3 :
-                    // ulNoActions.g:34:14: literal
-                    {
-                    pushFollow(FOLLOW_literal_in_expression70);
-                    literal();
-                    _fsp--;
-
-
-                    }
-                    break;
+            // ulNoActions.g:34:10: ( functionDecl functionBody )
+            // ulNoActions.g:34:12: functionDecl functionBody
+            {
+            pushFollow(FOLLOW_functionDecl_in_function55);
+            functionDecl();
+            _fsp--;
+            if (failed) return ;
+            pushFollow(FOLLOW_functionBody_in_function57);
+            functionBody();
+            _fsp--;
+            if (failed) return ;
 
             }
+
         }
 
                 catch (RecognitionException ex) {
@@ -145,50 +132,112 @@ public class ulNoActionsParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end expression
+    // $ANTLR end function
 
 
-    // $ANTLR start expressionP
-    // ulNoActions.g:37:1: expressionP : ( op expressionT expressionP | );
-    public final void expressionP() throws RecognitionException {
+    // $ANTLR start functionDecl
+    // ulNoActions.g:37:1: functionDecl : type identifier '(' formalParameters ')' ;
+    public final void functionDecl() throws RecognitionException {
         try {
-            // ulNoActions.g:37:13: ( op expressionT expressionP | )
-            int alt2=2;
-            int LA2_0 = input.LA(1);
+            // ulNoActions.g:37:14: ( type identifier '(' formalParameters ')' )
+            // ulNoActions.g:37:16: type identifier '(' formalParameters ')'
+            {
+            pushFollow(FOLLOW_type_in_functionDecl75);
+            type();
+            _fsp--;
+            if (failed) return ;
+            pushFollow(FOLLOW_identifier_in_functionDecl77);
+            identifier();
+            _fsp--;
+            if (failed) return ;
+            match(input,13,FOLLOW_13_in_functionDecl79); if (failed) return ;
+            pushFollow(FOLLOW_formalParameters_in_functionDecl81);
+            formalParameters();
+            _fsp--;
+            if (failed) return ;
+            match(input,14,FOLLOW_14_in_functionDecl83); if (failed) return ;
 
-            if ( ((LA2_0>=10 && LA2_0<=14)) ) {
-                alt2=1;
             }
-            else if ( (LA2_0==EOF||LA2_0==6) ) {
-                alt2=2;
+
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end functionDecl
+
+
+    // $ANTLR start formalParameters
+    // ulNoActions.g:40:1: formalParameters : ( compoundType identifier ( formals )* | );
+    public final void formalParameters() throws RecognitionException {
+        try {
+            // ulNoActions.g:40:18: ( compoundType identifier ( formals )* | )
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0==TYPE) ) {
+                alt3=1;
+            }
+            else if ( (LA3_0==14) ) {
+                alt3=2;
             }
             else {
+                if (backtracking>0) {failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("37:1: expressionP : ( op expressionT expressionP | );", 2, 0, input);
+                    new NoViableAltException("40:1: formalParameters : ( compoundType identifier ( formals )* | );", 3, 0, input);
 
                 throw nvae;
             }
-            switch (alt2) {
+            switch (alt3) {
                 case 1 :
-                    // ulNoActions.g:37:15: op expressionT expressionP
+                    // ulNoActions.g:40:20: compoundType identifier ( formals )*
                     {
-                    pushFollow(FOLLOW_op_in_expressionP90);
-                    op();
+                    pushFollow(FOLLOW_compoundType_in_formalParameters105);
+                    compoundType();
                     _fsp--;
+                    if (failed) return ;
+                    pushFollow(FOLLOW_identifier_in_formalParameters107);
+                    identifier();
+                    _fsp--;
+                    if (failed) return ;
+                    // ulNoActions.g:40:44: ( formals )*
+                    loop2:
+                    do {
+                        int alt2=2;
+                        int LA2_0 = input.LA(1);
 
-                    pushFollow(FOLLOW_expressionT_in_expressionP92);
-                    expressionT();
-                    _fsp--;
+                        if ( (LA2_0==15) ) {
+                            alt2=1;
+                        }
 
-                    pushFollow(FOLLOW_expressionP_in_expressionP94);
-                    expressionP();
-                    _fsp--;
+
+                        switch (alt2) {
+                    	case 1 :
+                    	    // ulNoActions.g:0:0: formals
+                    	    {
+                    	    pushFollow(FOLLOW_formals_in_formalParameters109);
+                    	    formals();
+                    	    _fsp--;
+                    	    if (failed) return ;
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop2;
+                        }
+                    } while (true);
 
 
                     }
                     break;
                 case 2 :
-                    // ulNoActions.g:39:13: 
+                    // ulNoActions.g:42:18: 
                     {
                     }
                     break;
@@ -204,28 +253,25 @@ public class ulNoActionsParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end expressionP
+    // $ANTLR end formalParameters
 
 
-    // $ANTLR start expressionT
-    // ulNoActions.g:41:1: expressionT : op expressionF expressionT ;
-    public final void expressionT() throws RecognitionException {
+    // $ANTLR start formals
+    // ulNoActions.g:44:1: formals : ',' compoundType identifier ;
+    public final void formals() throws RecognitionException {
         try {
-            // ulNoActions.g:41:13: ( op expressionF expressionT )
-            // ulNoActions.g:41:15: op expressionF expressionT
+            // ulNoActions.g:44:9: ( ',' compoundType identifier )
+            // ulNoActions.g:44:11: ',' compoundType identifier
             {
-            pushFollow(FOLLOW_op_in_expressionT129);
-            op();
+            match(input,15,FOLLOW_15_in_formals155); if (failed) return ;
+            pushFollow(FOLLOW_compoundType_in_formals157);
+            compoundType();
             _fsp--;
-
-            pushFollow(FOLLOW_expressionF_in_expressionT131);
-            expressionF();
+            if (failed) return ;
+            pushFollow(FOLLOW_identifier_in_formals159);
+            identifier();
             _fsp--;
-
-            pushFollow(FOLLOW_expressionT_in_expressionT133);
-            expressionT();
-            _fsp--;
-
+            if (failed) return ;
 
             }
 
@@ -239,68 +285,234 @@ public class ulNoActionsParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end expressionT
+    // $ANTLR end formals
 
 
-    // $ANTLR start expressionF
-    // ulNoActions.g:43:1: expressionF : ( '(' expression ')' | id | );
-    public final void expressionF() throws RecognitionException {
+    // $ANTLR start compoundType
+    // ulNoActions.g:48:1: compoundType : TYPE ;
+    public final void compoundType() throws RecognitionException {
         try {
-            // ulNoActions.g:43:13: ( '(' expression ')' | id | )
-            int alt3=3;
+            // ulNoActions.g:48:14: ( TYPE )
+            // ulNoActions.g:48:16: TYPE
+            {
+            match(input,TYPE,FOLLOW_TYPE_in_compoundType177); if (failed) return ;
+
+            }
+
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end compoundType
+
+
+    // $ANTLR start functionBody
+    // ulNoActions.g:51:1: functionBody : '{' ( varDec )* ( statement )* '}' ;
+    public final void functionBody() throws RecognitionException {
+        try {
+            // ulNoActions.g:51:14: ( '{' ( varDec )* ( statement )* '}' )
+            // ulNoActions.g:51:16: '{' ( varDec )* ( statement )* '}'
+            {
+            match(input,16,FOLLOW_16_in_functionBody199); if (failed) return ;
+            // ulNoActions.g:51:20: ( varDec )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==TYPE) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // ulNoActions.g:0:0: varDec
+            	    {
+            	    pushFollow(FOLLOW_varDec_in_functionBody201);
+            	    varDec();
+            	    _fsp--;
+            	    if (failed) return ;
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+            // ulNoActions.g:51:28: ( statement )*
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( ((LA5_0>=ID && LA5_0<=FALSE)||(LA5_0>=18 && LA5_0<=19)) ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // ulNoActions.g:0:0: statement
+            	    {
+            	    pushFollow(FOLLOW_statement_in_functionBody204);
+            	    statement();
+            	    _fsp--;
+            	    if (failed) return ;
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop5;
+                }
+            } while (true);
+
+            match(input,17,FOLLOW_17_in_functionBody207); if (failed) return ;
+
+            }
+
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end functionBody
+
+
+    // $ANTLR start varDec
+    // ulNoActions.g:54:1: varDec : compoundType ID ';' ;
+    public final void varDec() throws RecognitionException {
+        try {
+            // ulNoActions.g:54:8: ( compoundType ID ';' )
+            // ulNoActions.g:54:10: compoundType ID ';'
+            {
+            pushFollow(FOLLOW_compoundType_in_varDec229);
+            compoundType();
+            _fsp--;
+            if (failed) return ;
+            match(input,ID,FOLLOW_ID_in_varDec231); if (failed) return ;
+            match(input,18,FOLLOW_18_in_varDec233); if (failed) return ;
+
+            }
+
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end varDec
+
+
+    // $ANTLR start statement
+    // ulNoActions.g:57:1: statement : ( ';' | expr | 'print' expr | ID '=' expr );
+    public final void statement() throws RecognitionException {
+        try {
+            // ulNoActions.g:57:11: ( ';' | expr | 'print' expr | ID '=' expr )
+            int alt6=4;
             switch ( input.LA(1) ) {
-            case 5:
+            case 18:
                 {
-                alt3=1;
+                alt6=1;
                 }
                 break;
-            case 7:
+            case ID:
                 {
-                alt3=2;
+                int LA6_2 = input.LA(2);
+
+                if ( (LA6_2==20) ) {
+                    alt6=4;
+                }
+                else if ( (LA6_2==EOF||(LA6_2>=ID && LA6_2<=FALSE)||(LA6_2>=17 && LA6_2<=19)) ) {
+                    alt6=2;
+                }
+                else {
+                    if (backtracking>0) {failed=true; return ;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("57:1: statement : ( ';' | expr | 'print' expr | ID '=' expr );", 6, 2, input);
+
+                    throw nvae;
+                }
                 }
                 break;
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
+            case STRINGCONST:
+            case INTEGERCONST:
+            case TRUE:
+            case FALSE:
                 {
-                alt3=3;
+                alt6=2;
+                }
+                break;
+            case 19:
+                {
+                alt6=3;
                 }
                 break;
             default:
+                if (backtracking>0) {failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("43:1: expressionF : ( '(' expression ')' | id | );", 3, 0, input);
+                    new NoViableAltException("57:1: statement : ( ';' | expr | 'print' expr | ID '=' expr );", 6, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt3) {
+            switch (alt6) {
                 case 1 :
-                    // ulNoActions.g:43:15: '(' expression ')'
+                    // ulNoActions.g:57:13: ';'
                     {
-                    match(input,5,FOLLOW_5_in_expressionF142); 
-                    pushFollow(FOLLOW_expression_in_expressionF144);
-                    expression();
-                    _fsp--;
-
-                    match(input,6,FOLLOW_6_in_expressionF146); 
+                    match(input,18,FOLLOW_18_in_statement249); if (failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ulNoActions.g:44:15: id
+                    // ulNoActions.g:58:13: expr
                     {
-                    pushFollow(FOLLOW_id_in_expressionF162);
-                    id();
+                    pushFollow(FOLLOW_expr_in_statement263);
+                    expr();
                     _fsp--;
-
+                    if (failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // ulNoActions.g:46:13: 
+                    // ulNoActions.g:59:13: 'print' expr
                     {
+                    match(input,19,FOLLOW_19_in_statement277); if (failed) return ;
+                    pushFollow(FOLLOW_expr_in_statement279);
+                    expr();
+                    _fsp--;
+                    if (failed) return ;
+
+                    }
+                    break;
+                case 4 :
+                    // ulNoActions.g:60:13: ID '=' expr
+                    {
+                    match(input,ID,FOLLOW_ID_in_statement293); if (failed) return ;
+                    match(input,20,FOLLOW_20_in_statement295); if (failed) return ;
+                    pushFollow(FOLLOW_expr_in_statement297);
+                    expr();
+                    _fsp--;
+                    if (failed) return ;
+
                     }
                     break;
 
@@ -315,17 +527,71 @@ public class ulNoActionsParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end expressionF
+    // $ANTLR end statement
 
 
-    // $ANTLR start id
-    // ulNoActions.g:48:1: id : 'abc' ;
-    public final void id() throws RecognitionException {
+    // $ANTLR start expr
+    // ulNoActions.g:63:1: expr : ( ID | literal );
+    public final void expr() throws RecognitionException {
         try {
-            // ulNoActions.g:48:3: ( 'abc' )
-            // ulNoActions.g:48:5: 'abc'
+            // ulNoActions.g:63:6: ( ID | literal )
+            int alt7=2;
+            int LA7_0 = input.LA(1);
+
+            if ( (LA7_0==ID) ) {
+                alt7=1;
+            }
+            else if ( ((LA7_0>=STRINGCONST && LA7_0<=FALSE)) ) {
+                alt7=2;
+            }
+            else {
+                if (backtracking>0) {failed=true; return ;}
+                NoViableAltException nvae =
+                    new NoViableAltException("63:1: expr : ( ID | literal );", 7, 0, input);
+
+                throw nvae;
+            }
+            switch (alt7) {
+                case 1 :
+                    // ulNoActions.g:63:8: ID
+                    {
+                    match(input,ID,FOLLOW_ID_in_expr316); if (failed) return ;
+
+                    }
+                    break;
+                case 2 :
+                    // ulNoActions.g:64:8: literal
+                    {
+                    pushFollow(FOLLOW_literal_in_expr325);
+                    literal();
+                    _fsp--;
+                    if (failed) return ;
+
+                    }
+                    break;
+
+            }
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end expr
+
+
+    // $ANTLR start identifier
+    // ulNoActions.g:67:1: identifier : ID ;
+    public final void identifier() throws RecognitionException {
+        try {
+            // ulNoActions.g:67:12: ( ID )
+            // ulNoActions.g:67:14: ID
             {
-            match(input,7,FOLLOW_7_in_id196); 
+            match(input,ID,FOLLOW_ID_in_identifier339); if (failed) return ;
 
             }
 
@@ -339,21 +605,46 @@ public class ulNoActionsParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end id
+    // $ANTLR end identifier
+
+
+    // $ANTLR start type
+    // ulNoActions.g:70:1: type : TYPE ;
+    public final void type() throws RecognitionException {
+        try {
+            // ulNoActions.g:70:7: ( TYPE )
+            // ulNoActions.g:70:9: TYPE
+            {
+            match(input,TYPE,FOLLOW_TYPE_in_type360); if (failed) return ;
+
+            }
+
+        }
+
+                catch (RecognitionException ex) {
+                        reportError(ex);
+                        throw ex;
+                }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end type
 
 
     // $ANTLR start literal
-    // ulNoActions.g:50:1: literal : ( 'int' | 'string' );
+    // ulNoActions.g:73:1: literal : ( STRINGCONST | INTEGERCONST | TRUE | FALSE );
     public final void literal() throws RecognitionException {
         try {
-            // ulNoActions.g:50:8: ( 'int' | 'string' )
+            // ulNoActions.g:73:8: ( STRINGCONST | INTEGERCONST | TRUE | FALSE )
             // ulNoActions.g:
             {
-            if ( (input.LA(1)>=8 && input.LA(1)<=9) ) {
+            if ( (input.LA(1)>=STRINGCONST && input.LA(1)<=FALSE) ) {
                 input.consume();
-                errorRecovery=false;
+                errorRecovery=false;failed=false;
             }
             else {
+                if (backtracking>0) {failed=true; return ;}
                 MismatchedSetException mse =
                     new MismatchedSetException(null,input);
                 recoverFromMismatchedSet(input,mse,FOLLOW_set_in_literal0);    throw mse;
@@ -375,58 +666,41 @@ public class ulNoActionsParser extends Parser {
     // $ANTLR end literal
 
 
-    // $ANTLR start op
-    // ulNoActions.g:54:1: op : ( '+' | '-' | '==' | '<' | '*' );
-    public final void op() throws RecognitionException {
-        try {
-            // ulNoActions.g:54:3: ( '+' | '-' | '==' | '<' | '*' )
-            // ulNoActions.g:
-            {
-            if ( (input.LA(1)>=10 && input.LA(1)<=14) ) {
-                input.consume();
-                errorRecovery=false;
-            }
-            else {
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_op0);    throw mse;
-            }
-
-
-            }
-
-        }
-
-                catch (RecognitionException ex) {
-                        reportError(ex);
-                        throw ex;
-                }
-        finally {
-        }
-        return ;
-    }
-    // $ANTLR end op
-
-
  
 
-    public static final BitSet FOLLOW_expression_in_program28 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expressionT_in_expression38 = new BitSet(new long[]{0x0000000000007C02L});
-    public static final BitSet FOLLOW_expressionP_in_expression40 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_id_in_expression55 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literal_in_expression70 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_in_expressionP90 = new BitSet(new long[]{0x0000000000007C00L});
-    public static final BitSet FOLLOW_expressionT_in_expressionP92 = new BitSet(new long[]{0x0000000000007C00L});
-    public static final BitSet FOLLOW_expressionP_in_expressionP94 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_in_expressionT129 = new BitSet(new long[]{0x0000000000007CA0L});
-    public static final BitSet FOLLOW_expressionF_in_expressionT131 = new BitSet(new long[]{0x0000000000007C00L});
-    public static final BitSet FOLLOW_expressionT_in_expressionT133 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_5_in_expressionF142 = new BitSet(new long[]{0x0000000000007F80L});
-    public static final BitSet FOLLOW_expression_in_expressionF144 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_6_in_expressionF146 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_id_in_expressionF162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_7_in_id196 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_function_in_program37 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_functionDecl_in_function55 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_functionBody_in_function57 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_functionDecl75 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_identifier_in_functionDecl77 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_functionDecl79 = new BitSet(new long[]{0x0000000000004010L});
+    public static final BitSet FOLLOW_formalParameters_in_functionDecl81 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_functionDecl83 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compoundType_in_formalParameters105 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_identifier_in_formalParameters107 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_formals_in_formalParameters109 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_15_in_formals155 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_compoundType_in_formals157 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_identifier_in_formals159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TYPE_in_compoundType177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_functionBody199 = new BitSet(new long[]{0x00000000000E03F0L});
+    public static final BitSet FOLLOW_varDec_in_functionBody201 = new BitSet(new long[]{0x00000000000E03F0L});
+    public static final BitSet FOLLOW_statement_in_functionBody204 = new BitSet(new long[]{0x00000000000E03E0L});
+    public static final BitSet FOLLOW_17_in_functionBody207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compoundType_in_varDec229 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_varDec231 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_varDec233 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_statement249 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expr_in_statement263 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_statement277 = new BitSet(new long[]{0x00000000000003E0L});
+    public static final BitSet FOLLOW_expr_in_statement279 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_statement293 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_statement295 = new BitSet(new long[]{0x00000000000003E0L});
+    public static final BitSet FOLLOW_expr_in_statement297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_expr316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literal_in_expr325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_identifier339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TYPE_in_type360 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_literal0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_op0 = new BitSet(new long[]{0x0000000000000002L});
 
 }

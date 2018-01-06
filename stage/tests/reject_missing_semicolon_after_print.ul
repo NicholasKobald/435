@@ -1,2 +1,3 @@
 int foo(int a) {
+    print "hello"
 }
