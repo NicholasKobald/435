@@ -1,7 +1,4 @@
 grammar ulNoActions;
-options {
-    backtrack=true;
-}
 
 @members
 {
@@ -55,9 +52,10 @@ varDec : compoundType ID ';'
        ;
 
 statement : ';'
-          | expr
-          | 'print' expr
-          | ID '=' expr
+          | expr ';'
+          | 'print' expr ';'
+          | ID '=' expr ';'
+          | 'return' ';'
           ;
 
 expr : ID

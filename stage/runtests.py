@@ -6,12 +6,17 @@ from subprocess import Popen, PIPE, run
 
 success_count, fail_count = 0, 0
 
+# TODO use these
 parser = argparse.ArgumentParser(description='This is the compiler test running script!')
 parser.add_argument('--ignore-warnings', default=False, dest='ignore_Warnings')
 parser.add_argument('specific_test', action="store")
+parser.add_argument('--silent', default=False, dest='none-verbose')
+parser.add_argument('--clean', default=False, dest='clean-first')
+
 
 class FailedToCompileError(Exception):
     pass
+
 
 def collect_files():
     accepts, rejects = [], []
@@ -24,20 +29,27 @@ def collect_files():
     return accepts, rejects
 
 
-def run_tests(test_list):
+def run_tests(test_list, reject=False):
     for test in test_list:
-        run_on_test_file(test)
+        run_on_test_file(test, reject)
 
-def run_on_test_file(test):
+
+def run_on_test_file(test, reject):
+    global success_count, fail_count
     make = run(['java', 'Compiler', test],
                 stdin=PIPE, stderr=PIPE)
-    print("err:", make.stderr)
-    print("out:", make.stdout)
-
-
+    err = make.stderr
+    if err and not reject:
+        print("FAILED: {} - FAILURE TO ACCEPT".format(test))
+        fail_count += 1
+    else:
+        print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
+        success_count += 1
 
 
 def main():
+    global success_count, fail_count
+    start = time.time()
     make = run(['make'], stdout=PIPE, stderr=PIPE)
     err = make.stderr.lower()
     if b'err' in err:
@@ -49,8 +61,13 @@ def main():
 
     print("Javac Compiled with no Errors or warnings.\n")
     accept, reject = collect_files()
+    start_two = time.time()
     run_tests(accept)
-
+    run_tests(reject, reject=True)
+    end = time.time()
+    num_tests = str(len(accept) + len(reject))
+    print("=" * 60)
+    print("All Tests completed. Ran {} tests with {} failures in {} seconds.".format(num_tests, str(fail_count), end - start))
 
 if __name__ == "__main__":
     try:

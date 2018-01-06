@@ -8,12 +8,13 @@ T17 : '}' ;
 T18 : ';' ;
 T19 : 'print' ;
 T20 : '=' ;
+T21 : 'return' ;
 
-// $ANTLR src "ulNoActions.g" 79
+// $ANTLR src "ulNoActions.g" 77
 IF	: 'if'
     ;
 
-// $ANTLR src "ulNoActions.g" 82
+// $ANTLR src "ulNoActions.g" 80
 TYPE    : 'int'
         | 'string'
         | 'float'
@@ -22,12 +23,12 @@ TYPE    : 'int'
         | 'boolean'
         ;
 
-// $ANTLR src "ulNoActions.g" 90
+// $ANTLR src "ulNoActions.g" 88
 TRUE:  'true'   ;
-// $ANTLR src "ulNoActions.g" 91
+// $ANTLR src "ulNoActions.g" 89
 FALSE: 'false'  ;
 
-// $ANTLR src "ulNoActions.g" 93
+// $ANTLR src "ulNoActions.g" 91
 INTEGERCONST : ('0'..'9')+
              ;
 
@@ -35,19 +36,19 @@ INTEGERCONST : ('0'..'9')+
 //             ;
 
 
-// $ANTLR src "ulNoActions.g" 100
+// $ANTLR src "ulNoActions.g" 98
 STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
              ;
 
-// $ANTLR src "ulNoActions.g" 103
+// $ANTLR src "ulNoActions.g" 101
 ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
 
-// $ANTLR src "ulNoActions.g" 107
+// $ANTLR src "ulNoActions.g" 105
 WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
         ;
 
-// $ANTLR src "ulNoActions.g" 110
+// $ANTLR src "ulNoActions.g" 108
 COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;}
         ;

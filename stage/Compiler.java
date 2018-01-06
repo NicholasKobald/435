@@ -35,7 +35,7 @@ public class Compiler {
             // ANTLR will have already printed information on the
             // console due to code added to the grammar.  So there is
             // nothing to do here.
-            System.out.println("Exception: RecognitionException");
+            //System.out.println("Exception: RecognitionException");
         }
         catch (Exception e) {
             System.out.println(e);
