@@ -1,7 +1,6 @@
 /*
  * Compiler.java
  *
- * A starting place for the unamed language compiler for CSC 435/535
  *
  */
 
