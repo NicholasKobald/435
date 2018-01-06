@@ -34,12 +34,12 @@ void test_while_more()
 {
     while (abc) {  }
 
-    while(true) {
+    while(true) {  //comment!
         while(a) {
             while(false) {}
 
             while(true) {}
-
+    //comment!
             while("Hey") {}
         }
     }
@@ -52,3 +52,4 @@ void test_while_more()
     while ( " zzzz " )
                     {   }
 }
+//

@@ -60,8 +60,8 @@ statement : ';'
           | 'print' expr ';'
           | 'println' expr ';'
           | ID '=' expr ';'
-          | 'return' expr ';'
           | 'return' ';'
+          | 'return' expr ';'
           | WHILE '(' expr ')' block
           | IF '(' expr ')' block ELSE block
           | IF '(' expr ')' block
@@ -72,7 +72,7 @@ block : '{' statement* '}'
       ;
 
 
-exprList : expr exprMore
+exprList : expr exprMore*
          |
          ;
 
@@ -148,5 +148,5 @@ WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
         ;
 
 
-COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;}
+COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n')? { $channel = HIDDEN;}
         ;

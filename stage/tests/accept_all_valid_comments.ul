@@ -1,0 +1,35 @@
+//comment at top of file is fine
+
+void main(int a, // this is an input input
+          int b //this is also that
+          //note that this doesn't effect the stuff
+
+          ) {
+
+
+    //even in the middle of the function
+    int c;
+    c = func( /////// this is still fine
+             c);
+    print c;
+}
+
+// 🏁
+// this language does not support
+//
+// any type of comment aside from the // so
+//
+// anytime you want to type a comment, // is what you are stuck with //
+//
+// since we ignore it, any text type should be supported in a comment:
+// fun for the whole family!
+// 👶 👦 👧 👨 👩 👴 👵
+/// 🤷 🤷 🤷🤷 🤷 what can you do
+////
+
+///**2131231\ux\123qw\eqw\e123142eqwdasz`~~~////
+int //PEP8 actually often has comments here
+a(int c) {
+    return 1; //ignore c
+}
+// note that there is no newline after this comment

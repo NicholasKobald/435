@@ -1,0 +1,10 @@
+void main() {
+    int x;  //a decleration, should be fine
+
+    x = foo(); //now we must be in the statement block
+
+    int b; // breaks
+
+
+
+}

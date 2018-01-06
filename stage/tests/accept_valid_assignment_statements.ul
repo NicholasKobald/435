@@ -1,0 +1,29 @@
+
+void main() {
+    assign_to_functions();
+}
+
+void easy_assignment_statements() {
+    a;
+    a = 5;
+    c = "Hello There";
+}
+
+void assign_to_functions() {
+    int b;
+    string c;
+
+    a;
+    b = foo();
+    c = bar();
+    print b;
+    println c;
+}
+
+int foo() {
+    return 5;
+}
+
+string bar() {
+   return "Assign me!";
+}

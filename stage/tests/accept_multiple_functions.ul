@@ -18,6 +18,8 @@ boolean sum(int a, int b) {}
 
 
 int foo(int a) {
+
+
 }
 
 
@@ -38,5 +40,7 @@ int func(int a,
 {}
 
 int f5unc(int a, string b, char d, float x) {
+
+
 }
 

@@ -1,0 +1,7 @@
+
+
+// this ISN'T python, ok?
+int foo(a, b) {
+
+    return a;
+}

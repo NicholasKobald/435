@@ -10,10 +10,10 @@ string bar() {
 
 }
 
-char _() { }
+char _() { }  //inline comment!
 
 void z() { }
 
 int aA11111111__________1999999() {}
 
-void A() {}
+void A() {} //no newline after this.
