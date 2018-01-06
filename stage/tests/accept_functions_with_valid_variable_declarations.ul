@@ -1,0 +1,38 @@
+int foo(int a) {
+    int b;
+}
+
+
+void foo() {
+    int i;
+    int k;
+    int l;
+    int m;
+    string f;
+    string b;
+    char z;
+    char x;
+    boolean m;
+}
+
+void ________() { int a; int b; int c; int d; int e; }
+
+
+int func(int a, string b, char d, float x)
+
+{
+
+
+}
+
+
+int declare_compound_types(int a, string b, char d, float x)
+
+{
+    int [15] int_arr;
+    string [25] str_arr;
+
+    float [5000] _;
+    boolean [2222] _1;
+    void [0] voidarrrrrr;
+}

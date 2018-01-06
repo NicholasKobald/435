@@ -1,3 +1,6 @@
+#
+# THIS SOFTWARE IS DISTRBUTED AS IS
+
 import time
 import sys
 import argparse
@@ -40,13 +43,20 @@ def run_on_test_file(test, reject):
                 stdin=PIPE, stderr=PIPE)
     err = make.stderr
     if err and not reject:
-        print("FAILED: {} - FAILURE TO ACCEPT".format(test))
+        print("FAILED: {} - FAILURE TO ACCEPT. Output:".format(test))
+        print(err)
+        print()
         fail_count += 1
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
 
-
+# TODO
+# use git to figure out what tests are new or have been changed
+# only run on those
+# fucking genius, nick
+# oh and cache failed ones!
+# this isn't reinventing the wheel.
 def main():
     global success_count, fail_count
     start = time.time()
@@ -61,7 +71,7 @@ def main():
 
     print("Javac Compiled with no Errors or warnings.\n")
     accept, reject = collect_files()
-    start_two = time.time()
+    # start_two = time.time()
     run_tests(accept)
     run_tests(reject, reject=True)
     end = time.time()

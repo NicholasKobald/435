@@ -1,0 +1,54 @@
+
+
+void test_while()
+
+{
+    while (abc) {  }
+
+    while(true) {
+        while(a) {
+            while(false) {}
+
+            while(true) {}
+
+            while("Hey") {}
+        }
+    }
+
+
+    while(zzzz) {
+        ;;;;;;
+    }
+
+    while ( " zzzz " )
+
+   {
+        return;
+    }
+}
+
+// this function returns a foo baz
+// wow!
+void test_while_more()
+
+{
+    while (abc) {  }
+
+    while(true) {
+        while(a) {
+            while(false) {}
+
+            while(true) {}
+
+            while("Hey") {}
+        }
+    }
+
+
+    while(zzzz) {
+        ;;;;;;
+    }
+
+    while ( " zzzz " )
+                    {   }
+}

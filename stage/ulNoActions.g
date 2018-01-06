@@ -1,4 +1,7 @@
 grammar ulNoActions;
+options {
+    backtrack=true;
+}
 
 @members
 {
@@ -43,6 +46,7 @@ formals : ',' compoundType identifier
 
 // TODO need to add option for compound thing
 compoundType : TYPE
+             | TYPE '[' INTEGERCONST ']'
              ;
 
 functionBody : '{' varDec* statement* '}'
@@ -54,28 +58,58 @@ varDec : compoundType ID ';'
 statement : ';'
           | expr ';'
           | 'print' expr ';'
+          | 'println' expr ';'
           | ID '=' expr ';'
+          | 'return' expr ';'
           | 'return' ';'
+          | WHILE '(' expr ')' block
+          | IF '(' expr ')' block ELSE block
+          | IF '(' expr ')' block
           ;
 
-expr : ID
+
+block : '{' statement* '}'
+      ;
+
+
+exprList : expr exprMore
+         |
+         ;
+
+exprMore : ',' expr
+         ;
+
+expr : ID '(' exprList ')'
+     | ID
      | literal
      ;
+
 
 identifier : ID
            ;
 
+
 type  : TYPE
       ;
 
+
 literal: STRINGCONST
        | INTEGERCONST
+       | FLOATCONST
        | TRUE
        | FALSE
        ;
 
 IF	: 'if'
     ;
+
+WHILE : 'while'
+      ;
+
+
+ELSE : 'else'
+     ;
+
 
 TYPE    : 'int'
         | 'string'
@@ -85,11 +119,17 @@ TYPE    : 'int'
         | 'boolean'
         ;
 
+
 TRUE:  'true'   ;
 FALSE: 'false'  ;
 
+
+
 INTEGERCONST : ('0'..'9')+
              ;
+
+FLOATCONST : ('0'..'9')+'.'('0'..'9')+
+           ;
 
 //CHARCONST    : "'"('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')"'"
 //             ;
@@ -98,12 +138,15 @@ INTEGERCONST : ('0'..'9')+
 STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
              ;
 
+
 ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
 
+
 WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
         ;
+
 
 COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;}
         ;

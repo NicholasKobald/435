@@ -1,0 +1,25 @@
+int baz() {
+    return 25;
+}
+
+string bar() {
+    return "hello there!";
+}
+
+int z_3() {
+    int a;
+    return a;
+}
+
+void foo() {
+      return;
+}
+
+
+float returnsfloat() {
+    return 5.00000000;
+}
+
+float returnsfloat() {
+    return 1234567.1234567;
+}

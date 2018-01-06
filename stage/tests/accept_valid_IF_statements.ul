@@ -1,0 +1,41 @@
+void main() {
+    int b;
+
+    if (true) { }
+
+    if (false) { } else { }
+
+    if (abcdefghl) {
+        if (true) {
+            if (false) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+
+}
+
+void go() {
+    int a;
+
+    if (true) { }
+
+    if (false) { } else {  }
+
+    if (a) {  }
+
+    // if abcdefghl we should not do else
+    if (abcdefghl) {
+        if ("go") { }
+
+    } else {
+            if (true) {
+                if (false) { }
+            } else {
+
+            }
+    }
+    return 0;
+
+}

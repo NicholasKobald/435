@@ -1,0 +1,27 @@
+void main() {
+    int a;
+    int b;
+    int c;
+
+    baz();
+
+
+}
+
+
+int baz() {
+
+    fib();
+    return 5;
+}
+
+
+//TODO
+int fib(int n) {
+
+    if (true) {
+        return 1;
+    }
+
+    return ;
+}
