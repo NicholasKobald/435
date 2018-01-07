@@ -23,3 +23,43 @@ float returnsfloat() {
 float returnsfloat() {
     return 1234567.1234567;
 }
+
+
+void main() {
+    int x;
+
+    x = 5;
+
+    x = get_int();
+
+    x = 5 + get_int();
+}
+
+int more_wierd_returns() {
+    int x;
+    if (true) {
+
+
+    } else {
+        x = 5 + get_int();
+    }
+
+    get_int() == get_int();
+}
+
+
+int get_int() { return 1; }
+
+float wierd_returns() {
+       if (true) {
+
+       } else {
+           return returnsfloat();
+       }
+
+        if (true) {
+
+        } else {
+            return 5 + returnsfloat();
+        }
+   }

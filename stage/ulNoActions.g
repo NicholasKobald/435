@@ -44,7 +44,7 @@ formalParameters : compoundType identifier formals*
 formals : ',' compoundType identifier
         ;
 
-// TODO need to add option for compound thing
+
 compoundType : TYPE
              | TYPE '[' INTEGERCONST ']'
              ;
@@ -60,6 +60,7 @@ statement : ';'
           | 'print' expr ';'
           | 'println' expr ';'
           | ID '=' expr ';'
+          | ID '[' expr ']' '=' expr ';'
           | 'return' ';'
           | 'return' expr ';'
           | WHILE '(' expr ')' block
@@ -76,12 +77,57 @@ exprList : expr exprMore*
          |
          ;
 
+
+baseExp :
+        | ID
+        | literal
+        | '(' expr ')'
+        | ID '(' exprList ')'
+        ;
+
+
 exprMore : ',' expr
          ;
 
-expr : ID '(' exprList ')'
-     | ID
-     | literal
+
+multExp : baseExp multExpP
+        ;
+
+
+multExpP : '*' baseExp multExpP
+         |
+         ;
+
+
+addExp : multExp addExpP
+       ;
+
+addExpP : '+' multExp addExpP
+        | '-' multExp addExpP
+        |
+        ;
+
+equalityLT : addExp equalityLTP
+           ;
+
+
+equalityLTP : '<' addExp equalityLTP
+            |
+            ;
+
+
+equalityExp : equalityLT equalityExpP
+            ;
+
+
+equalityExpP : '==' equalityLT equalityExpP
+             |
+             ;
+
+
+expr : equalityExp
+     | ID '(' exprList ')'
+     | ID '[' expr ']'
      ;
 
 
@@ -96,12 +142,15 @@ type  : TYPE
 literal: STRINGCONST
        | INTEGERCONST
        | FLOATCONST
+       | CHARCONST
        | TRUE
        | FALSE
        ;
 
+
 IF	: 'if'
     ;
+
 
 WHILE : 'while'
       ;
@@ -124,15 +173,14 @@ TRUE:  'true'   ;
 FALSE: 'false'  ;
 
 
-
 INTEGERCONST : ('0'..'9')+
              ;
 
 FLOATCONST : ('0'..'9')+'.'('0'..'9')+
            ;
 
-//CHARCONST    : "'"('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')"'"
-//             ;
+CHARCONST    : '\''('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')'\''
+             ;
 
 
 STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'

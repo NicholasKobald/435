@@ -19,7 +19,6 @@ void hello_world() {
     print "Hello World";
 
     print "1233456789";
-
     print "Hey there!";
 
     print "Ok, this is fine right!";
@@ -27,6 +26,8 @@ void hello_world() {
     print "Still ok"                      ;
 
     print " multiline go " ;
+
+    print 'a';
 }
 
 
@@ -43,4 +44,5 @@ void print_all() {
     print 1.0;
     print "hello";
     print a;
+    print 'a';
 }

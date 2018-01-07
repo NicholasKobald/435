@@ -1,0 +1,14 @@
+void main() {
+    int a;
+    a = (5);
+    a = ((5));
+    a = (((5)));
+    a = (((((5)))));
+    foo();
+    return (5);
+}
+
+// these cases likely need some work!
+int foo() {
+    return (1);
+}

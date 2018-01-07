@@ -24,6 +24,19 @@ int foo() {
     return 5;
 }
 
-string bar() {
+string bar()
+
+{
    return "Assign me!";
+}
+
+void assign_arrays()            {
+
+    abc[15] = 100;
+    cdf[get_index()] = 1;
+    _[a] = _;
+}
+
+int get_index() {
+    return 1111;
 }
