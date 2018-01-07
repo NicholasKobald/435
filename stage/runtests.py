@@ -2,6 +2,7 @@
 # THIS SOFTWARE IS DISTRBUTED AS IS
 
 import time
+import json
 import sys
 import argparse
 import glob
@@ -12,9 +13,10 @@ success_count, fail_count = 0, 0
 # TODO use these
 parser = argparse.ArgumentParser(description='This is the compiler test running script!')
 parser.add_argument('--ignore-warnings', default=False, dest='ignore_Warnings')
-parser.add_argument('specific_test', action="store")
+parser.add_argument('-n', '--test-name', default='all', action="store")
 parser.add_argument('--silent', default=False, dest='none-verbose')
 parser.add_argument('--clean', default=False, dest='clean-first')
+parser.add_argument('-f', '--failed',  help="increase output verbosity", action="store_true")
 
 
 class FailedToCompileError(Exception):
@@ -32,9 +34,17 @@ def collect_files():
     return accepts, rejects
 
 
-def run_tests(test_list, reject=False):
+def run_tests(test_list):
+    failed_tests = []
     for test in test_list:
-        run_on_test_file(test, reject)
+        failed = run_on_test_file(test, 'reject' in test)
+        if failed is not None:
+            failed_tests.append(failed)
+    if failed_tests:
+        with open('.tests-cache', 'w') as f:
+            f.write(json.dumps({'failed_tests': failed_tests}))
+        print("=" * 70)
+        print("Wrote failed tests to Cache. Rerun with --failed")
 
 
 def run_on_test_file(test, reject):
@@ -44,23 +54,16 @@ def run_on_test_file(test, reject):
     err = make.stderr
     if err and not reject:
         print("FAILED: {} - FAILURE TO ACCEPT. Output:".format(test))
-        print(err)
-        print()
+        print(err.decode('utf-8'))
         fail_count += 1
+        return test
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
 
-# TODO
-# -use git to figure out what tests are new or have been changed
-#   only run on those
-# - cache failed ones!
-# - can speed up accepted ones by combing them before hand.
-# - --silent mode, maybe?
-# definitely need --rejects and --accepts mode first tho
-def main():
+
+def compile_proj():
     global success_count, fail_count
-    start = time.time()
     make = run(['make'], stdout=PIPE, stderr=PIPE)
     err = make.stderr.lower()
     if b'err' in err:
@@ -70,18 +73,51 @@ def main():
         raise FailedToCompileError(
             "Antlr Compiled with warnings. Rerun with -f to override this\n".format(err))
 
+
+def collect_failed_files(a, r):
+    tests = []
+    try:
+        with open('.tests-cache', 'r') as f:
+            tests = json.loads(f.read())
+    except FileNotFoundError:
+        print("=" * 70)
+        print("No Test Cache found. Run without --failed first")
+    tests = tests['failed_tests']
+    return [t for t in tests if t in a], [t for t in tests if t in r]
+
+
+# TODO
+# -use git to figure out what tests are new or have been changed
+#   only run on those
+# - can speed up accepted ones by combing them before hand.
+# - --silent mode, maybe?
+# definitely need --rejects and --accepts mode first tho
+def main(args):
+    global success_count, fail_count
+    start = time.time()
+    try:
+        compile_proj()
+    except FailedToCompileError as e:
+        print("FailedToCompileErr: {}".format(str(e.decode('utf-8'))))
+    if args.test_name != 'all': # run a specific test
+        run_on_test_file('tests/{}{}'.format(args.test_name, '.ul' if 'ul' not in args.test_name else ''),
+                        reject='reject' in args.test_name)
+        return
+
     print("Javac Compiled with no Errors or warnings.\n")
     accept, reject = collect_files()
+    if args.failed:
+        accept, reject = collect_failed_files(accept, reject)
+
     # start_two = time.time()
+    accept.extend(reject)
     run_tests(accept)
-    run_tests(reject, reject=True)
     end = time.time()
-    num_tests = str(len(accept) + len(reject))
-    print("=" * 60)
+    num_tests = str(len(accept))
+    print("=" * 70)
     print("All Tests completed. Ran {} tests with {} failures in {} seconds.".format(num_tests, str(fail_count), end - start))
 
+
 if __name__ == "__main__":
-    try:
-        main()
-    except FailedToCompileError as e:
-        print("FailedToCompileErr: {}".format(str(e)))
+    args = parser.parse_args()
+    main(args)

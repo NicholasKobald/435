@@ -1,0 +1,36 @@
+
+
+void main() {
+   int n;
+   int fib_val;
+   int a_variable;
+
+   n = factorial(5);
+
+   fib_val = fib(9);
+
+   if (n < fib_val) {
+        println "it turns out the 5th factorial is larger than the 9th fibonacci number";
+
+   } else {
+        println("Or not!");
+   }
+}
+
+
+// compute the factorial of n
+int factorial(int n) {
+    if (n == 1) {
+        return 1;
+    } else {
+        return n * factorial(n + 1);
+    }
+}
+
+int fib(int n) {
+    if (n == 1) {
+        return 1;
+    } else {
+        return fib(n - 1) + fib(n - 2);
+    }
+}
