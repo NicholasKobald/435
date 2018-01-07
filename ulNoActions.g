@@ -1,5 +1,6 @@
 grammar ulNoActions;
 options {
+    output=AST;
     backtrack=true;
 }
 
@@ -18,6 +19,8 @@ public void recoverFromMismatchedSet (IntStream input,
         reportError(e);
         throw e;
 }
+
+
 }
 
 @rulecatch {
@@ -26,6 +29,7 @@ public void recoverFromMismatchedSet (IntStream input,
                 throw ex;
         }
 }
+
 
 /* Lexer */
 program : function+

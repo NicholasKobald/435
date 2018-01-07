@@ -24,7 +24,6 @@ def run_antlr_lexer(filename):
     r = parser.stat()
 
 
-
 def main(filename):
     run_antlr_lexer(filename)
 
