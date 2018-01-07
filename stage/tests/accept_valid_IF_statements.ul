@@ -16,6 +16,16 @@ void main() {
 
 }
 
+if compare(int a, int b) {
+    if (a == b) {
+        return 0;
+    }
+    if (a < b) {
+        return -1;
+    }
+    return 1;
+}
+
 void go() {
     int a;
 
@@ -37,5 +47,33 @@ void go() {
             }
     }
     return 0;
+}
 
+int arbitrary_nested_if() {
+    boolean flag_true;
+    boolean flag_false;
+
+    flag_true = true;
+    flag_false = false;
+    if (flag_true) {
+        while (flag_true) {
+            if (flag_true) {
+                if (flag_true) {
+                    if (flag_true) {
+                        if (flag_true) {
+                            if (flag_true) {
+                                if (flag_false) {
+                                    return 10;
+                                } else {
+                                    return 3;
+                                }
+                            }
+                        } else {
+                            return 5;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

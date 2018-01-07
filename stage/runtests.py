@@ -15,7 +15,9 @@ parser.add_argument('--ignore-warnings', default=False, dest='ignore_Warnings')
 parser.add_argument('-n', '--test-name', default='all', action="store")
 parser.add_argument('--silent', default=False, dest='none-verbose')
 parser.add_argument('--clean', default=False, dest='clean-first')
-parser.add_argument('-f', '--failed',  help="increase output verbosity", action="store_true")
+parser.add_argument('-f', '--failed',
+                    help="Run failed tests from previous invocation",
+                    action="store_true")
 
 
 class FailedToCompileError(Exception):

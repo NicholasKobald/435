@@ -1,4 +1,8 @@
 
+void main() {
+    int n;
+
+}
 
 void test_while()
 
@@ -49,7 +53,35 @@ void test_while_more()
         ;;;;;;
     }
 
-    while ( " zzzz " )
+    while ( "   zzzz " )
                     {   }
 }
+void while_with_expr(boolean go) {
+    int x;
+
+    x = 0;
+    if (go == True) {
+        while (go) {
+
+        }
+    } else {
+        while (x < 10)
+            println "Loops!"
+            x = x + 1;
+    }
+    x = 50;
+    while ((10 - 9) * 10 < x) {
+        x = x + 50;
+    }
+
+    x = (10 - 9) * 10;  //should be ten
+    if (x == 10) {
+        println "Successsss";
+    } else {
+        println "Failure";
+    }
+
+    return;
+}
+
 //
