@@ -3,6 +3,7 @@ void main() {
     x = a * a;
     x = 10 * 50;
     y = 255 * 2123;
+    return;
 }
 
 void multiplies() {
@@ -15,6 +16,4 @@ void multiplies() {
     c = (40 + 5) * 3;
 
     abc = abc;
-
-
 }

@@ -1,5 +1,23 @@
 void main( ) {
     void v;
+    int x;
+    int y;
+    int z;
+    boolean flag;
+    float point;
+
+    x = 10;
+    y = 5;
+
+    x = x * y;
+    x = x + y;
+    x = x - y;
+
+    flag = x == y;
+    flag = x < y;
+
+    y = (4 * 3) + (3 * 4);
+    x = (x * 2 * 1 * y * x * x * (y - (x) + y)) - (x);
 
     v = 'z' + 1234567 * 4000 - "400";
 
@@ -7,4 +25,5 @@ void main( ) {
 
     v = (((3+4) * 4) - 3);
 
+    println "We did it!";
 }

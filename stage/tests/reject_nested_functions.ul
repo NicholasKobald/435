@@ -1,0 +1,7 @@
+void main() {
+    int foo() {
+
+    }
+
+    return foo; // i wish..
+}

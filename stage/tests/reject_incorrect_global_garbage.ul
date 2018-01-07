@@ -1,0 +1,49 @@
+void foo(int a1, char b2) {
+
+}
+
+string bar(boolean b_) {
+
+}
+
+int baz(float _) {
+
+}
+
+float boozle(float c1234_) {
+
+}
+
+
+qweqweq
+
+
+boolean sum(int a, int b) {}
+
+
+int foo(int a) {
+
+
+}
+
+
+int func(int a,
+        string b,
+        char c,
+        float d,
+        int abcefghijklmnop,
+        int za,
+        int zza,
+        int zzaa,
+        int zzaaa,
+        int zzaaaa,
+        int zzaaaaaaa,
+        int zzaaaaaaaa,
+        int zzaaaaaaaaa,
+        int zzaaaaaaaaaa)
+{}
+
+int f5unc(int a, string b, char d, float x) {
+
+
+}

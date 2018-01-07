@@ -10,7 +10,6 @@ from subprocess import Popen, PIPE, run
 
 success_count, fail_count = 0, 0
 
-# TODO use these
 parser = argparse.ArgumentParser(description='This is the compiler test running script!')
 parser.add_argument('--ignore-warnings', default=False, dest='ignore_Warnings')
 parser.add_argument('-n', '--test-name', default='all', action="store")
