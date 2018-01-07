@@ -65,9 +65,10 @@ void while_with_expr(boolean go) {
 
         }
     } else {
-        while (x < 10)
-            println "Loops!"
+        while (x < 10) {
+            println "Loops!";
             x = x + 1;
+        }
     }
     x = 50;
     while ((10 - 9) * 10 < x) {

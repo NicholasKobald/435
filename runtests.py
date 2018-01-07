@@ -99,7 +99,7 @@ def main(args):
     try:
         compile_proj()
     except FailedToCompileError as e:
-        print("FailedToCompileErr: {}".format(str(e.decode('utf-8'))))
+        print("FailedToCompileErr: {}".format(e))
     if args.test_name != 'all': # run a specific test
         run_on_test_file('tests/{}{}'.format(args.test_name, '.ul' if 'ul' not in args.test_name else ''),
                         reject='reject' in args.test_name)

@@ -43,7 +43,7 @@ public class Compiler {
         ulNoActionsLexer lexer = new ulNoActionsLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ulNoActionsParser parser = new ulNoActionsParser(tokens);
-        parser.setTreeAdaptor(adaptor);
+        // parser.setTreeAdaptor(adaptor);
 
         try {
             parser.program();

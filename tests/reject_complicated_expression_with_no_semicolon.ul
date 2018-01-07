@@ -1,0 +1,7 @@
+
+void main() {
+    int x;
+
+    x = (4 + 5) * 10
+    return; // never gets here :(
+}
