@@ -1,7 +1,7 @@
-grammar ulNoActions;
+grammar UL;
 options {
     backtrack=true;
-    ASTLabelType=CommonTree;
+    output=AST;
 }
 
 @members

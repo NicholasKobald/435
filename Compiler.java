@@ -5,6 +5,7 @@
  */
 import java.io.*;
 
+/* prolly fix this
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.ANTLRInputStream;
@@ -13,12 +14,16 @@ import org.antlr.runtime.RecognitionException;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.TreeAdaptor;
-import org.antlr.runtime.tree.CommonTreeAdaptor;
+import org.antlr.runtime.tree.CommonTreeAdaptor; */
+
+import org.antlr.runtime.*;
+import org.antlr.runtime.tree.*;
 
 
 
 public class Compiler {
 
+    // black magic antlr thing
     static final TreeAdaptor adaptor = new CommonTreeAdaptor() {
         public Object create(Token payload) {
           return new CommonTree(payload);
@@ -31,31 +36,25 @@ public class Compiler {
         if (args.length == 0 ) {
             System.out.println("Usage: Test filename.ul");
             return;
-        }
-        else {
+        } else {
             input = new ANTLRInputStream(new FileInputStream(args[0]));
         }
 
-        // black magic antlr thing
-
-        // The name of the grammar here is "ulNoActions",
-        // so ANTLR generates ulNoActionsLexer and ulNoActionsParser
-        ulNoActionsLexer lexer = new ulNoActionsLexer(input);
+        ULLexer lexer = new ULLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ulNoActionsParser parser = new ulNoActionsParser(tokens);
+        ULParser parser = new ULParser(tokens);
         // parser.setTreeAdaptor(adaptor);
+        ULParser.program_return prog = null; // fuck off java
 
         try {
-            parser.program();
-        }
-        catch (RecognitionException e)	{
-            // A lexical or parsing error occured.
-            // ANTLR will have already printed information on the
-        }
-        catch (Exception e) {
+            prog = parser.program();
+        } catch (RecognitionException e)	{ // my codes perfect, it was probably user error
+        } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
         }
+        Tree t = (Tree)prog.getTree();
+        System.out.println(t.toStringTree());
 
     }
 }

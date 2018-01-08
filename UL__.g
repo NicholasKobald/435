@@ -1,4 +1,4 @@
-lexer grammar ulNoActions;
+lexer grammar UL;
 
 T17 : '(' ;
 T18 : ')' ;
@@ -18,19 +18,19 @@ T31 : '-' ;
 T32 : '<' ;
 T33 : '==' ;
 
-// $ANTLR src "ulNoActions.g" 129
+// $ANTLR src "UL.g" 129
 IF	: 'if'
     ;
 
-// $ANTLR src "ulNoActions.g" 132
+// $ANTLR src "UL.g" 132
 WHILE : 'while'
       ;
 
-// $ANTLR src "ulNoActions.g" 135
+// $ANTLR src "UL.g" 135
 ELSE : 'else'
      ;
 
-// $ANTLR src "ulNoActions.g" 138
+// $ANTLR src "UL.g" 138
 TYPE    : 'int'
         | 'string'
         | 'float'
@@ -39,35 +39,35 @@ TYPE    : 'int'
         | 'boolean'
         ;
 
-// $ANTLR src "ulNoActions.g" 146
+// $ANTLR src "UL.g" 146
 TRUE:  'true'   ;
-// $ANTLR src "ulNoActions.g" 147
+// $ANTLR src "UL.g" 147
 FALSE: 'false'  ;
 
-// $ANTLR src "ulNoActions.g" 149
+// $ANTLR src "UL.g" 149
 INTEGERCONST : ('0'..'9')+
              ;
 
-// $ANTLR src "ulNoActions.g" 152
+// $ANTLR src "UL.g" 152
 FLOATCONST : ('0'..'9')+'.'('0'..'9')+
            ;
 
-// $ANTLR src "ulNoActions.g" 155
+// $ANTLR src "UL.g" 155
 CHARCONST    : '\''('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')'\''
              ;
 
-// $ANTLR src "ulNoActions.g" 158
+// $ANTLR src "UL.g" 158
 STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
              ;
 
-// $ANTLR src "ulNoActions.g" 161
+// $ANTLR src "UL.g" 161
 ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
-// $ANTLR src "ulNoActions.g" 164
+// $ANTLR src "UL.g" 164
 WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
         ;
 
-// $ANTLR src "ulNoActions.g" 167
+// $ANTLR src "UL.g" 167
 COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n')? { $channel = HIDDEN;}
         ;
