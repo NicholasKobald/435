@@ -7,7 +7,7 @@ void main() {
 
     x = foo() + foo() + foo() + foo() + foo() + foo() + foo() + foo();
 
-    return bar() + bar() + bar() + bar() + bar() + bar() + bar() * 2;
+    return bar() + bar() + 1 + bar() + bar() + bar() + bar() + bar() * 2;
 }
 
 int foo() {
@@ -20,7 +20,7 @@ int bar() {
 
 void some_wierd_shit() {
     return multiply_numbers(
-        50000000, 300000);
+        50000, 3000);
 
 }
 
