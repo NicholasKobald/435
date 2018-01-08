@@ -87,12 +87,6 @@ def collect_failed_files(a, r):
     return [t for t in tests if t in a], [t for t in tests if t in r]
 
 
-# TODO
-# -use git to figure out what tests are new or have been changed
-#   only run on those
-# - can speed up accepted ones by combing them before hand.
-# - --silent mode, maybe?
-# definitely need --rejects and --accepts mode first tho
 def main(args):
     global success_count, fail_count
     start = time.time()

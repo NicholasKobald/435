@@ -6,7 +6,10 @@ options {
 //Probably need some more
 tokens {
     VARDEC;
+    FUNCDEC;
     EXPR;
+    FUNCCALL;
+    FUNCBODY;
 }
 
 @members
@@ -38,7 +41,7 @@ program : function+ ;
 
 function : functionDecl functionBody ;
 
-functionDecl : type identifier '(' formalParameters ')' ;
+functionDecl : type identifier '(' formalParameters ')' -> ^(FUNCDEC type identifier formalParameters );
 
 formalParameters : compoundType identifier formals*
                  |
@@ -50,27 +53,27 @@ compoundType : TYPE
              | TYPE '[' INTEGERCONST ']'
              ;
 
-functionBody : '{' varDec* statement* '}'
+functionBody : '{' varDec* statement* '}' -> ^(FUNCBODY varDec* statement* )
              ;
 
-varDec : compoundType ID ';' ;
+varDec : compoundType ID ';' -> ^(VARDEC compoundType ID) ;
 
 //still needs some more AST annotations
-statement : ';'
-          | expr ';'
-          | 'print' expr ';'
-          | 'println' expr ';'
+statement : ';'!
+          | expr ';'!
+          | 'print' expr ';'!
+          | 'println' expr ';'!
           | ID '=' expr ';'                     -> ^('=' ID expr)
           | ID '[' expr ']' '=' expr ';'        -> ^('=' '[' expr ']' expr)
           | 'return' ';'
           | 'return' expr ';'
-          | WHILE '(' expr ')' block
-          | IF '(' expr ')' block ELSE block
-          | IF '(' expr ')' block
+          | WHILE '(' expr ')' block            -> ^(WHILE expr block)
+          | IF '(' expr ')' block ELSE block    -> ^(IF expr block ELSE block)
+          | IF '(' expr ')' block               -> ^(IF expr block)
           ;
 
 
-block : '{' statement* '}'
+block : '{'! statement* '}'!
       ;
 
 exprList : expr exprMore*
@@ -80,8 +83,8 @@ exprList : expr exprMore*
 baseExp :
         | ID
         | literal
-        | '(' expr ')'
-        | ID '(' exprList ')'
+        | '('! expr ')'!
+        | ID '(' exprList ')' -> ^(FUNCCALL ID exprList)
         ;
 
 exprMore : ',' expr
@@ -94,7 +97,7 @@ addExp : multExp (('+'^|'-'^) multExp)*
        ;
 
 
-equalityLT : addExp ('<' ^ addExp)*
+equalityLT : addExp ('<'^ addExp)*
            ;
 
 equalityExp : equalityLT ( '=='^ equalityLT)?

@@ -54,8 +54,8 @@ public class Compiler {
             e.printStackTrace();
         }
         // org.antlr.runtime.tree
-        //Tree t = (Tree)prog.getTree();
-        //System.out.println(t.toStringTree());
+        Tree t = (Tree)prog.getTree();
+        System.out.println(t.toStringTree());
 
     }
 }
