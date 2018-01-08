@@ -3,6 +3,11 @@ options {
     backtrack=true;
     output=AST;
 }
+//Probably need some more
+tokens {
+    VARDEC;
+    EXPR;
+}
 
 @members
 {
@@ -50,12 +55,13 @@ functionBody : '{' varDec* statement* '}'
 
 varDec : compoundType ID ';' ;
 
+//still needs some more AST annotations
 statement : ';'
           | expr ';'
           | 'print' expr ';'
           | 'println' expr ';'
-          | ID '=' expr ';'
-          | ID '[' expr ']' '=' expr ';'
+          | ID '=' expr ';'                     -> ^('=' ID expr)
+          | ID '[' expr ']' '=' expr ';'        -> ^('=' '[' expr ']' expr)
           | 'return' ';'
           | 'return' expr ';'
           | WHILE '(' expr ')' block
@@ -81,33 +87,18 @@ baseExp :
 exprMore : ',' expr
          ;
 
-multExp : baseExp multExpP
+multExp : baseExp ('*'^ baseExp)*
         ;
 
-multExpP : '*' baseExp multExpP
-         |
-         ;
-
-addExp : multExp addExpP
+addExp : multExp (('+'^|'-'^) multExp)*
        ;
 
-addExpP : '+' multExp addExpP
-        | '-' multExp addExpP
-        |
-        ;
 
-equalityLT : addExp equalityLTP
+equalityLT : addExp ('<' ^ addExp)*
            ;
 
-equalityLTP : '<' addExp equalityLTP
-            |
+equalityExp : equalityLT ( '=='^ equalityLT)?
             ;
-
-equalityExp : equalityLT equalityExpP ;
-
-equalityExpP : '==' equalityLT equalityExpP
-             |
-             ;
 
 expr : equalityExp
      | ID '(' exprList ')'
