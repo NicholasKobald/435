@@ -10,6 +10,7 @@ tokens {
     EXPR;
     FUNCCALL;
     FUNCBODY;
+    ARRINDEX;
 }
 
 @members
@@ -64,7 +65,7 @@ statement : ';'!
           | 'print' expr ';'!
           | 'println' expr ';'!
           | ID '=' expr ';'                     -> ^('=' ID expr)
-          | ID '[' expr ']' '=' expr ';'        -> ^('=' '[' expr ']' expr)
+          | ID '[' expr ']' '=' expr ';'        -> ^('=' ID '[' expr ']' expr)
           | 'return' ';'
           | 'return' expr ';'
           | WHILE '(' expr ')' block            -> ^(WHILE expr block)
@@ -105,7 +106,7 @@ equalityExp : equalityLT ( '=='^ equalityLT)?
 
 expr : equalityExp
      | ID '(' exprList ')'
-     | ID '[' expr ']'
+     | ID '[' expr ']' -> ^(ARRINDEX ID expr)
      ;
 
 identifier : ID ;

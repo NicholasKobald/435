@@ -1,36 +1,36 @@
 lexer grammar UL;
 
-T22 : '(' ;
-T23 : ')' ;
-T24 : ',' ;
-T25 : '[' ;
-T26 : ']' ;
-T27 : '{' ;
-T28 : '}' ;
-T29 : ';' ;
-T30 : 'print' ;
-T31 : 'println' ;
-T32 : '=' ;
-T33 : 'return' ;
-T34 : '*' ;
-T35 : '+' ;
-T36 : '-' ;
-T37 : '<' ;
-T38 : '==' ;
+T23 : '(' ;
+T24 : ')' ;
+T25 : ',' ;
+T26 : '[' ;
+T27 : ']' ;
+T28 : '{' ;
+T29 : '}' ;
+T30 : ';' ;
+T31 : 'print' ;
+T32 : 'println' ;
+T33 : '=' ;
+T34 : 'return' ;
+T35 : '*' ;
+T36 : '+' ;
+T37 : '-' ;
+T38 : '<' ;
+T39 : '==' ;
 
-// $ANTLR src "UL.g" 123
+// $ANTLR src "UL.g" 124
 IF	: 'if'
     ;
 
-// $ANTLR src "UL.g" 126
+// $ANTLR src "UL.g" 127
 WHILE : 'while'
       ;
 
-// $ANTLR src "UL.g" 129
+// $ANTLR src "UL.g" 130
 ELSE : 'else'
      ;
 
-// $ANTLR src "UL.g" 132
+// $ANTLR src "UL.g" 133
 TYPE    : 'int'
         | 'string'
         | 'float'
@@ -39,35 +39,35 @@ TYPE    : 'int'
         | 'boolean'
         ;
 
-// $ANTLR src "UL.g" 140
-TRUE:  'true'   ;
 // $ANTLR src "UL.g" 141
+TRUE:  'true'   ;
+// $ANTLR src "UL.g" 142
 FALSE: 'false'  ;
 
-// $ANTLR src "UL.g" 143
+// $ANTLR src "UL.g" 144
 INTEGERCONST : ('0'..'9')+
              ;
 
-// $ANTLR src "UL.g" 146
+// $ANTLR src "UL.g" 147
 FLOATCONST : ('0'..'9')+'.'('0'..'9')+
            ;
 
-// $ANTLR src "UL.g" 149
+// $ANTLR src "UL.g" 150
 CHARCONST    : '\''('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')'\''
              ;
 
-// $ANTLR src "UL.g" 152
+// $ANTLR src "UL.g" 153
 STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
              ;
 
-// $ANTLR src "UL.g" 155
+// $ANTLR src "UL.g" 156
 ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
-// $ANTLR src "UL.g" 158
+// $ANTLR src "UL.g" 159
 WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
         ;
 
-// $ANTLR src "UL.g" 161
+// $ANTLR src "UL.g" 162
 COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n')? { $channel = HIDDEN;}
         ;

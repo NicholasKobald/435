@@ -1,0 +1,11 @@
+void main() {
+    int KK;
+    int[5] ZZ;
+
+    // cant do ZZ = [1, 2, 3]; so
+    ZZ[0] = 1;
+    ZZ[1] = 2;
+    ZZ[2] = 3;
+    Z[2] = Z[1];
+    KK = 5;
+}

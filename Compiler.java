@@ -22,11 +22,16 @@ import org.antlr.runtime.tree.*;
 
 
 public class Compiler {
-
     // black magic antlr thing
     static final TreeAdaptor adaptor = new CommonTreeAdaptor() {
         public Object create(Token payload) {
-          return new CommonTree(payload);
+            CommonTree tree = new CommonTree(payload);
+            if (tree.isNil()) {
+
+            } else {
+                System.out.println("Processing Symbol: " + payload.getType());
+            }
+            return tree;
         }
     };
 
@@ -43,7 +48,7 @@ public class Compiler {
         ULLexer lexer = new ULLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ULParser parser = new ULParser(tokens);
-        // parser.setTreeAdaptor(adaptor);
+        parser.setTreeAdaptor(adaptor);
         ULParser.program_return prog = null; // fuck off java
 
         try {
@@ -54,8 +59,7 @@ public class Compiler {
             e.printStackTrace();
         }
         // org.antlr.runtime.tree
-        Tree t = (Tree)prog.getTree();
+        CommonTree t = (CommonTree)prog.getTree();
         System.out.println(t.toStringTree());
-
     }
 }
