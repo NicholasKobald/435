@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 UL.g 2018-01-09 12:06:48
+// $ANTLR 3.0.1 UL.g 2018-01-09 12:21:06
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -857,7 +857,7 @@ public class ULParser extends Parser {
     };
 
     // $ANTLR start statement
-    // UL.g:63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );
+    // UL.g:63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );
     public final statement_return statement() throws RecognitionException {
         statement_return retval = new statement_return();
         retval.start = input.LT(1);
@@ -962,7 +962,7 @@ public class ULParser extends Parser {
         RewriteRuleSubtreeStream stream_expr=new RewriteRuleSubtreeStream(adaptor,"rule expr");
         RewriteRuleSubtreeStream stream_block=new RewriteRuleSubtreeStream(adaptor,"rule block");
         try {
-            // UL.g:63:11: ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) )
+            // UL.g:63:11: ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) )
             int alt7=11;
             switch ( input.LA(1) ) {
             case 30:
@@ -978,7 +978,7 @@ public class ULParser extends Parser {
                 else {
                     if (backtracking>0) {failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 1, input);
+                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 1, input);
 
                     throw nvae;
                 }
@@ -1016,7 +1016,7 @@ public class ULParser extends Parser {
                 else {
                     if (backtracking>0) {failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 7, input);
+                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 7, input);
 
                     throw nvae;
                 }
@@ -1045,7 +1045,7 @@ public class ULParser extends Parser {
                 else {
                     if (backtracking>0) {failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 12, input);
+                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 12, input);
 
                     throw nvae;
                 }
@@ -1069,7 +1069,7 @@ public class ULParser extends Parser {
                 else {
                     if (backtracking>0) {failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 14, input);
+                        new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 14, input);
 
                     throw nvae;
                 }
@@ -1078,7 +1078,7 @@ public class ULParser extends Parser {
             default:
                 if (backtracking>0) {failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ID '[' expr ']' expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 0, input);
+                    new NoViableAltException("63:1: statement : ( ';' | expr ';' | 'print' expr ';' | 'println' expr ';' | ID '=' expr ';' -> ^( '=' ID expr ) | ID '[' expr ']' '=' expr ';' -> ^( '=' ^( ARRINDEX ID expr ) expr ) | 'return' ';' | 'return' expr ';' | WHILE '(' expr ')' block -> ^( WHILE expr block ) | IF '(' expr ')' block ELSE block -> ^( IF expr block ELSE block ) | IF '(' expr ')' block -> ^( IF expr block ) );", 7, 0, input);
 
                 throw nvae;
             }
@@ -1237,7 +1237,7 @@ public class ULParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expr, ID, 26, expr, 27, 33
+                    // elements: ID, expr, expr, 33
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1247,17 +1247,23 @@ public class ULParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 68:49: -> ^( '=' ID '[' expr ']' expr )
+                    // 68:49: -> ^( '=' ^( ARRINDEX ID expr ) expr )
                     {
-                        // UL.g:68:52: ^( '=' ID '[' expr ']' expr )
+                        // UL.g:68:52: ^( '=' ^( ARRINDEX ID expr ) expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_33.next(), root_1);
 
-                        adaptor.addChild(root_1, stream_ID.next());
-                        adaptor.addChild(root_1, stream_26.next());
-                        adaptor.addChild(root_1, stream_expr.next());
-                        adaptor.addChild(root_1, stream_27.next());
+                        // UL.g:68:58: ^( ARRINDEX ID expr )
+                        {
+                        Object root_2 = (Object)adaptor.nil();
+                        root_2 = (Object)adaptor.becomeRoot(adaptor.create(ARRINDEX, "ARRINDEX"), root_2);
+
+                        adaptor.addChild(root_2, stream_ID.next());
+                        adaptor.addChild(root_2, stream_expr.next());
+
+                        adaptor.addChild(root_1, root_2);
+                        }
                         adaptor.addChild(root_1, stream_expr.next());
 
                         adaptor.addChild(root_0, root_1);
@@ -1341,7 +1347,7 @@ public class ULParser extends Parser {
                     if ( backtracking==0 ) stream_block.add(block56.getTree());
 
                     // AST REWRITE
-                    // elements: block, WHILE, expr
+                    // elements: WHILE, block, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1406,7 +1412,7 @@ public class ULParser extends Parser {
                     if ( backtracking==0 ) stream_block.add(block63.getTree());
 
                     // AST REWRITE
-                    // elements: block, block, expr, ELSE, IF
+                    // elements: IF, block, ELSE, expr, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1885,7 +1891,7 @@ public class ULParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: exprList, ID
+                    // elements: ID, exprList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

@@ -65,7 +65,7 @@ statement : ';'!
           | 'print' expr ';'!
           | 'println' expr ';'!
           | ID '=' expr ';'                     -> ^('=' ID expr)
-          | ID '[' expr ']' '=' expr ';'        -> ^('=' ID '[' expr ']' expr)
+          | ID '[' expr ']' '=' expr ';'        -> ^('=' ^(ARRINDEX ID expr) expr)
           | 'return' ';'
           | 'return' expr ';'
           | WHILE '(' expr ')' block            -> ^(WHILE expr block)

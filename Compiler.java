@@ -29,7 +29,7 @@ public class Compiler {
             if (tree.isNil()) {
 
             } else {
-                System.out.println("Processing Symbol: " + payload.getType());
+                //System.out.println("Processing Symbol: " + payload.getType());
             }
             return tree;
         }
@@ -60,6 +60,14 @@ public class Compiler {
         }
         // org.antlr.runtime.tree
         CommonTree t = (CommonTree)prog.getTree();
+        System.out.println("Generated Tree:\n");
         System.out.println(t.toStringTree());
+        // https://theantlrguy.atlassian.net/wiki/spaces/ANTLR3/pages/2687302/Can+you+explain+ANTLR+s+tree+construction+facilities
+        System.out.println("Tree root has: " + t.getChildCount());
+        System.out.println("Token is: " + t.getToken());
+        for (int i = 0; i < t.getChildCount(); i++) {
+            CommonTree ct = (CommonTree)t.getChild(i);
+            System.out.println(ct.getToken());
+        }
     }
 }
