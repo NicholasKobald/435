@@ -2,7 +2,6 @@ grammar UL;
 options {
     backtrack=true;
 }
-
 @header {
     import ast.*;
 }
@@ -38,6 +37,7 @@ program returns [Program prog]
         }
         : f = function+ {prog.append(f);}
         ;
+
 function returns [Function f]
         @init{
             f = new Function();
@@ -73,7 +73,7 @@ functionBody returns [FunctionBody body]
             }
             ;
 
-
+//return single obj?
 varDec returns [VariableDeclarationList vardecs]
         @init{
             vardecs = new VariableDeclarationList();

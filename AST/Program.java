@@ -8,6 +8,7 @@ public class Program {
     Set<Function> functionSet;
 
     public Program() {
+        System.out.println("Init Program.");
         functionSet = new HashSet<Function>();
     }
 

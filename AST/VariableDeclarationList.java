@@ -11,6 +11,7 @@ public class VariableDeclarationList {
     }
 
     public void add(VariableDeclaration dec) {
+        System.out.println("Added a declaration to the listtt");
         variableDeclarations.add(dec);
     }
 

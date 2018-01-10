@@ -6,9 +6,10 @@ public class Function {
     FunctionBody body;
 
     public void fillFunction(FunctionDeclaration declaration, FunctionBody body) {
-        System.out.println("Fillin up dis func tho");
+        System.out.println("Init function");
         this.declaration = declaration;
         this.body = body;
+        //print self out
         System.out.println(this.toString());
     }
 
