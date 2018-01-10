@@ -1,15 +1,28 @@
 
 package ast;
 
+import org.antlr.runtime.Token;
+
+/*
+ * Virtually a Token wrapper? might not be really needed
+ */
 public class ULIdentifier {
 
-    String id;
+    Token token;
 
-    public ULIdentifier(String token) {
-        this.id = token;
+    public ULIdentifier(Token token) {
+        this.token = token;
     }
 
-    public String ToString() {
-        return this.id;
+    public int getLineNumber() {
+        return this.token.getLine();
+    }
+
+    public int getCharPositionInLine() {
+        return this.token.getCharPositionInLine();
+    }
+
+    public String toString() {
+        return this.token.getText();
     }
 }

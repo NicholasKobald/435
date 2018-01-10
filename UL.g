@@ -79,7 +79,7 @@ functionBody returns [FunctionBody body]
 
 varDec returns [VariableDeclarationList vardecs]
         @init{
-            vardecs = new VariableDeclarationList("int x; string b;");
+            vardecs = new VariableDeclarationList();
         }
         : ct = compoundType id = identifier ';' { vardecs.add(new VariableDeclaration(ct, id)); }
         ;
@@ -88,15 +88,12 @@ statementList returns [StatementList sl]
         @init{
             sl = new StatementList();
         }
-        : s = statement* { sl.append(s); }
+        : s = statement* { if (s != null) sl.append(s); } //like, It works I guess?
         ;
 
 statement returns [Statement s]
-        @init{
-            s = new Statement("ThisIsAstatement;");
-        }
-        : ';'
-        | expr ';'
+        : ';' { s = new Statement(";"); } //TODO
+        | expr ';' { s = new Statement(";"); }
         | 'print' expr ';'
         | 'println' expr ';'
         | identifier '=' expr ';'
@@ -143,7 +140,9 @@ expr : equalityExp
      | identifier '[' expr ']'
      ;
 
-identifier : ID ;
+identifier returns [ULIdentifier ulid]
+        : id_token = ID { ulid = new ULIdentifier(id_token); }
+        ;
 
 type  : TYPE ;
 

@@ -1,7 +1,10 @@
 int foo() {
-
+    float float_var_name;
+    char char_var_name;
 }
 
 int bar() {
+    int integer_var_name;
+    string string_var_name;
 
 }

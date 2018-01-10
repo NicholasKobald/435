@@ -2,14 +2,18 @@ package ast;
 
 public class VariableDeclaration {
 
-    String test;
+    BaseType type;
+    ULIdentifier id;
 
-    public VariableDeclaration(String test) {
-        this.test = test;
-
+    public VariableDeclaration(BaseType type, ULIdentifier id) {
+        this.type = type;
+        this.id = id;
     }
 
     public String toString() {
-        return this.test;
+        //ie: int my_variable;
+        System.out.println(type.toString());
+        System.out.println(id.toString());
+        return String.format("%s %s;", type.toString(), id.toString());
     }
 }

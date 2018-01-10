@@ -6,11 +6,8 @@ public class VariableDeclarationList {
 
     ArrayList<VariableDeclaration> variableDeclarations;
 
-    String temp;
-
-    public VariableDeclarationList(String t) {
-        System.out.println("Initialized with " + t);
-        this.temp = t;
+    public VariableDeclarationList() {
+        variableDeclarations = new ArrayList<VariableDeclaration>();
     }
 
     public void add(VariableDeclaration dec) {
@@ -19,11 +16,11 @@ public class VariableDeclarationList {
 
     public String toString() {
         String ret_str = "";
-        if (variableDeclarations == null || variableDeclarations.size() == )
+        if (variableDeclarations == null || variableDeclarations.size() == 0)
             return ret_str;
 
         for (VariableDeclaration vd: variableDeclarations)
-            ret_str += vd.ToString();
+            ret_str += vd.toString();
 
         return ret_str;
     }
