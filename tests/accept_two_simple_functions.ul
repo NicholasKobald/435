@@ -7,4 +7,7 @@ int bar() {
     int integer_var_name;
     string string_var_name;
 
+    integer_var_name = 5;
+    string_var_name = "Hello World";
+
 }

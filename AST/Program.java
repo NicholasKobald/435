@@ -12,7 +12,7 @@ public class Program {
     }
 
     public void append(Function f) {
-        System.out.println("Adding this function!");
+        System.out.println("Adding this function!"); //Misses first one, at least..
         this.functionSet.add(f);
     }
 

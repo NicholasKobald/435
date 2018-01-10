@@ -16,7 +16,7 @@ public class FunctionBody {
     }
 
     public String toString() {
-        String ret_string = "\n{\n";
+        String ret_string = "{\n";
         ret_string += this.statementList != null ? this.statementList.toString() : "";
         ret_string += this.variableList  != null ? this.variableList.toString()  : "";
         return ret_string + "\n}";

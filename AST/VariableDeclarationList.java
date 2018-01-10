@@ -20,7 +20,7 @@ public class VariableDeclarationList {
             return ret_str;
 
         for (VariableDeclaration vd: variableDeclarations)
-            ret_str += vd.toString();
+            ret_str += "    " + vd.toString(); // four spaces of indent
 
         return ret_str;
     }
