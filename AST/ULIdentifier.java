@@ -5,6 +5,7 @@ import org.antlr.runtime.Token;
 
 /*
  * Virtually a Token wrapper? might not be really needed
+ * can probably make a template for a lot f this...
  */
 public class ULIdentifier {
 

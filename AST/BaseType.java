@@ -1,15 +1,25 @@
 package ast;
 
+import org.antlr.runtime.Token;
+
 public class BaseType {
 
-    // because why not make a String wrapper?
-    String s;
+    // because why not make a Token wrapper?
+    Token token;
 
-    public BaseType(String s) {
-        this.s = s;
+    public BaseType(Token t) {
+        this.token = t;
+    }
+
+    public int getLineNumber() {
+        return this.token.getLine();
+    }
+
+    public int getCharPositionInLine() {
+        return this.token.getCharPositionInLine();
     }
 
     public String toString() {
-        return this.s;
+        return this.token.getText();
     }
 }

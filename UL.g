@@ -59,11 +59,8 @@ formalParameters : compoundType identifier formals*
 formals : ',' compoundType identifier ;
 
 compoundType returns [BaseType basetype]
-        @init{
-            basetype = new BaseType("BaseTypeDummyImplementation");
-        }
-        : TYPE
-        | TYPE '[' INTEGERCONST ']'
+        : ultype = TYPE { basetype = new BaseType(ultype); }
+        | TYPE '[' INTEGERCONST ']'  // Complex Type?
         ;
 
 functionBody returns [FunctionBody body]

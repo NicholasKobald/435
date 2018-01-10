@@ -51,7 +51,7 @@ public class Compiler {
             e.printStackTrace();
             return;
         }
-        System.out.println("Parsed program..");
+        System.out.println("PPrint Output:\n");
         System.out.println(prog);
         // org.antlr.runtime.tree
     }
