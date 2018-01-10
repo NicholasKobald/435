@@ -25,6 +25,7 @@ import org.antlr.runtime.tree.*;
 public class Compiler {
 
     public static void main (String[] args) throws Exception {
+        System.out.println("CG:\n");
         ANTLRInputStream input;
 
         if (args.length == 0 ) {
@@ -43,9 +44,12 @@ public class Compiler {
         //    prog = parser.program();
             prog = parser.program();
         } catch (RecognitionException e)	{ // my codes perfect, it was probably user error
+            System.out.println("Error: could not compile. Aborting.");
+            return;
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
+            return;
         }
         System.out.println("Parsed program..");
         System.out.println(prog);

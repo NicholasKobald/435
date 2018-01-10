@@ -36,7 +36,7 @@ program returns [Program prog]
         @init{
             prog = new Program();
         }
-        : (f = function+) {prog.append(f);}
+        : f = function+ {prog.append(f);}
         ;
 function returns [Function f]
         @init{
@@ -47,7 +47,7 @@ function returns [Function f]
 
 functionDecl returns [FunctionDeclaration funcdec]
             @init{
-                funcdec = new FunctionDeclaration("void somthinggg()");
+                funcdec = new FunctionDeclaration("void somthing()");
             }
             : type identifier '(' formalParameters ')'
             ;
@@ -64,25 +64,45 @@ compoundType : TYPE
 
 functionBody returns [FunctionBody body]
             @init{
-                body = new FunctionBody("{ statemet statement statement }");
+                body = new FunctionBody();
             }
-            : '{' varDec* statement* '}'
+            : '{' vardecs = varDec* sl = statementList '}' {
+                body.addDeclarations(vardecs);
+                body.addStatements(sl);
+            }
             ;
 
-varDec : compoundType ID ';' ;
 
-statement : ';'
-          | expr ';'
-          | 'print' expr ';'
-          | 'println' expr ';'
-          | ID '=' expr ';'
-          | ID '[' expr ']' '=' expr ';'
-          | 'return' ';'
-          | 'return' expr ';'
-          | WHILE '(' expr ')' block
-          | IF '(' expr ')' block ELSE block
-          | IF '(' expr ')' block
-          ;
+varDec returns [VariableDeclarationList vardecs]
+        @init{
+            vardecs = new VariableDeclarationList("int x; string b;");
+        }
+        : compoundType identifier ';'
+        ;
+
+statementList returns [StatementList sl]
+        @init{
+            sl = new StatementList();
+        }
+        : s = statement* { sl.append(s); }
+        ;
+
+statement returns [Statement s]
+        @init{
+            s = new Statement("ThisIsAstatement;");
+        }
+        : ';'
+        | expr ';'
+        | 'print' expr ';'
+        | 'println' expr ';'
+        | identifier '=' expr ';'
+        | identifier '[' expr ']' '=' expr ';'
+        | 'return' ';'
+        | 'return' expr ';'
+        | WHILE '(' expr ')' block
+        | IF '(' expr ')' block ELSE block
+        | IF '(' expr ')' block
+        ;
 
 block : '{' statement* '}'
       ;
@@ -92,10 +112,10 @@ exprList : expr exprMore*
          ;
 
 baseExp :
-        | ID
+        | identifier
         | literal
         | '(' expr ')'
-        | ID '(' exprList ')'
+        | identifier '(' exprList ')'
         ;
 
 exprMore : ',' expr
@@ -115,8 +135,8 @@ equalityExp : equalityLT ( '==' equalityLT)?
             ;
 
 expr : equalityExp
-     | ID '(' exprList ')'
-     | ID '[' expr ']'
+     | identifier '(' exprList ')'
+     | identifier '[' expr ']'
      ;
 
 identifier : ID ;

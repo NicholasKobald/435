@@ -6,6 +6,7 @@ public class Function {
     FunctionBody body;
 
     public void fillFunction(FunctionDeclaration declaration, FunctionBody body) {
+        System.out.println("Recieved declaration and body at func");
         this.declaration = declaration;
         this.body = body;
     }
