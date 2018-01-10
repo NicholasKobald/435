@@ -1,0 +1,9 @@
+// main is fine
+void main() {
+    int x;
+}
+
+// foo is missing a semicolon
+int foo() {
+    return 5
+}

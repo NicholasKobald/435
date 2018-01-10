@@ -23,6 +23,11 @@
 
 .tests-cache
 
+ULLexer.java
+ULParser.java 
+ULTokens.java 
+
+
 ulNoActionsParser.java
 ulNoActionsLexer.java 
 

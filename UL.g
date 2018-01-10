@@ -3,6 +3,10 @@ options {
     backtrack=true;
 }
 
+@header {
+    import ast.*;
+}
+
 @members
 {
     protected void mismatch (IntStream input, int ttype, BitSet follow)
@@ -28,12 +32,25 @@ options {
 }
 
 /* Lexer */
-program : function+ ;
+program returns [Program prog]
+        @init{
+            prog = new Program();
+        }
+        : (f = function+) {prog.append(f);}
+        ;
+function returns [Function f]
+        @init{
+            f = new Function();
+        }
+        : (dec = functionDecl body = functionBody) {f.fillFunction(dec, body);}
+        ;
 
-function : functionDecl functionBody ;
-
-functionDecl : type identifier '(' formalParameters ')'
-             ;
+functionDecl returns [FunctionDeclaration funcdec]
+            @init{
+                funcdec = new FunctionDeclaration("void somthinggg()");
+            }
+            : type identifier '(' formalParameters ')'
+            ;
 
 formalParameters : compoundType identifier formals*
                  |
@@ -45,12 +62,15 @@ compoundType : TYPE
              | TYPE '[' INTEGERCONST ']'
              ;
 
-functionBody : '{' varDec* statement* '}'
-             ;
+functionBody returns [FunctionBody body]
+            @init{
+                body = new FunctionBody("{ statemet statement statement }");
+            }
+            : '{' varDec* statement* '}'
+            ;
 
 varDec : compoundType ID ';' ;
 
-//still needs some more AST annotations
 statement : ';'
           | expr ';'
           | 'print' expr ';'
@@ -63,7 +83,6 @@ statement : ';'
           | IF '(' expr ')' block ELSE block
           | IF '(' expr ')' block
           ;
-
 
 block : '{' statement* '}'
       ;
