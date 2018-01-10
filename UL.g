@@ -58,9 +58,13 @@ formalParameters : compoundType identifier formals*
 
 formals : ',' compoundType identifier ;
 
-compoundType : TYPE
-             | TYPE '[' INTEGERCONST ']'
-             ;
+compoundType returns [BaseType basetype]
+        @init{
+            basetype = new BaseType("BaseTypeDummyImplementation");
+        }
+        : TYPE
+        | TYPE '[' INTEGERCONST ']'
+        ;
 
 functionBody returns [FunctionBody body]
             @init{
@@ -77,7 +81,7 @@ varDec returns [VariableDeclarationList vardecs]
         @init{
             vardecs = new VariableDeclarationList("int x; string b;");
         }
-        : compoundType identifier ';'
+        : ct = compoundType id = identifier ';' { vardecs.add(new VariableDeclaration(ct, id)); }
         ;
 
 statementList returns [StatementList sl]

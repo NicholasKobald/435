@@ -4,7 +4,7 @@ import java.util.*;
 
 public class VariableDeclarationList {
 
-    ArrayList<VariableDeclaration> arr;
+    ArrayList<VariableDeclaration> variableDeclarations;
 
     String temp;
 
@@ -13,10 +13,18 @@ public class VariableDeclarationList {
         this.temp = t;
     }
 
+    public void add(VariableDeclaration dec) {
+        variableDeclarations.add(dec);
+    }
+
     public String toString() {
-        if (temp == null) {
-            return "";
-        }
-        return this.temp;
+        String ret_str = "";
+        if (variableDeclarations == null || variableDeclarations.size() == )
+            return ret_str;
+
+        for (VariableDeclaration vd: variableDeclarations)
+            ret_str += vd.ToString();
+
+        return ret_str;
     }
 }
