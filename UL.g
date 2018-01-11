@@ -35,7 +35,7 @@ program returns [Program prog]
         @init{
             prog = new Program();
         }
-        : f = function+ {prog.append(f);}
+        : (f = function {prog.append(f);})+
         ;
 
 function returns [Function f]
@@ -67,30 +67,20 @@ functionBody returns [FunctionBody body]
             @init{
                 body = new FunctionBody();
             }
-            : '{' vardecs = varDec* sl = statementList '}' {
-                body.addDeclarations(vardecs);
-                body.addStatements(sl);
-            }
+            : '{' (vardec = varDec {body.addDeclaration(vardec);})* (s = statement {body.addStatement(s);})* '}'
             ;
 
 //return single obj?
-varDec returns [VariableDeclarationList vardecs]
-        @init{
-            vardecs = new VariableDeclarationList();
-        }
-        : ct = compoundType id = identifier ';' { vardecs.add(new VariableDeclaration(ct, id)); }
-        ;
-
-statementList returns [StatementList sl]
-        @init{
-            sl = new StatementList();
-        }
-        : s = statement* { if (s != null) sl.append(s); } //like, It works I guess?
+varDec returns [VariableDeclaration vardec]
+        : ct = compoundType id = identifier ';' {vardec = new VariableDeclaration(ct, id);}
         ;
 
 statement returns [Statement s]
-        : ';' { s = new Statement(";"); } //TODO
-        | expr ';' { s = new Statement(";"); }
+        @init{
+            s = new Statement("dummy", new Expression(";"));
+        }
+        : ';'
+        | expr ';'
         | 'print' expr ';'
         | 'println' expr ';'
         | identifier '=' expr ';'

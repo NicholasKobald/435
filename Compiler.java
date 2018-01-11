@@ -25,7 +25,6 @@ import org.antlr.runtime.tree.*;
 public class Compiler {
 
     public static void main (String[] args) throws Exception {
-        System.out.println("CG:\n");
         ANTLRInputStream input;
 
         if (args.length == 0 ) {
@@ -41,18 +40,19 @@ public class Compiler {
         //ULParser.program_return prog = null; // fuck off java
         Program prog = null;
         try {
-        //    prog = parser.program();
             prog = parser.program();
         } catch (RecognitionException e)	{ // my codes perfect, it was probably user error
-            System.out.println("Error: could not compile. Aborting.");
+            // This exception is silenced for reasonable debugging Output
+            // when run with the enclosed runtests.py script. see the README.
+            //System.out.println("Error: could not 'compile' grammar. Aborting.");
             return;
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
             return;
         }
-        System.out.println("PPrint Output:\n");
-        System.out.println(prog);
+        //System.out.println("PPrint Output:\n");
+        //System.out.println(prog);
         // org.antlr.runtime.tree
     }
 }

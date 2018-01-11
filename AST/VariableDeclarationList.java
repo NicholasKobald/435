@@ -10,8 +10,8 @@ public class VariableDeclarationList {
         variableDeclarations = new ArrayList<VariableDeclaration>();
     }
 
-    public void add(VariableDeclaration dec) {
-        System.out.println("Added a declaration to the listtt");
+    public void append(VariableDeclaration dec) {
+        //System.out.println("Added a declaration to the listtt");
         variableDeclarations.add(dec);
     }
 

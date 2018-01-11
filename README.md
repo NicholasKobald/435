@@ -2,9 +2,9 @@
 
 Lets make a compiler!
 
-### Run the tests
+### Run the tests  (this will also build the project from scratch each time)
 
-`python3 stage/runtests.py`
+`python3 runtests.py`
 
 #### Build the class files
 
@@ -13,6 +13,12 @@ Lets make a compiler!
 #### Run Compiler on some file
 
 `java Compiler /path/to/ULfile`
+
+#### Test commands:
+
+`python3 runtests.py -n <name_of_file> # run a specific test, you don't need to indiciate the directory`
+
+`python3 runtests.py --failed # run the tests that failed last time`
 
 
 Copy Pastas:
@@ -23,4 +29,6 @@ Copy Pastas:
 https://stackoverflow.com/questions/16856963/antlr-no-viable-alternative-error
 
 Quote of the day:
->Action placement is fairly straightforward if you view grammars as pro-grams in a very high-level domain-specific language.
+>Action placement is fairly straightforward if you view grammars as programs in a very high-level domain-specific language.
+
+-Antlr book

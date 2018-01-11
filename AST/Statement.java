@@ -2,18 +2,16 @@ package ast;
 
 public class Statement {
 
-    String test;
+    String type;
+    Expression exp;
 
-    //TODO
-    public Statement(String s) {
-        System.out.println("Created a statement!");
-        this.test = s;
+    public Statement(String type, Expression exp) {
+        this.type = type;
+        this.exp = exp;
     }
 
     public String toString() {
-        if (this.test == null)
-            return "";
-
-        return this.test;
+        // return (EXP) ;
+        return String.format("%s %s;\n", this.type, this.exp.toString());
     }
 }

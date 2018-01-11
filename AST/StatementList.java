@@ -12,7 +12,6 @@ public class StatementList {
     }
 
     public void append(Statement s) {
-        System.out.println("Added a statement! " + s);
         this.sl.add(s);
     }
 
@@ -21,8 +20,9 @@ public class StatementList {
         if (this.sl == null || this.sl.size() == 0)
             return statementString;
 
+        String indent = "    "; //four spaces
         for (Statement s: sl)
-            statementString += s.toString();
+            statementString += indent + s.toString();
 
         return statementString;
     }

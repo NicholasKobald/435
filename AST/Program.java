@@ -8,12 +8,12 @@ public class Program {
     Set<Function> functionSet;
 
     public Program() {
-        System.out.println("Init Program.");
+        //System.out.println("Init Program.");
         functionSet = new HashSet<Function>();
     }
 
     public void append(Function f) {
-        System.out.println("Adding this function!"); //only called for the last function found
+        //System.out.println("Adding this function!"); //only called for the last function found
         this.functionSet.add(f);
     }
 

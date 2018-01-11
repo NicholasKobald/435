@@ -12,6 +12,6 @@ public class VariableDeclaration {
 
     public String toString() {
         //ie: int my_variable;
-        return String.format("%s %s;", type.toString(), id.toString());
+        return String.format("%s %s;\n", type.toString(), id.toString());
     }
 }
