@@ -41,10 +41,10 @@ public class Compiler {
         Program prog = null;
         try {
             prog = parser.program();
-        } catch (RecognitionException e)	{ // my codes perfect, it was probably user error
+        } catch (RecognitionException e)	{
             // This exception is silenced for reasonable debugging Output
             // when run with the enclosed runtests.py script. see the README.
-            //System.out.println("Error: could not 'compile' grammar. Aborting.");
+            // System.out.println("Error: could not 'compile' grammar. Aborting.");
             return;
         } catch (Exception e) {
             System.out.println(e);

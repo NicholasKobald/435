@@ -58,6 +58,8 @@ def run_on_test_file(test, reject):
         print(err.decode('utf-8'))
         fail_count += 1
         return test
+    elif reject and not err:
+        print("FAILED: {} - FAILURE TO REJECT".format(test))
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1

@@ -9,6 +9,8 @@ void main() {
     boolean e;
     void f;
 
+    d = "";
+
     //lets use every other key word in the grammar, now
 
     if (true) {

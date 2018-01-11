@@ -35,7 +35,7 @@ program returns [Program prog]
         @init{
             prog = new Program();
         }
-        : (f = function {prog.append(f);})+
+        : (f = function {prog.append(f);})+ EOF
         ;
 
 function returns [Function f]
@@ -99,8 +99,7 @@ exprList : expr exprMore*
          |
          ;
 
-baseExp :
-        | identifier
+baseExp : identifier
         | literal
         | '(' expr ')'
         | identifier '(' exprList ')'

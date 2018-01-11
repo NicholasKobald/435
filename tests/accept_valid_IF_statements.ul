@@ -13,15 +13,14 @@ void main() {
         }
     }
     return 0;
-
 }
 
-if compare(int a, int b) {
+int compare(int a, int b) {
     if (a == b) {
         return 0;
     }
     if (a < b) {
-        return -1;
+        return 1;
     }
     return 1;
 }
