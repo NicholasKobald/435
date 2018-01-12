@@ -3,8 +3,8 @@ package ast;
 import org.antlr.runtime.Token;
 
 public class BaseType {
+    //lets just use this as our only type for now...
 
-    // because why not make a Token wrapper?
     Token token;
 
     public BaseType(Token t) {
