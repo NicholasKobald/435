@@ -77,12 +77,12 @@ varDec returns [VariableDeclaration vardec]
 
 statement returns [Statement s]
         @init{
-            s = new Statement("dummy", new Expression(";"));
+            s = new Statement("dummy", new BaseExpression(";"));
         }
         : ';'
-        | expr ';'
-        | 'print' expr ';'
-        | 'println' expr ';'
+        | ex = expr ';'
+        | 'print' ex = expr ';'
+        | 'println' ex = expr ';'
         | identifier '=' expr ';'
         | identifier '[' expr ']' '=' expr ';'
         | 'return' ';'

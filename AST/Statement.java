@@ -2,16 +2,16 @@ package ast;
 
 public class Statement {
 
-    String type;
-    Expression exp;
+    String stype;
+    BaseExpression exp;
 
-    public Statement(String type, Expression exp) {
-        this.type = type;
+    public Statement(String stype, BaseExpression exp) {
+        this.stype = stype;
         this.exp = exp;
     }
 
     public String toString() {
-        // return (EXP) ;
-        return String.format("%s %s;\n", this.type, this.exp.toString());
+        // return EXP ;
+        return String.format("%s %s;\n", this.stype, this.exp.toString());
     }
 }
