@@ -76,14 +76,11 @@ varDec returns [VariableDeclaration vardec]
         ;
 
 statement returns [Statement s]
-        @init{
-            s = new Statement("dummy", new BaseExpression(";"));
-        }
         : ';'
-        | ex = expr ';'
-        | 'print' ex = expr ';'
-        | 'println' ex = expr ';'
-        | identifier '=' expr ';'
+        | exp = expr ';'
+        | 'print' expr ';'
+        | 'println' expr ';'
+        | id = identifier '=' exp = expr ';'
         | identifier '[' expr ']' '=' expr ';'
         | 'return' ';'
         | 'return' expr ';'
@@ -103,6 +100,7 @@ baseExp : identifier
         | literal
         | '(' expr ')'
         | identifier '(' exprList ')'
+        | identifier '[' expr ']'
         ;
 
 exprMore : ',' expr
@@ -118,10 +116,12 @@ addExp : multExp (('+'|'-') multExp)*
 equalityLT : addExp ('<' addExp)*
            ;
 
-equalityExp : equalityLT ( '==' equalityLT)?
+equalityExp returns [BaseExpression exp]
+            : equalityLT ( '==' equalityLT)?
             ;
 
-expr : equalityExp
+expr returns [BaseExpression exp]
+     : equalityExp
      | identifier '(' exprList ')'
      | identifier '[' expr ']'
      ;
