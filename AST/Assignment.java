@@ -1,0 +1,18 @@
+package ast;
+
+
+public class Assignment extends BaseStatement {
+
+    ULIdentifier identifier;
+    BaseExpression exp;
+
+    public Assignment(ULIdentifier id, BaseExpression exp) {
+            this.identifier = id;
+            this.exp = exp;
+    }
+
+    public String toString() {
+        // ex: `identifier = 5 + (5);`
+        return String.format("%s = %s;\n", this.identifier.toString(), this.exp.toString());
+    }
+}

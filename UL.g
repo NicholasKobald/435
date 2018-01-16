@@ -60,7 +60,7 @@ formals : ',' compoundType identifier ;
 
 compoundType returns [BaseType basetype]
         : ultype = TYPE { basetype = new BaseType(ultype); }
-        | TYPE '[' INTEGERCONST ']'  // Complex Type?
+        | TYPE '[' INTEGERCONST ']'  // ArrayType?
         ;
 
 functionBody returns [FunctionBody body]
@@ -76,14 +76,11 @@ varDec returns [VariableDeclaration vardec]
         ;
 
 statement returns [Statement s]
-        @init{
-            s = new Statement("dummy", new BaseExpression(";"));
-        }
-        : ';'
-        | ex = expr ';'
-        | 'print' ex = expr ';'
-        | 'println' ex = expr ';'
-        | identifier '=' expr ';'
+        : ';' {s = new Statement();}
+        | exp = expr ';' { s = new Statement(exp); }
+        | 'print' expr ';'
+        | 'println' expr ';'
+        | id = identifier '=' exp = expr ';' { s = new Assignment(id, exp); }
         | identifier '[' expr ']' '=' expr ';'
         | 'return' ';'
         | 'return' expr ';'
@@ -99,29 +96,35 @@ exprList : expr exprMore*
          |
          ;
 
-baseExp : identifier
-        | literal
-        | '(' expr ')'
-        | identifier '(' exprList ')'
+baseExp returns [BaseExpression exp]
+        : exp = identifier
+        | lit = literal { exp = new Constant(lit);}
+        | '(' exp = expr ')'
+        | identifier '(' exprList ')' //TODO
         ;
 
 exprMore : ',' expr
          ;
 
-multExp : baseExp ('*' baseExp)*
+multExp returns [BaseExpression exp]
+        : baseExp ('*' baseExp)*
         ;
 
-addExp : multExp (('+'|'-') multExp)*
-       ;
+addExp returns [BaseExpression exp]
+        : multExp (('+'|'-') multExp)*
+        ;
 
 
-equalityLT : addExp ('<' addExp)*
-           ;
-
-equalityExp : equalityLT ( '==' equalityLT)?
+equalityLT returns [BaseExpression exp]
+            : addExp ('<' addExp)*
             ;
 
-expr : equalityExp
+equalityExp returns [BaseExpression exp]
+            : temp = equalityLT ( '==' equalityLT )?
+            ;
+
+expr returns [BaseExpression exp]
+     : exp = equalityExp
      | identifier '(' exprList ')'
      | identifier '[' expr ']'
      ;

@@ -1,17 +1,16 @@
 package ast;
 
-public class Statement {
 
-    String stype;
-    BaseExpression exp;
+public class Statement extends BaseStatement {
 
-    public Statement(String stype, BaseExpression exp) {
-        this.stype = stype;
+    BaseExpression exp = null;
+
+    public Statement(BaseExpression exp) {
         this.exp = exp;
     }
 
     public String toString() {
         // return EXP ;
-        return String.format("%s %s;\n", this.stype, this.exp.toString());
+        return String.format("%s;", this.exp.toString());
     }
 }
