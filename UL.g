@@ -76,11 +76,11 @@ varDec returns [VariableDeclaration vardec]
         ;
 
 statement returns [Statement s]
-        : ';' {s = new Statement();}
-        | exp = expr ';' { s = new Statement(exp); }
+        : ';'
+        | exp = expr ';'
         | 'print' expr ';'
         | 'println' expr ';'
-        | id = identifier '=' exp = expr ';' { s = new Assignment(id, exp); }
+        | id = identifier '=' exp = expr ';'
         | identifier '[' expr ']' '=' expr ';'
         | 'return' ';'
         | 'return' expr ';'
@@ -96,11 +96,11 @@ exprList : expr exprMore*
          |
          ;
 
-baseExp returns [BaseExpression exp]
-        : exp = identifier
-        | lit = literal { exp = new Constant(lit);}
-        | '(' exp = expr ')'
-        | identifier '(' exprList ')' //TODO
+baseExp : identifier
+        | literal
+        | '(' expr ')'
+        | identifier '(' exprList ')'
+        | identifier '[' expr ']'
         ;
 
 exprMore : ',' expr
@@ -120,11 +120,11 @@ equalityLT returns [BaseExpression exp]
             ;
 
 equalityExp returns [BaseExpression exp]
-            : temp = equalityLT ( '==' equalityLT )?
+            : equalityLT ( '==' equalityLT)?
             ;
 
 expr returns [BaseExpression exp]
-     : exp = equalityExp
+     : equalityExp
      | identifier '(' exprList ')'
      | identifier '[' expr ']'
      ;
