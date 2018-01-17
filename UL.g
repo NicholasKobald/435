@@ -93,10 +93,11 @@ block : '{' statement* '}'
       ;
 
 exprList : expr exprMore*
-         |
-         ;
+        |
+        ;
 
-baseExp : identifier
+baseExp returns [BaseExpression exp]
+        : ident = identifier { exp = new ULIdentifier(ident); }
         | literal
         | '(' expr ')'
         | identifier '(' exprList ')'
@@ -107,11 +108,23 @@ exprMore : ',' expr
          ;
 
 multExp returns [BaseExpression exp]
-        : baseExp ('*' baseExp)*
+        @init{
+                BaseExpression subtree = null;
+        }
+        @after{
+                return subtree; 
+        }
+        : e1 = baseExp { subtree = e1; } ('*' e2 = baseExp {subtree = new MultExp(e1, e2); })*
         ;
 
 addExp returns [BaseExpression exp]
-        : multExp (('+'|'-') multExp)*
+        @init{
+            BaseExpression subtree = null;
+        }
+        @after{
+            return subtree;
+        }                                 
+        : e1 = multExp { subtree = e1; } (('+'|'-') e2 = multExp { subtree = new AddExp(e1, e2); })*
         ;
 
 
@@ -120,8 +133,14 @@ equalityLT returns [BaseExpression exp]
             ;
 
 equalityExp returns [BaseExpression exp]
-            : equalityLT ( '==' equalityLT)?
-            ;
+        @init{
+                BaseExpression subtree = null; 
+        }
+        @after{
+                return subtree; 
+        }        
+        : e1 = equalityLT { subtree = e1; } ( '==' e2 = equalityLT { subtree = new EqualityEqExp(e1, e2); })?
+        ;
 
 expr returns [BaseExpression exp]
      : equalityExp

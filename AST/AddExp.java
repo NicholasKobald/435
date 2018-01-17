@@ -1,9 +1,11 @@
 package ast;
 
 
-public class AddExp extends BaseExpression {
+public class AddExp extends BinaryExpression {
 
-    public AddExp(String t) {
-        super(t);
+
+    public AddExp(BaseExpression exp, BaseExpression exp1) {
+        super(exp, exp1);
     }
+
 }
