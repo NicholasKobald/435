@@ -52,9 +52,10 @@ functionDecl returns [FunctionDeclaration funcdec]
             : type identifier '(' formalParameters ')'
             ;
 
-formalParameters : compoundType identifier formals*
-                 |
-                 ;
+formalParameters 
+        : compoundType identifier formals*
+        |
+        ;
 
 formals : ',' compoundType identifier ;
 
@@ -75,24 +76,44 @@ varDec returns [VariableDeclaration vardec]
         : ct = compoundType id = identifier ';' {vardec = new VariableDeclaration(ct, id);}
         ;
 
-statement returns [Statement s]
-        : ';'
-        | exp = expr ';'
-        | 'print' expr ';'
-        | 'println' expr ';'
-        | id = identifier '=' exp = expr ';'
-        | identifier '[' expr ']' '=' expr ';'
-        | 'return' ';'
-        | 'return' expr ';'
-        | WHILE '(' expr ')' block
-        | IF '(' expr ')' block ELSE block
-        | IF '(' expr ')' block
+statement returns [BaseStatement basestatement]
+        @init{
+                BaseStatement s = null; 
+        }
+        @after{
+                return s; 
+        }
+        : ';' 
+        | exp = expr ';'                                          { s = new ExpressionStatement(exp); } 
+        | 'print' exp = expr ';'                                  { s = new Print(exp, false); }
+        | 'println' exp = expr ';'                                { s = new Print(exp, true);  }
+        | id = identifier '=' ex1 = expr ';'                      { s = new Assignment(id, ex1); }
+        | id = identifier '[' index = expr ']' '=' ex1 = expr ';' { s = new ArrayAssignment(id, index, ex1); }
+        | 'return' ';'                                            { s = new Return(); }
+        | 'return' expr ';'                                       { s = new Return(exp); }
+        | WHILE '(' exp = expr ')' stats = block                  { s = new While(exp, stats); }
+        | IF '(' exp = expr ')' stats = block ELSE stats2 = block { s = new If(exp, stats, stats2); }
+        | IF '(' exp = expr ')' stats = block                     { s = new If(exp, stats); }            
         ;
 
-block : '{' statement* '}'
-      ;
+block returns [StatementList stats]
+        @init{
+                stats = new StatementList();
+        }
+        @after{
+                return stats; 
+        }
+        :  '{' (s = statement {stats.append(s);})* '}'
+        ;
 
-exprList : expr exprMore*
+exprList returns [ExpressionList explist]
+        @init{
+                ExpressionList explist = null; 
+        }
+        @after{
+                return explist; 
+        }
+        : expr exprMore*
         |
         ;
 
@@ -106,7 +127,7 @@ baseExp returns [BaseExpression exp]
         : ident = identifier { atom = ident; }
         | lit = literal      { atom = lit;   }
         | '(' atomic_expr = expr ')'  { atom = atomic_expr;    }         
-        | identifier '(' exprList ')' { atom = null; } // TODO 
+        | id = identifier '(' exprList ')' { atom = new FunctionCall(id, exprlist); } // TODO 
         | identifier '[' expr ']' { atom = null; } 
         ;
 

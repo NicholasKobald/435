@@ -21,7 +21,6 @@ import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 
 
-
 public class Compiler {
 
     public static void main (String[] args) throws Exception {

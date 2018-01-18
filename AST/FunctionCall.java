@@ -2,7 +2,11 @@ package ast;
 
 public class FunctionCall extends BaseExpression {
 
-    public FunctionCall(BaseExpression ex1, BaseExpression ex2) {
+    ULIdentifier id; 
+    ExpressionList expList; 
 
+    public FunctionCall(ULIdentifier id, ExpressionList expList) {
+        this.id = id; 
+        this.expList = expList; 
     }
 }

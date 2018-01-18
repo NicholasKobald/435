@@ -16,8 +16,8 @@ public class FunctionBody {
         variableList.append(varDec);
     }
 
-    public void addStatement(Statement statement) {
-        statementList.append(statement);
+    public void addStatement(BaseStatement statement) {
+        statementList.append(statement); // see, its like python 
     }
 
     public String toString() {

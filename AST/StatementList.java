@@ -5,13 +5,13 @@ import java.util.*;
 
 public class StatementList {
 
-    ArrayList<Statement> sl;
+    ArrayList<BaseStatement> sl;
 
     public StatementList() {
-        this.sl = new ArrayList<Statement>();
+        this.sl = new ArrayList<BaseStatement>();
     }
 
-    public void append(Statement s) {
+    public void append(BaseStatement s) {
         this.sl.add(s);
     }
 
@@ -21,7 +21,7 @@ public class StatementList {
             return statementString;
 
         String indent = "    "; //four spaces
-        for (Statement s: sl)
+        for (BaseStatement s: sl)
             statementString += indent + s.toString();
 
         return statementString;
