@@ -1,11 +1,11 @@
 package ast;
 
 
-public class ULInteger extends BaseExpression {
+public class ULFloat extends BaseExpression {
 
     String token; // honestly, who cares 
 
-    public ULInteger(String s) {
+    public ULFloat(String s) {
         this.token = s; 
     }
 }

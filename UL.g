@@ -97,11 +97,17 @@ exprList : expr exprMore*
         ;
 
 baseExp returns [BaseExpression exp]
-        : ident = identifier { exp = new ULIdentifier(ident); }
-        | literal
-        | '(' expr ')'
-        | identifier '(' exprList ')'
-        | identifier '[' expr ']'
+        @init{
+                BaseExpression atom = null; 
+        }
+        @after{
+                return atom; 
+        }
+        : ident = identifier { atom = ident; }
+        | lit = literal      { atom = lit;   }
+        | '(' atomic_expr = expr ')'  { atom = atomic_expr;    }         
+        | identifier '(' exprList ')' { atom = null; } // TODO 
+        | identifier '[' expr ']' { atom = null; } 
         ;
 
 exprMore : ',' expr
@@ -154,16 +160,17 @@ identifier returns [ULIdentifier ulid]
 
 type  : TYPE ;
 
-literal: STRINGCONST
-       | INTEGERCONST
-       | FLOATCONST
-       | CHARCONST
-       | TRUE
-       | FALSE
-       ;
+literal returns [BaseExpression exp]
+        : t = STRINGCONST  { exp = new ULString(t.getText());  }
+        | t = INTEGERCONST { exp = new ULInteger(t.getText()); }
+        | t = FLOATCONST   { exp = new ULFloat(t.getText());   }
+        | t = CHARCONST    { exp = new ULChar(t.getText());    }
+        | t = TRUE         { exp = new ULBool(t.getText());    }
+        | t = FALSE        { exp = new ULBool(t.getText());    }
+        ;
 
-IF	: 'if'
-    ;
+IF      : 'if'
+        ;
 
 WHILE : 'while'
       ;
