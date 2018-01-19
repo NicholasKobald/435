@@ -2,13 +2,14 @@ package ast;
 
 public class FunctionDeclaration extends AST {
 
-    String temp;
+    ULIdentifier id;
+    BaseType type;
+    ParamList params;
 
-    public FunctionDeclaration(String dec) {
-        this.temp = dec;
+    public FunctionDeclaration(ULIdentifier id, BaseType type, ParamList params ) {
+        this.id = id;
+        this.type = type;
+        this.params = params; 
     }
 
-    public String toString() {
-        return this.temp;
-    }
 }

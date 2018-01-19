@@ -46,19 +46,29 @@ function returns [Function f]
         ;
 
 functionDecl returns [FunctionDeclaration funcdec]
-            : type identifier '(' formalParameters ')'
+            : ultype = type ulid = identifier '(' fparams = formalParameters ')' { funcdec = new FunctionDeclaration(ultype, ulid, fparams); }
             ;
 
-formalParameters 
-        : compoundType identifier formals*
+formalParameters returns [ParamList p] 
+        @init{
+                ParamList params = new ParamList(); 
+        }
+        @after{
+                return params; 
+        }
+        : param = formal { params.append(param); } ( param2 = formals {params.append(param2);} )*
         |
         ;
+
+formal returns [Param p]
+        : ct = compoundType ulid = identifier { p = new Param(ulid, ct); }
+        ; 
 
 formals : ',' compoundType identifier ;
 
 compoundType returns [BaseType basetype]
-        : ultype = TYPE { basetype = new BaseType(ultype); }
-        | TYPE '[' INTEGERCONST ']'  // ArrayType?
+        : ultype = TYPE { basetype = new BaseType(ultype.getText()); }
+        | TYPE '[' INTEGERCONST ']' 
         ;
 
 functionBody returns [FunctionBody body]
