@@ -8,6 +8,6 @@ void main() {
 
 
     y = 00005.0023;
-    y = .1;
-    y = 1.;
+    y = 0.1; //.1 would be illegal kind of*
+    y = 1.0; // 1. would be illegal kind of*  
 }

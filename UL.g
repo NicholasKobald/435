@@ -166,7 +166,7 @@ equalityLT returns [BaseExpression exp]
         @after{
                 return subtree; 
         }
-        : e1 = addExp  {subtree = e1; } ('<' e2 = addExp { subtree = new equalityLTExp(e1, e2); })*
+        : e1 = addExp  {subtree = e1; } ('<' e2 = addExp { subtree = new EqualityLTExp(e1, e2); })*
         ;
 
 equalityExp returns [BaseExpression exp]
