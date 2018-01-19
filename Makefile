@@ -15,3 +15,4 @@ compiler:
 clean:
 	rm *.class $(GNAME)*.java $(GNAME)__.g $(GNAME).tokens
 	rm AST/*class
+	rm TYPES/*class 

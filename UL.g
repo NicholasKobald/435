@@ -4,6 +4,7 @@ options {
 }
 @header {
     import ast.*;
+    import types.*; 
 }
 
 @members

@@ -1,5 +1,7 @@
 package ast;
 
+import types.*; 
+
 public class VariableDeclaration {
 
     BaseType type;
