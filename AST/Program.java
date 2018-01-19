@@ -3,7 +3,7 @@ package ast;
 import java.util.*;
 
 
-public class Program {
+public class Program extends AST {
 
     Set<Function> functionSet;
 

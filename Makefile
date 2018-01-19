@@ -8,6 +8,7 @@ grammar: $(GSRCS)
 	java org.antlr.Tool -fo . $(GSRC)
 
 compiler:
+	cd Types && javac *.java 
 	cd AST && javac *.java
 	javac *.java
 

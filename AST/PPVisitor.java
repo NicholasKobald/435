@@ -3,15 +3,19 @@ package ast;
 
 public class PPVisitor {
 
+    void visit(AST t) {
+        int x = 1 / 0; //crash 
+    } // deal with java being obnoxious? WHY DOES THIS WORK LOL
+
     void visit(Program p) {
         for (Function f: p.functionSet) {
-            this.visit(f); 
+            f.accept(this); 
         }
     }
 
     void visit(Function f) {
-        this.visit(f.declaration);
-        this.visit(f.body); 
+        f.declaration.accept(this); 
+        f.body.accept(this); // etc 
     }
 
     void visit(FunctionDeclaration declaration) {

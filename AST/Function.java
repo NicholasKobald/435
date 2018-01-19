@@ -1,6 +1,6 @@
 package ast;
 
-public class Function {
+public class Function extends AST {
 
     FunctionDeclaration declaration;
     FunctionBody body;

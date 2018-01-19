@@ -1,6 +1,6 @@
 package ast;
 
-public class FunctionDeclaration {
+public class FunctionDeclaration extends AST {
 
     String temp;
 

@@ -1,6 +1,6 @@
 package ast;
 
-public class FunctionBody {
+public class FunctionBody extends AST {
 
     String temp;
 

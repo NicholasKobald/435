@@ -46,9 +46,6 @@ function returns [Function f]
         ;
 
 functionDecl returns [FunctionDeclaration funcdec]
-            @init{
-                funcdec = new FunctionDeclaration("void somthing()");
-            }
             : type identifier '(' formalParameters ')'
             ;
 
