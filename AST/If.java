@@ -21,5 +21,4 @@ public class If extends BaseStatement {
         this.statements = stats;
         this.elseStatements = elseStats;  
     }
-
 }

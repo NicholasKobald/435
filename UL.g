@@ -106,14 +106,14 @@ block returns [StatementList stats]
         :  '{' (s = statement {stats.append(s);})* '}'
         ;
 
-exprList returns [ExpressionList explist]
+exprList returns [ExpressionList explisttttt] //whtevrs
         @init{
-                ExpressionList explist = null; 
+                ExpressionList explist = new ExpressionList();
         }
         @after{
                 return explist; 
         }
-        : expr exprMore*
+        : first_exp = expr { explist.append(first_exp); } ( following = exprMore { explist.append(following); })*
         |
         ;
 
@@ -127,12 +127,16 @@ baseExp returns [BaseExpression exp]
         : ident = identifier { atom = ident; }
         | lit = literal      { atom = lit;   }
         | '(' atomic_expr = expr ')'  { atom = atomic_expr;    }         
-        | id = identifier '(' exprList ')' { atom = new FunctionCall(id, exprlist); } // TODO 
-        | identifier '[' expr ']' { atom = null; } 
+        | id = identifier '(' exprlist = exprList ')' { atom = new FunctionCall(id, exprlist); }
+        | ident = identifier '[' express = expr ']' { atom = new ArrayExpression(ident, express); } 
         ;
 
-exprMore : ',' expr
-         ;
+exprMore returns [BaseExpression expression]
+        @after{
+                return expressi; 
+        }
+        : ',' expressi = expr
+        ;
 
 multExp returns [BaseExpression exp]
         @init{
@@ -156,8 +160,14 @@ addExp returns [BaseExpression exp]
 
 
 equalityLT returns [BaseExpression exp]
-            : addExp ('<' addExp)*
-            ;
+        @init{
+                BaseExpression subtree = null;
+        }
+        @after{
+                return subtree; 
+        }
+        : e1 = addExp  {subtree = e1; } ('<' e2 = addExp { subtree = new equalityLTExp(e1, e2); })*
+        ;
 
 equalityExp returns [BaseExpression exp]
         @init{
