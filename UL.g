@@ -2,6 +2,7 @@ grammar UL;
 options {
     backtrack=true;
 }
+
 //thank god, but why does it behave differently?? 
 @header {
     import ast.*;
@@ -12,23 +13,33 @@ options {
     import types.StringType;
     import types.ArrayType;
     import types.FloatType; 
+    import types.VoidType; 
 }
 
 @members
 {
-    protected void mismatch (IntStream input, int ttype, BitSet follow)
-            throws RecognitionException
-    {
-            throw new MismatchedTokenException(ttype, input);
-    }
-    public void recoverFromMismatchedSet (IntStream input,
-                                          RecognitionException e,
-                                          BitSet follow)
-            throws RecognitionException
-    {
-            reportError(e);
-            throw e;
-    }
+        // TODO: come up with a better? naming convention 
+        FloatType _float = new FloatType(); 
+        IntegerType _int = new IntegerType();
+        StringType _str = new StringType();
+        BoolType _bool = new BoolType(); 
+        VoidType _void = new VoidType(); 
+        CharType _char = new CharType(); 
+        // note we don't make an arraytype here 
+
+        protected void mismatch (IntStream input, int ttype, BitSet follow)
+                throws RecognitionException
+        {
+                throw new MismatchedTokenException(ttype, input);
+        }
+        public void recoverFromMismatchedSet (IntStream input,
+                                                RecognitionException e,
+                                                BitSet follow)
+                throws RecognitionException
+        {
+                reportError(e);
+                throw e;
+        }
 }
 
 @rulecatch {
@@ -41,7 +52,7 @@ options {
 /* Lexer */
 program returns [Program prog]
         @init{
-            prog = new Program();
+                prog = new Program();
         }
         : (f = function {prog.append(f);})+ EOF
         ;
@@ -103,7 +114,7 @@ statement returns [BaseStatement basestatement]
         : ';' 
         | exp = expr ';'                                          { s = new ExpressionStatement(exp); } 
         | 'print' exp = expr ';'                                  { s = new Print(exp, false); }
-        | 'println' exp = expr ';'                                { s = new Print(exp, true);  }
+        | 'println' exp = expr ';'                                { s = new Print(exp, true);  } //bool flag to determine newline 
         | id = identifier '=' ex1 = expr ';'                      { s = new Assignment(id, ex1); }
         | id = identifier '[' index = expr ']' '=' ex1 = expr ';' { s = new ArrayAssignment(id, index, ex1); }
         | 'return' ';'                                            { s = new Return(); }
@@ -196,26 +207,29 @@ equalityExp returns [BaseExpression exp]
         : e1 = equalityLT { subtree = e1; } ( '==' e2 = equalityLT { subtree = new EqualityEqExp(e1, e2); })?
         ;
 
-expr returns [BaseExpression exp]
-     : equalityExp
-     | identifier '(' exprList ')'
-     | identifier '[' expr ']'
-     ;
+expr returns [BaseExpression _exp]
+        @init{
+                BaseExpression exp = null; 
+        }
+        @after{
+                return exp; 
+        }
+        : nestedExp = equalityExp                        { exp = nestedExp; }
+        | ulid =  identifier '(' explist = exprList ')'  { exp = new FunctionCall(ulid, explist); }
+        | ulid = identifier '[' array_index = expr ']'   { exp = new ArrayExpression(ulid, array_index); }
+        ;
 
 identifier returns [ULIdentifier ulid]
         : id_token = ID { ulid = new ULIdentifier(id_token); }
         ;
 
 type returns [Type t]
-        @after{
-                return new BoolType("sweqweqw");  // everything is a bit at some point 
-        }
-        : BOOL 
-        | INT  
-        | STRING 
-        | CHAR 
-        | VOID
-        | FLOAT 
+        : BOOL   { t = _bool;  }
+        | INT    { t = _int;   }
+        | STRING { t = _str;   }
+        | CHAR   { t = _char;  }
+        | VOID   { t = _void;  }
+        | FLOAT  { t = _float; } 
         ;
 
 literal returns [BaseExpression exp]

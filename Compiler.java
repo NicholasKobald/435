@@ -35,7 +35,6 @@ public class Compiler {
             input = new ANTLRInputStream(new FileInputStream(args[0]));
         }
 
-        BoolType bool = new BoolType("string"); 
         ULLexer lexer = new ULLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ULParser parser = new ULParser(tokens);

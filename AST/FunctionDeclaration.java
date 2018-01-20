@@ -1,7 +1,7 @@
 package ast;
 
-
 import types.Type;
+
 
 public class FunctionDeclaration extends AST {
 
@@ -14,5 +14,4 @@ public class FunctionDeclaration extends AST {
         this.type = type;
         this.params = params; 
     }
-
 }
