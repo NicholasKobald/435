@@ -1,4 +1,8 @@
 package ast;
 
-// what a garbage language
-public abstract class BaseStatement { }
+public abstract class BaseStatement {
+    
+    void accept(PPVisitor v) {
+        v.visit(this);
+    } 
+}

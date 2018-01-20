@@ -88,8 +88,8 @@ formals returns [Param p]
         ;
 
 compoundType returns [Type ultype]
-        : myultype = type
-        | type '[' INTEGERCONST ']' 
+        : myultype = type                               { ultype = myultype; }
+        | myulttype = type '[' size = INTEGERCONST ']'  { ultype = new ArrayType(myulttype, size); }
         ;
 
 functionBody returns [FunctionBody body]

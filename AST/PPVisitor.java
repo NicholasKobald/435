@@ -1,12 +1,14 @@
 package ast;
 
+import java.util.Iterator;
+
 
 public class PPVisitor {
 
+    private int indent_level = 0;
+
     public void visit(Program program) {
-        for (Function f: program) {
-            f.accept(this); 
-        }
+        program.forEach(func->func.accept(this)); 
     }
 
     void visit(Function f) {
@@ -15,29 +17,40 @@ public class PPVisitor {
     }
 
     void visit(FunctionDeclaration dec) {
-        String pPrintDec = String.format("%s %s", dec.id.toString(), dec.type.toString()); 
-        System.out.println(pPrintDec);
-        dec.params.accept(this); 
+        System.out.print(String.format("%s %s (", dec.type.toCodeString(), dec.id.toString())); 
+        dec.params.accept(this);
+        System.out.println(")"); 
     }
 
     void visit(FunctionBody body) {
-        for (VariableDeclaration dec: body.variableList) {
-            dec.accept(this); 
-        }
-
-        for (BaseStatement st: body.statementList) {
-            st.accept(this); 
-        }
+        System.out.println("{");
+        this.indent_level += 4;  
+        body.variableList.forEach(vd->vd.accept(this));
+        body.statementList.forEach(st->st.accept(this));
+        this.indent_level -= 4;  
+        System.out.println("}"); 
     }
 
     void visit(ParamList params) {
-        for (Param param: params) {
-            param.accept(this); 
+        Iterator<Param> paramIt = params.iterator(); 
+        if (paramIt.hasNext()) {
+            paramIt.next().accept(this);
+            while (paramIt.hasNext()) {
+                System.out.print(", "); 
+                paramIt.next().accept(this); 
+            }
         }
     }
 
-    void visit(Param please) {
-        //can you
-        please.accept(this);
+    void visit(Param p) {
+        System.out.print(p.toString()); 
+    }
+
+    void visit(BaseStatement st) {
+
+    }
+
+    void visit(VariableDeclaration dec) {
+        System.out.print(dec.toCodeString(this.indent_level)); 
     }
 }

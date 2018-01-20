@@ -1,6 +1,8 @@
 package ast;
 
-import types.Type; 
+import java.util.Collections; 
+
+import types.Type;
 
 public class VariableDeclaration {
 
@@ -12,8 +14,13 @@ public class VariableDeclaration {
         this.id = id;
     }
 
-    public String toString() {
+    public String toCodeString(int indent_num) {
         //ie: int my_variable;
-        return String.format("%s %s;\n", type.toString(), id.toString());
+        String indent = String.join("", Collections.nCopies(indent_num, " ")); 
+        return String.format("%s%s %s;\n", indent, type.toCodeString(), id.toString());
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    } 
 }

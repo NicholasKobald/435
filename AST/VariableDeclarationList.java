@@ -1,8 +1,10 @@
 package ast;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class VariableDeclarationList {
+
+public class VariableDeclarationList extends AST implements Iterable<VariableDeclaration> {
 
     ArrayList<VariableDeclaration> variableDeclarations;
 
@@ -12,6 +14,10 @@ public class VariableDeclarationList {
 
     public void append(VariableDeclaration dec) {
         variableDeclarations.add(dec);
+    }
+
+    public Iterator<VariableDeclaration> iterator() {
+        return variableDeclarations.iterator(); 
     }
 
     public String toString() {

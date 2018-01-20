@@ -13,6 +13,10 @@ public class Param extends AST {
         this.type = type; 
     }
 
+    public String toString() {
+        return String.format("%s %s", this.type.toCodeString(), this.id.toString()); 
+    }
+
     void accept(PPVisitor v) {
         v.visit(this);
     }   
