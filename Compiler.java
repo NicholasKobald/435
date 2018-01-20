@@ -17,6 +17,8 @@ import org.antlr.runtime.tree.TreeAdaptor;
 import org.antlr.runtime.tree.CommonTreeAdaptor; */
 
 import ast.Program;
+import types.*;
+import types.BoolType;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 
@@ -33,6 +35,7 @@ public class Compiler {
             input = new ANTLRInputStream(new FileInputStream(args[0]));
         }
 
+        BoolType bool = new BoolType("string"); 
         ULLexer lexer = new ULLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ULParser parser = new ULParser(tokens);
@@ -46,7 +49,6 @@ public class Compiler {
             // System.out.println("Error: could not 'compile' grammar. Aborting.");
             return;
         } catch (Exception e) {
-            System.out.println(e);
             e.printStackTrace();
             return;
         }

@@ -1,7 +1,7 @@
 package types; 
 
 
-public class VoidType extends BaseType {
+public class VoidType extends Type {
 
     String tok; 
 

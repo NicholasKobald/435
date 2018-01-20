@@ -2,9 +2,16 @@ grammar UL;
 options {
     backtrack=true;
 }
+//thank god, but why does it behave differently?? 
 @header {
     import ast.*;
-    import types.*; 
+    import types.Type;
+    import types.BoolType; 
+    import types.IntegerType;
+    import types.CharType;
+    import types.StringType;
+    import types.ArrayType;
+    import types.FloatType; 
 }
 
 @members
@@ -47,7 +54,7 @@ function returns [Function f]
         ;
 
 functionDecl returns [FunctionDeclaration funcdec]
-            : ultype = type ulid = identifier '(' fparams = formalParameters ')' { funcdec = new FunctionDeclaration(ultype, ulid, fparams); }
+            : myultype = type ulid = identifier '(' fparams = formalParameters ')' { funcdec = new FunctionDeclaration(myultype, ulid, fparams); }
             ;
 
 formalParameters returns [ParamList p] 
@@ -65,11 +72,13 @@ formal returns [Param p]
         : ct = compoundType ulid = identifier { p = new Param(ulid, ct); }
         ; 
 
-formals : ',' compoundType identifier ;
+formals returns [Param p]
+        : ',' ct = compoundType ulid = identifier { p = new Param(ulid, ct); }
+        ;
 
-compoundType returns [BaseType basetype]
-        : ultype = TYPE { basetype = new BaseType(ultype.getText()); }
-        | TYPE '[' INTEGERCONST ']' 
+compoundType returns [Type ultype]
+        : myultype = type
+        | type '[' INTEGERCONST ']' 
         ;
 
 functionBody returns [FunctionBody body]
@@ -197,7 +206,17 @@ identifier returns [ULIdentifier ulid]
         : id_token = ID { ulid = new ULIdentifier(id_token); }
         ;
 
-type  : TYPE ;
+type returns [Type t]
+        @after{
+                return new BoolType("sweqweqw");  // everything is a bit at some point 
+        }
+        : BOOL 
+        | INT  
+        | STRING 
+        | CHAR 
+        | VOID
+        | FLOAT 
+        ;
 
 literal returns [BaseExpression exp]
         : t = STRINGCONST  { exp = new ULString(t.getText());  }
@@ -217,13 +236,17 @@ WHILE : 'while'
 ELSE : 'else'
      ;
 
-TYPE    : 'int'
-        | 'string'
-        | 'float'
-        | 'char'
-        | 'void'
-        | 'boolean'
-        ;
+INT : 'int' ;
+
+STRING : 'string' ;
+
+CHAR : 'char' ;
+
+FLOAT : 'float' ;
+
+BOOL : 'boolean' ;
+
+VOID : 'void' ; 
 
 TRUE:  'true'   ;
 FALSE: 'false'  ;

@@ -1,13 +1,13 @@
 package ast;
 
-import types.*; 
+import types.Type; 
 
 public class VariableDeclaration {
 
-    BaseType type;
+    Type type;
     ULIdentifier id;
 
-    public VariableDeclaration(BaseType type, ULIdentifier id) {
+    public VariableDeclaration(Type type, ULIdentifier id) {
         this.type = type;
         this.id = id;
     }

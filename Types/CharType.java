@@ -1,7 +1,7 @@
 package types; 
 
 
-public class CharType extends BaseType {
+public class CharType extends Type {
 
     String tok; 
 

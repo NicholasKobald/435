@@ -1,7 +1,7 @@
 package types; 
 
 
-public class FloatType extends BaseType {
+public class FloatType extends Type {
 
     String tok; 
 

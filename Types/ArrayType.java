@@ -1,12 +1,12 @@
 package types;
 
 
-public class ArrayType extends BaseType {
+public class ArrayType extends Type {
 
     int size;
-    BaseType type; 
+    Type type; 
 
-    public ArrayType(BaseType type, int size) {
+    public ArrayType(Type type, int size) {
         this.type = type;
         this.size = size; 
     }
