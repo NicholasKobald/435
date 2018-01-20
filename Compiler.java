@@ -5,6 +5,8 @@
  */
 import java.io.*;
 
+import ast.PPVisitor;
+
 /* prolly fix this
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Token;
@@ -41,7 +43,7 @@ public class Compiler {
         //ULParser.program_return prog = null; // fuck off java
         Program prog = null;
         try {
-            prog = parser.program();
+            prog = (Program)parser.program();
         } catch (RecognitionException e)	{
             // This exception is silenced for reasonable debugging Output
             // when run with the enclosed runtests.py script. see the README.
@@ -51,6 +53,9 @@ public class Compiler {
             e.printStackTrace();
             return;
         }
+
+        PPVisitor visitor = new PPVisitor(); 
+        visitor.visit(prog); 
         //System.out.println("PPrint Output:\n");
         //System.out.println(prog);
         // org.antlr.runtime.tree

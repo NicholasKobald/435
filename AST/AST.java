@@ -1,5 +1,5 @@
-/*
- Base AST class blabalba enterprise factory generator inheirtence 
+/*  
+    Base AST class blabalba enterprise factory generator inheirtence 
 */
 
 package ast;
@@ -7,8 +7,5 @@ package ast;
 
 public abstract class AST {
 
-    void accept(PPVisitor v) {
-        v.visit(this);
-    }
-        
+ 
 }

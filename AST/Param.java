@@ -12,4 +12,8 @@ public class Param extends AST {
         this.id = id; 
         this.type = type; 
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }   
 }

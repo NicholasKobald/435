@@ -2,8 +2,6 @@ package ast;
 
 public class FunctionBody extends AST {
 
-    String temp;
-
     VariableDeclarationList variableList;
     StatementList statementList;
 
@@ -26,4 +24,8 @@ public class FunctionBody extends AST {
         ret_string += this.statementList != null ? this.statementList.toString() : "";
         return ret_string + "\n}\n\n";
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }   
 }

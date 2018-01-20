@@ -1,9 +1,10 @@
 package ast;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator; 
 
 
-public class StatementList {
+public class StatementList extends AST implements Iterable<BaseStatement> {
 
     ArrayList<BaseStatement> sl;
 
@@ -13,6 +14,11 @@ public class StatementList {
 
     public void append(BaseStatement s) {
         this.sl.add(s);
+    }
+
+    @Override
+    public Iterator<BaseStatement> iterator() {
+        return sl.iterator(); 
     }
 
     public String toString() {

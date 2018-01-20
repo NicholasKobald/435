@@ -13,4 +13,8 @@ public class Function extends AST {
     public String toString() {
         return this.declaration.toString() + "\n" + this.body.toString();
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }   
 }
