@@ -118,7 +118,7 @@ statement returns [BaseStatement basestatement]
         | id = identifier '=' ex1 = expr ';'                      { s = new Assignment(id, ex1); }
         | id = identifier '[' index = expr ']' '=' ex1 = expr ';' { s = new ArrayAssignment(id, index, ex1); }
         | 'return' ';'                                            { s = new Return(); }
-        | 'return' expr ';'                                       { s = new Return(exp); }
+        | 'return' exp = expr ';'                                 { s = new Return(exp); }
         | WHILE '(' exp = expr ')' stats = block                  { s = new While(exp, stats); }
         | IF '(' exp = expr ')' stats = block ELSE stats2 = block { s = new If(exp, stats, stats2); }
         | IF '(' exp = expr ')' stats = block                     { s = new If(exp, stats); }            
