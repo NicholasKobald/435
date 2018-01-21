@@ -1,4 +1,8 @@
 package ast;
 
 
-public class BaseExpression { }
+public abstract class BaseExpression { 
+
+    public abstract String toCodeString(); 
+
+}

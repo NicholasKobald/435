@@ -1,6 +1,20 @@
-void main (int x, float y) {
-	string s;
-	int x;
+void main (int x, float y) { string s; int x; x = s + x;
 
-	x = s + x;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

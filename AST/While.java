@@ -9,4 +9,8 @@ public class While extends BaseStatement {
         this.cond = cond;
         this.statements = stats; 
     }
+
+    public String toCodeString() {
+        return "";
+    }
 }

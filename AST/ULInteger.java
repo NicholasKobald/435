@@ -1,11 +1,11 @@
 package ast;
 
+import org.antlr.runtime.Token;
 
-public class ULInteger extends BaseExpression {
 
-    String token; // honestly, who cares 
+public class ULInteger extends UnaryExpression {
 
-    public ULInteger(String s) {
-        this.token = s; 
+    public ULInteger(Token token) {
+        super(token);
     }
 }

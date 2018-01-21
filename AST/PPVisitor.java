@@ -1,11 +1,13 @@
 package ast;
 
 import java.util.Iterator;
+import java.util.Collections; 
 
 
 public class PPVisitor {
 
     private int indent_level = 0;
+    private String indent = ""; // lmao 
 
     public void visit(Program program) {
         program.forEach(func->func.accept(this)); 
@@ -26,6 +28,7 @@ public class PPVisitor {
         System.out.println("{");
         this.indent_level += 4;  
         body.variableList.forEach(vd->vd.accept(this));
+        System.out.println();
         body.statementList.forEach(st->st.accept(this));
         this.indent_level -= 4;  
         System.out.println("}"); 
@@ -47,7 +50,8 @@ public class PPVisitor {
     }
 
     void visit(BaseStatement st) {
-
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.print(indent + st.toCodeString()); 
     }
 
     void visit(VariableDeclaration dec) {

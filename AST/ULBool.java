@@ -1,11 +1,11 @@
 package ast;
 
+import org.antlr.runtime.Token;
 
-public class ULBool extends BaseExpression {
 
-    String token;
+public class ULBool extends UnaryExpression {
 
-    public ULBool(String s) {
-        this.token = s; 
+    public ULBool(Token token) {
+        super(token);
     }
 }

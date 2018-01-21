@@ -1,11 +1,11 @@
 package ast;
 
+import org.antlr.runtime.Token;
 
-public class ULFloat extends BaseExpression {
 
-    String token; // honestly, who cares 
+public class ULFloat extends UnaryExpression {
 
-    public ULFloat(String s) {
-        this.token = s; 
+    public ULFloat(Token token) {
+        super(token);
     }
 }

@@ -233,12 +233,12 @@ type returns [Type t]
         ;
 
 literal returns [BaseExpression exp]
-        : t = STRINGCONST  { exp = new ULString(t.getText());  }
-        | t = INTEGERCONST { exp = new ULInteger(t.getText()); }
-        | t = FLOATCONST   { exp = new ULFloat(t.getText());   }
-        | t = CHARCONST    { exp = new ULChar(t.getText());    }
-        | t = TRUE         { exp = new ULBool(t.getText());    }
-        | t = FALSE        { exp = new ULBool(t.getText());    }
+        : t = STRINGCONST  { exp = new ULString(t);  }
+        | t = INTEGERCONST { exp = new ULInteger(t); }
+        | t = FLOATCONST   { exp = new ULFloat(t);   }
+        | t = CHARCONST    { exp = new ULChar(t);    }
+        | t = TRUE         { exp = new ULBool(t);    }
+        | t = FALSE        { exp = new ULBool(t);    }
         ;
 
 IF      : 'if'

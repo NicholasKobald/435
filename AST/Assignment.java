@@ -11,8 +11,8 @@ public class Assignment extends BaseStatement {
             this.exp = exp;
     }
 
-    public String toString() {
+    public String toCodeString() {
         // ex: `identifier = 5 + (5);`
-        return String.format("%s = %s;\n", this.identifier.toString(), this.exp.toString());
+        return String.format("%s = %s;\n", this.identifier.toString(), this.exp.toCodeString());
     }
 }

@@ -1,11 +1,11 @@
 package ast;
 
+import org.antlr.runtime.Token;
 
-public class ULString extends BaseExpression {
 
-    String token; // honestly, who cares 
+public class ULString extends UnaryExpression {
 
-    public ULString(String s) {
-        this.token = s; 
+    public ULString(Token token) {
+        super(token);
     }
 }

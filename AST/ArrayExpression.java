@@ -9,4 +9,8 @@ public class ArrayExpression extends BaseExpression {
         this.id = id;
         this.index = index; 
     }
+
+    public String toCodeString() {
+        return String.format("%s %s", this.id.toCodeString(), this.index.toCodeString()); 
+    }
 }
