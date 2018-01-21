@@ -173,7 +173,7 @@ multExp returns [BaseExpression exp]
         @after{
                 return subtree; 
         }
-        : e1 = baseExp { subtree = e1; } ('*' e2 = baseExp {subtree = new MultExp(e1, e2); })*
+        : e1 = baseExp { subtree = e1; } ('*' e2 = multExp {subtree = new MultExp(e1, e2); })*
         ;
 
 addExp returns [BaseExpression exp]
@@ -183,7 +183,7 @@ addExp returns [BaseExpression exp]
         @after{
             return subtree;
         }                                 
-        : e1 = multExp { subtree = e1; } (('+'|'-') e2 = multExp { subtree = new AddExp(e1, e2); })*
+        : e1 = multExp { subtree = e1; } (('+'|'-') e2 = addExp { subtree = new AddExp(e1, e2); })*
         ;
 
 
@@ -194,7 +194,7 @@ equalityLT returns [BaseExpression exp]
         @after{
                 return subtree; 
         }
-        : e1 = addExp  {subtree = e1; } ('<' e2 = addExp { subtree = new EqualityLTExp(e1, e2); })*
+        : e1 = addExp  { subtree = e1; } ('<' e2 = equalityLT { subtree = new EqualityLTExp(e1, e2); })*
         ;
 
 equalityExp returns [BaseExpression exp]
@@ -204,7 +204,7 @@ equalityExp returns [BaseExpression exp]
         @after{
                 return subtree; 
         }        
-        : e1 = equalityLT { subtree = e1; } ( '==' e2 = equalityLT { subtree = new EqualityEqExp(e1, e2); })?
+        : e1 = equalityLT { subtree = e1; } ( '==' e2 = equalityExp { subtree = new EqualityEqExp(e1, e2); })?
         ;
 
 expr returns [BaseExpression _exp]
@@ -216,7 +216,7 @@ expr returns [BaseExpression _exp]
         }
         : nestedExp = equalityExp                        { exp = nestedExp; }
         | ulid =  identifier '(' explist = exprList ')'  { exp = new FunctionCall(ulid, explist); }
-        | ulid = identifier '[' array_index = expr ']'   { exp = new ArrayExpression(ulid, array_index); }
+        | ulid = identifier  '[' array_index = expr ']'  { exp = new ArrayExpression(ulid, array_index); }
         ;
 
 identifier returns [ULIdentifier ulid]

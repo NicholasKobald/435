@@ -11,6 +11,10 @@ public class While extends BaseStatement {
     }
 
     public String toCodeString() {
-        return "";
+        return String.format("while (%s)", cond.toCodeString()); 
+    }
+    
+    void accept(PPVisitor v) {
+        v.visit(this);
     }
 }

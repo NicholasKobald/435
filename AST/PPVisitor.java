@@ -7,7 +7,7 @@ import java.util.Collections;
 public class PPVisitor {
 
     private int indent_level = 0;
-    private String indent = ""; // lmao 
+    private String indent = ""; // lmao how to do..
 
     public void visit(Program program) {
         program.forEach(func->func.accept(this)); 
@@ -49,6 +49,12 @@ public class PPVisitor {
         System.out.print(p.toString()); 
     }
 
+    void visit(While w) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + w.toCodeString());
+        this.printBlock(w.statements);
+    }
+
     void visit(BaseStatement st) {
         String indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.print(indent + st.toCodeString()); 
@@ -56,5 +62,22 @@ public class PPVisitor {
 
     void visit(VariableDeclaration dec) {
         System.out.print(dec.toCodeString(this.indent_level)); 
+    }
+
+    void visit(If if_block) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + if_block.toCodeString());
+        this.printBlock(if_block.statements);
+        if (if_block.elseStatements != null)
+            this.printBlock(if_block.elseStatements);
+    }
+
+    void printBlock(StatementList statements) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + "{"); 
+        this.indent_level += 4;
+        statements.forEach(st->st.accept(this));
+        this.indent_level -= 4;
+        System.out.println(indent + "}");
     }
 }
