@@ -19,4 +19,37 @@ void main (int x, float y) {
 		s = "Nope";
 		x = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1; 
 	}
+
+	if (x == 25) {
+		s = "yes";
+	} else {
+		s = "nope"; 
+	}
+}
+
+void foobar(int a, int b, int c, int d, float c) {
+	int x;
+	int y;
+
+	x = 0;
+	y = 5;
+
+	while (x < 5) {
+		x = x + 1;
+		if (y == x) {
+			return; 
+		}
+	}
+}
+
+string bar(string z) {
+	return "bar";
+}
+
+float baz() {
+	return 1.0;
+}
+
+int z() {
+	int x;
 }

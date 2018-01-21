@@ -111,7 +111,7 @@ statement returns [BaseStatement basestatement]
         @after{
                 return s; 
         }
-        : ';' 
+        : ';'                                                     { s = new ExpressionStatement(null); }    
         | exp = expr ';'                                          { s = new ExpressionStatement(exp); } 
         | 'print' exp = expr ';'                                  { s = new Print(exp, false); }
         | 'println' exp = expr ';'                                { s = new Print(exp, true);  } //bool flag to determine newline 

@@ -6,8 +6,7 @@ import java.util.Collections;
 
 public class PPVisitor {
 
-    private int indent_level = 0;
-    private String indent = ""; // lmao how to do..
+    private static int indent_level = 0;
 
     public void visit(Program program) {
         program.forEach(func->func.accept(this)); 
@@ -15,7 +14,8 @@ public class PPVisitor {
 
     void visit(Function f) {
         f.declaration.accept(this);
-        f.body.accept(this); 
+        f.body.accept(this);
+        System.out.println(); 
     }
 
     void visit(FunctionDeclaration dec) {
@@ -25,10 +25,13 @@ public class PPVisitor {
     }
 
     void visit(FunctionBody body) {
-        System.out.println("{");
-        this.indent_level += 4;  
+        System.out.print("{");
+        this.indent_level += 4;
+        if (body.variableList.iterator().hasNext())
+            System.out.println(); 
         body.variableList.forEach(vd->vd.accept(this));
-        System.out.println();
+        if (body.statementList.iterator().hasNext())
+            System.out.println(); 
         body.statementList.forEach(st->st.accept(this));
         this.indent_level -= 4;  
         System.out.println("}"); 
@@ -68,8 +71,15 @@ public class PPVisitor {
         String indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + if_block.toCodeString());
         this.printBlock(if_block.statements);
-        if (if_block.elseStatements != null)
+        if (if_block.elseStatements != null) {
+            System.out.println(indent + "else");
             this.printBlock(if_block.elseStatements);
+        }
+    }
+
+    void visit(Return ret) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + ret.toCodeString()); 
     }
 
     void printBlock(StatementList statements) {
@@ -78,6 +88,7 @@ public class PPVisitor {
         this.indent_level += 4;
         statements.forEach(st->st.accept(this));
         this.indent_level -= 4;
+        indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "}");
     }
 }

@@ -12,4 +12,14 @@ public class Return extends BaseStatement {
     public Return(BaseExpression exp) {
         this.exp = exp; 
     }
+
+    public String toCodeString() {
+        if (exp == null)
+            return "return;"; 
+        return String.format("return %s;", exp.toCodeString()); 
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
 }
