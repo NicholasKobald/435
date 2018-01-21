@@ -10,4 +10,15 @@ public class Print extends BaseStatement {
         this.exp = exp;
         this.newLine = newLine; 
     }
+
+    public String toCodeString() {
+        if (newLine)
+            return String.format("println %s;", exp.toCodeString());
+        else 
+            return String.format("print %s;", exp.toCodeString()); 
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
 }

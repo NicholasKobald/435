@@ -47,6 +47,9 @@ string bar(string z) {
 }
 
 float baz() {
+
+	print "About to return";
+	println "THE VALUE 1.0!!";
 	return 1.0;
 }
 
