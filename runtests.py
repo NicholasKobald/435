@@ -21,16 +21,19 @@ parser.add_argument('-f', '--failed',
 parser.add_argument('--write-pprint', default=False,
                     help="Write PPrint output from each test to a corresponding"
                          " file in tests/pprint_output/\{\}+pprintout.ul",
-                    action="store_true")  
+                    action="store_true")
+parser.add_argument('--check-pprint', default=False,
+                    help="Insure all outputed pretty print files are valid",
+                    action="store_true") 
 
 
 class FailedToCompileError(Exception):
     pass
 
 
-def collect_files():
+def collect_files(testdir):
     accepts, rejects = [], []
-    for f in glob.glob('tests/*.ul'):
+    for f in glob.glob('{}/*.ul'.format(testdir)):
         if 'accept' in f:
             accepts.append(f)
         else:
@@ -68,8 +71,8 @@ def run_on_test_file(test, reject, write_pprint):
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
     test_name = re.search(r'/(.*)\.ul', test).group(1)
-    if not reject: 
-        with open('tests/pprint_output/pprintout-{}'.format(test_name), 'w') as f:
+    if not reject and write_pprint: 
+        with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'w') as f:
             f.write(out.decode('utf-8'))
             print("---> Successfully wrote", f.name)
 
@@ -113,7 +116,7 @@ def main(args):
         return
 
     print("Javac Compiled with no Errors or warnings.\n")
-    accept, reject = collect_files()
+    accept, reject = collect_files('tests/pprint_output' if args.check_pprint else 'tests')
     if args.failed:
         accept, reject = collect_failed_files(accept, reject)
 
