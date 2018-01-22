@@ -35,8 +35,8 @@ void main ()
     int x;
 
     x = 5;
-    x = get_int;
-    x = 5 + get_int;
+    x = get_int();
+    x = 5 + get_int();
 }
 
 int more_wierd_returns ()
@@ -48,7 +48,7 @@ int more_wierd_returns ()
     }
     else
     {
-        x = 5 + get_int;
+        x = 5 + get_int();
     }
     }
 
@@ -64,14 +64,14 @@ float wierd_returns ()
     }
     else
     {
-        return returnsfloat;
+        return returnsfloat();
     }
     if (true)
     {
     }
     else
     {
-        return 5 + returnsfloat;
+        return 5 + returnsfloat();
     }
 }
 

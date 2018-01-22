@@ -13,8 +13,8 @@ void assign_to_functions ()
     int b;
     string c;
 
-        b = foo;
-    c = bar;
+        b = foo();
+    c = bar();
     print b;
     println c;
 }
@@ -32,7 +32,7 @@ string bar ()
 void assign_arrays ()
 {
     abc[15] = 100;
-    cdf[get_index] = 1;
+    cdf[get_index()] = 1;
     _[a] = _;
 }
 

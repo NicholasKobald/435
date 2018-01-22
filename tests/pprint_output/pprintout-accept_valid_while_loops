@@ -80,11 +80,11 @@ void while_with_expr (boolean go)
         }
     }
     x = 50;
-    while (10 + 9 * 10 < x)
+    while ((10 - 9) * 10 < x)
     {
         x = x + 50;
     }
-    x = 10 + 9 * 10;
+    x = (10 - 9) * 10;
     if (x == 10)
     {
         println "Successsss";

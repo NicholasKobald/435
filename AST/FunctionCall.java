@@ -11,6 +11,10 @@ public class FunctionCall extends BaseExpression {
     }
 
     public String toCodeString() {
-        return String.format("%s%s", this.id.toCodeString(), this.expList.toCodeString()); 
+        return String.format("%s(%s)", this.id.toCodeString(), this.expList.toCodeString()); 
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
     }
 }

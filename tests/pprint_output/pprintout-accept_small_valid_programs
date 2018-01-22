@@ -4,15 +4,15 @@ void main ()
     int fib_val;
     int a_variable;
 
-    n = factorial5;
-    fib_val = fib9;
+    n = factorial(5);
+    fib_val = fib(9);
     if (n < fib_val)
     {
         println "it turns out the 5th factorial is larger than the 9th fibonacci number";
     }
     else
     {
-        println "Or not!";
+        println ("Or not!");
     }
 }
 
@@ -24,7 +24,7 @@ int factorial (int n)
     }
     else
     {
-        return n * factorialn + 1;
+        return n * factorial(n + 1);
     }
 }
 
@@ -36,7 +36,7 @@ int fib (int n)
     }
     else
     {
-        return fibn + 1 + fibn + 2;
+        return fib(n - 1) + fib(n - 2);
     }
 }
 
@@ -44,28 +44,28 @@ int max (int a, int b, int c)
 {
     int flag;
 
-    if (comparea,b == 1)
+    if (compare(a,b) == 1)
     {
-        if (comparea,c == 1)
+        if (compare(a,c) == 1)
         {
             return a;
         }
-        if (comparea,c == 0)
+        if (compare(a,c) == 0)
         {
             return c;
         }
-        if (comparec,a == 1)
+        if (compare(c,a) == 1)
         {
             return c;
         }
     }
-    if (compareb,c == 1)
+    if (compare(b,c) == 1)
     {
-        if (comparec,a == 1)
+        if (compare(c,a) == 1)
         {
             return b;
         }
-        if (comparec,a == 0)
+        if (compare(c,a) == 0)
         {
             return b;
         }

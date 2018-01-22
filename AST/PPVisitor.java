@@ -51,6 +51,10 @@ public class PPVisitor {
         }
     }
 
+    void visit(FunctionCall fc) {
+        System.out.println(fc.toString()); 
+    }
+
     void visit(Param p) {
         System.out.print(p.toString()); 
     }

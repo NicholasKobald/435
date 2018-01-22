@@ -13,7 +13,7 @@ void main (int x, float y)
         while (x < 50)
         {
             x = x + 21 * 4;
-            x = x + 21 * 3;
+            x = x - 21 * 3;
         }
     }
     if (x == 50)

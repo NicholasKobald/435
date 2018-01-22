@@ -117,8 +117,6 @@ def main(args):
     if args.failed:
         accept, reject = collect_failed_files(accept, reject)
 
-    # start_two = time.time()
-    print(args) 
     accept.extend(reject)
     run_tests(accept, args.write_pprint)
     end = time.time()

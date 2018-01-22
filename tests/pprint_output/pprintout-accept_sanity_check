@@ -10,7 +10,7 @@ void main ()
     d = "";
     if (true)
     {
-        print "hello world";
+        print ("hello world");
     }
     if (false)
     {
@@ -22,7 +22,7 @@ void main ()
         println "hello world2";
     }
     print a;
-    b = _get_b_val;
+    b = _get_b_val();
     while (true)
     {
         a = a + 1;
@@ -43,11 +43,11 @@ float _get_b_val ()
     boolean e;
     void f;
 
-    if (2 + 5 + 1 < 4 + 10)
+    if (2 + 5 - 1 < 4 + 10)
     {
         print "Look, the LE operator worked";
     }
-    if (50 < 10 * 10 + 9)
+    if (50 < 10 * 10 - 9)
     {
     }
     a = 1234567;

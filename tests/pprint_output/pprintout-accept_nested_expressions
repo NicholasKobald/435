@@ -2,15 +2,15 @@ void main ()
 {
     int a;
 
-    a = 5;
-    a = 5;
-    a = 5;
-    a = 5;
-        return 5;
+    a = (5);
+    a = ((5));
+    a = (((5)));
+    a = (((((5)))));
+        return (5);
 }
 
 int foo ()
 {
-    return 1;
+    return (1);
 }
 

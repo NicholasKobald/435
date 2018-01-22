@@ -2,8 +2,8 @@ void main ()
 {
     int x;
 
-            x = foo + foo + foo + foo + foo + foo + foo + foo;
-    return bar + bar + 1 + bar + bar + bar + bar + bar * 2;
+            x = foo() + foo() + foo() + foo() + foo() + foo() + foo() + foo();
+    return bar() + bar() + 1 + bar() + bar() + bar() + bar() + bar() * 2;
 }
 
 int foo ()
@@ -18,7 +18,7 @@ int bar ()
 
 void some_wierd_shit ()
 {
-    return multiply_numbers50000,3000;
+    return multiply_numbers(50000,3000);
 }
 
 int multiply_numbers (int a, int b)

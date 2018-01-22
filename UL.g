@@ -154,7 +154,7 @@ baseExp returns [BaseExpression exp]
         }
         : ident = identifier { atom = ident; }
         | lit = literal      { atom = lit;   }
-        | '(' atomic_expr = expr ')'  { atom = atomic_expr;    }         
+        | '(' atomic_expr = expr ')'  { atom = new ParanthesisExpression(atomic_expr); }         
         | id = identifier '(' exprlist = exprList ')' { atom = new FunctionCall(id, exprlist); }
         | ident = identifier '[' express = expr ']' { atom = new ArrayExpression(ident, express); } 
         ;
@@ -183,7 +183,9 @@ addExp returns [BaseExpression exp]
         @after{
             return subtree;
         }                                 
-        : e1 = multExp { subtree = e1; } (('+'|'-') e2 = addExp { subtree = new AddExp(e1, e2); })*
+        : e1 = multExp { subtree = e1; } (ch = ('+'|'-') e2 = addExp {
+                 if (ch.getText().charAt(0) == '+') subtree = new AddExp(e1, e2); 
+                                                                                  else subtree = new SubExp(e1, e2); })*
         ;
 
 
