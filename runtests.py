@@ -1,4 +1,3 @@
-#
 # THIS SOFTWARE IS DISTRBUTED AS IS
 
 import time
@@ -6,6 +5,7 @@ import json
 import sys
 import argparse
 import glob
+import re 
 from subprocess import Popen, PIPE, run
 
 success_count, fail_count = 0, 0
@@ -18,6 +18,10 @@ parser.add_argument('--clean', default=False, dest='clean-first')
 parser.add_argument('-f', '--failed',
                     help="Run failed tests from previous invocation",
                     action="store_true")
+parser.add_argument('--write-pprint', default=False,
+                    help="Write PPrint output from each test to a corresponding"
+                         " file in tests/pprint_output/\{\}+pprintout.ul",
+                    action="store_true")  
 
 
 class FailedToCompileError(Exception):
@@ -35,10 +39,10 @@ def collect_files():
     return accepts, rejects
 
 
-def run_tests(test_list):
+def run_tests(test_list, write_pprint=False):
     failed_tests = []
     for test in test_list:
-        failed = run_on_test_file(test, 'reject' in test)
+        failed = run_on_test_file(test, 'reject' in test, write_pprint)
         if failed is not None:
             failed_tests.append(failed)
     if failed_tests:
@@ -48,11 +52,11 @@ def run_tests(test_list):
         print("Wrote failed tests to Cache. Rerun with --failed")
 
 
-def run_on_test_file(test, reject):
+def run_on_test_file(test, reject, write_pprint):
     global success_count, fail_count
-    make = run(['java', 'Compiler', test],
-                stdin=PIPE, stderr=PIPE)
-    err = make.stderr
+    prog = run(['java', 'Compiler', test], stdout=PIPE, stderr=PIPE)
+    err = prog.stderr
+    out = prog.stdout 
     if err and not reject:
         print("FAILED: {} - FAILURE TO ACCEPT. Output:".format(test))
         print(err.decode('utf-8'))
@@ -63,6 +67,11 @@ def run_on_test_file(test, reject):
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
+    print(test) 
+    test_name = re.search(r'/(.*)\.ul', test).group(1) 
+    with open('tests/pprint_output/pprintout-{}'.format(test_name), 'w') as f:
+        f.write(out.decode('utf-8'))
+        print("Successfully wrote", f.name)
 
 
 def compile_proj():
@@ -74,7 +83,7 @@ def compile_proj():
             "Antlr wasn't able to compile your grammar\n {}".format(err))
     if b'warn' in err:
         raise FailedToCompileError(
-            "Antlr Compiled with warnings. Rerun with -f to override this\n".format(err))
+            "Antlr Compiled with warnings: {}\n. Rerun with -f to override this\n".format(err))
 
 
 def collect_failed_files(a, r):
@@ -109,8 +118,9 @@ def main(args):
         accept, reject = collect_failed_files(accept, reject)
 
     # start_two = time.time()
+    print(args) 
     accept.extend(reject)
-    run_tests(accept)
+    run_tests(accept, args.write_pprint)
     end = time.time()
     num_tests = str(len(accept))
     print("=" * 70)

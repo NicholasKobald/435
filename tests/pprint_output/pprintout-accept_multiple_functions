@@ -1,0 +1,15 @@
+int baz (float _)
+{}
+
+boolean sum (int a, int b)
+{}
+
+string bar (boolean b_)
+{}
+
+void foo (int a1, char b2)
+{}
+
+float boozle (float c1234_)
+{}
+

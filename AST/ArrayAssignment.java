@@ -11,4 +11,12 @@ public class ArrayAssignment extends BaseStatement {
         this.indexExp = indexExp;  
         this.expression = exp; 
     }
+
+    public String toCodeString() {
+        return String.format("%s[%s] = %s", this.ulid.toCodeString(), this.indexExp.toCodeString(), this.expression.toCodeString());
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
 }

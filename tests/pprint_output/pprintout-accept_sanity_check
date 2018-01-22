@@ -1,0 +1,59 @@
+void main ()
+{
+    int a;
+    float b;
+    char c;
+    string d;
+    boolean e;
+    void f;
+
+    d = "";
+    if (true)
+    {
+        print "hello world";
+    }
+    if (false)
+    {
+        a = 1;
+    }
+    else
+    {
+        a = 2;
+        println "hello world2";
+    }
+    print a;
+    b = _get_b_val;
+    while (true)
+    {
+        a = a + 1;
+        if (a == 10)
+        {
+            print "Look, the equality operator worked!";
+            return b;
+        }
+    }
+}
+
+float _get_b_val ()
+{
+    int a;
+    float b;
+    char c;
+    string d;
+    boolean e;
+    void f;
+
+    if (2 + 5 + 1 < 4 + 10)
+    {
+        print "Look, the LE operator worked";
+    }
+    if (50 < 10 * 10 + 9)
+    {
+    }
+    a = 1234567;
+    b = 123.1119900001;
+    c = 'c';
+    c = '_';
+    d = "a";
+}
+

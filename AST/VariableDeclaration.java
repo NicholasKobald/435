@@ -3,6 +3,7 @@ package ast;
 import java.util.Collections; 
 
 import types.Type;
+import types.ArrayType;
 
 public class VariableDeclaration {
 

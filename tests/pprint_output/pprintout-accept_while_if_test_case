@@ -1,0 +1,32 @@
+void main ()
+{
+    int x;
+    boolean go;
+
+    if (go)
+    {
+    }
+    else
+    {
+        while (go)
+        {
+        }
+    }
+    go = true;
+    x = 0;
+    if (go == True)
+    {
+        while (go)
+        {
+        }
+    }
+    else
+    {
+        while (x < 10)
+        {
+            println "Loops!";
+            x = x + 1;
+        }
+    }
+}
+

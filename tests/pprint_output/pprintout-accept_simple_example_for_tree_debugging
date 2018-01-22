@@ -1,0 +1,14 @@
+void foo ()
+{
+    int y;
+
+    y = 1 + 3;
+}
+
+void main ()
+{
+    int x;
+
+    x = 1;
+}
+

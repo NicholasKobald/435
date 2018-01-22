@@ -1,0 +1,77 @@
+int baz ()
+{
+    return 25;
+}
+
+string bar ()
+{
+    return "hello there!";
+}
+
+float returnsfloat ()
+{
+    return 1234567.1234567;
+}
+
+int more_wierd_returns ()
+{
+    int x;
+
+    if (true)
+    {
+    }
+    else
+    {
+        x = 5 + get_int;
+    }
+    }
+
+int get_int ()
+{
+    return 1;
+}
+
+void foo ()
+{
+    return;
+}
+
+float returnsfloat ()
+{
+    return 5.00000000;
+}
+
+float wierd_returns ()
+{
+    if (true)
+    {
+    }
+    else
+    {
+        return returnsfloat;
+    }
+    if (true)
+    {
+    }
+    else
+    {
+        return 5 + returnsfloat;
+    }
+}
+
+int z_3 ()
+{
+    int a;
+
+    return a;
+}
+
+void main ()
+{
+    int x;
+
+    x = 5;
+    x = get_int;
+    x = 5 + get_int;
+}
+

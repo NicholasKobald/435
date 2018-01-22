@@ -1,0 +1,39 @@
+void print_all ()
+{
+    print 1.0;
+    print "hello";
+    print a;
+    print 'a';
+}
+
+void hello_world ()
+{
+    print "helloWorld";
+    print "Hello World";
+    print "1233456789";
+    print "Hey there!";
+    print "Ok, this is fine right!";
+    print "Still ok";
+    print " multiline go ";
+    print 'a';
+}
+
+void print_floats ()
+{
+    print 0.1;
+    print 0.0;
+    print 10.10;
+    print 3.14159264;
+    println 5555.50000;
+}
+
+void bar ()
+{
+    print "";
+    print a;
+    print 12345;
+    print "Hello world";
+    println "Ok fine";
+    print "Still ok";
+}
+

@@ -1,0 +1,98 @@
+void test_while_more ()
+{
+    while (abc)
+    {
+    }
+    while (true)
+    {
+        while (a)
+        {
+            while (false)
+            {
+            }
+            while (true)
+            {
+            }
+            while ("Hey")
+            {
+            }
+        }
+    }
+    while (zzzz)
+    {
+                                                    }
+    while ("   zzzz ")
+    {
+    }
+}
+
+void while_with_expr (boolean go)
+{
+    int x;
+
+    x = 0;
+    if (go == True)
+    {
+        while (go)
+        {
+        }
+    }
+    else
+    {
+        while (x < 10)
+        {
+            println "Loops!";
+            x = x + 1;
+        }
+    }
+    x = 50;
+    while (10 + 9 * 10 < x)
+    {
+        x = x + 50;
+    }
+    x = 10 + 9 * 10;
+    if (x == 10)
+    {
+        println "Successsss";
+    }
+    else
+    {
+        println "Failure";
+    }
+    return;
+}
+
+void test_while ()
+{
+    while (abc)
+    {
+    }
+    while (true)
+    {
+        while (a)
+        {
+            while (false)
+            {
+            }
+            while (true)
+            {
+            }
+            while ("Hey")
+            {
+            }
+        }
+    }
+    while (zzzz)
+    {
+                                                    }
+    while (" zzzz ")
+    {
+        return;
+    }
+}
+
+void main ()
+{
+    int n;
+}
+

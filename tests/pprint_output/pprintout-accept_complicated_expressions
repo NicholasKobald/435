@@ -1,0 +1,22 @@
+void multiplies ()
+{
+    int b;
+    int c;
+    int abc;
+
+    b = 13 * 400;
+    b = 25 + 30 + 40 + 10;
+    c = 40 + 5 * 3;
+    abc = abc;
+}
+
+void main ()
+{
+    int a;
+
+    x = a * a;
+    x = 10 * 50;
+    y = 255 * 2123;
+    return;
+}
+

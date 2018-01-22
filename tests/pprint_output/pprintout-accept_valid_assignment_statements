@@ -1,0 +1,43 @@
+void assign_to_functions ()
+{
+    int b;
+    string c;
+
+        b = foo;
+    c = bar;
+    print b;
+    println c;
+}
+
+void easy_assignment_statements ()
+{
+        a = 5;
+    c = "Hello There";
+}
+
+int foo ()
+{
+    return 5;
+}
+
+void assign_arrays ()
+{
+    abc[15] = 100;
+    cdf[get_index] = 1;
+    _[a] = _;
+}
+
+string bar ()
+{
+    return "Assign me!";
+}
+
+int get_index ()
+{
+    return 1111;
+}
+
+void main ()
+{
+    }
+

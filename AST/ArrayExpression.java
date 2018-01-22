@@ -11,6 +11,10 @@ public class ArrayExpression extends BaseExpression {
     }
 
     public String toCodeString() {
-        return String.format("%s %s", this.id.toCodeString(), this.index.toCodeString()); 
+        return String.format("%s[%s]", this.id.toCodeString(), this.index.toCodeString()); 
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
     }
 }

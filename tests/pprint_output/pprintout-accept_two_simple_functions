@@ -1,0 +1,22 @@
+int bar ()
+{
+    int integer_var_name;
+    string string_var_name;
+    float double_var_name;
+
+    integer_var_name = 5;
+    string_var_name = "Hello World";
+}
+
+int foo ()
+{
+    float float_var_name;
+    char char_var_name;
+}
+
+string hello_world ()
+{
+    int x;
+    string strrrrinnngname;
+}
+

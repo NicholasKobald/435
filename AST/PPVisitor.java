@@ -87,6 +87,16 @@ public class PPVisitor {
         System.out.println(indent + ps.toCodeString());
     }
 
+    void visit(ArrayAssignment as) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + as.toCodeString() + ";"); 
+    }
+
+    void visit(ArrayExpression ae) {
+        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        System.out.println(indent + ae.toCodeString() + ";"); 
+    }
+
     void printBlock(StatementList statements) {
         String indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "{"); 

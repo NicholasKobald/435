@@ -1,0 +1,73 @@
+void foobar (int a, int b, int c, int d, float c)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 5;
+    while (x < 5)
+    {
+        x = x + 1;
+        if (y == x)
+        {
+            return;
+        }
+    }
+}
+
+int z ()
+{
+    int[5] a;
+    int[3] b;
+    int x;
+
+    a[4] = 1;
+    a[3] = 2;
+    a[2] = b[2];
+}
+
+void main (int x, float y)
+{
+    string s;
+    int x;
+
+    x = s + x;
+    x = 1 + 2 + 3 + 4 + 5 + 6;
+    while (x == 1)
+    {
+        x = x + 1;
+        x = x + 2;
+        s = "Hello There!";
+        while (x < 50)
+        {
+            x = x + 21 * 4;
+            x = x + 21 * 3;
+        }
+    }
+    if (x == 50)
+    {
+        s = "Nope";
+        x = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1;
+    }
+    if (x == 25)
+    {
+        s = "yes";
+    }
+    else
+    {
+        s = "nope";
+    }
+}
+
+float baz ()
+{
+    print "About to return";
+    println "THE VALUE 1.0!!";
+    return 1.0;
+}
+
+string bar (string z)
+{
+    return "bar";
+}
+

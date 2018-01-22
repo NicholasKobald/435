@@ -54,5 +54,11 @@ float baz() {
 }
 
 int z() {
+	int [5] a;
+	int [3] b; 
 	int x;
+
+	a[4] = 1;
+	a[3] = 2;
+	a[2] = b[2];
 }

@@ -14,6 +14,6 @@ public class ArrayType extends Type {
     }
 
     public String toCodeString() {
-        return String.format("%s []", this.type.toCodeString()); 
+        return String.format("%s[%d]", this.type.toCodeString(), size); 
     }
 }
