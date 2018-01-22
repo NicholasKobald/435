@@ -50,7 +50,8 @@ int more_wierd_returns ()
     {
         x = 5 + get_int();
     }
-    }
+    get_int() == get_int();
+}
 
 int get_int ()
 {

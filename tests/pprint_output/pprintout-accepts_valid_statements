@@ -9,16 +9,22 @@ void main ()
     int b;
     int c;
 
-    }
+    baz();
+}
 
 int baz ()
 {
-        return 5;
+    fib();
+    return 5;
 }
 
 int call_functions_in_many_ways ()
 {
-                }
+    foo();
+    bar();
+    initialize_array(arr_a,length);
+    init_arr(arr_a,arg_one,arg_two,arg_three,111111111,1.0,"string literal","final str literal",true);
+}
 
 int return_function_after_if_statement (int n)
 {

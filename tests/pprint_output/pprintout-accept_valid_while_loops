@@ -25,7 +25,13 @@ void test_while ()
     }
     while (zzzz)
     {
-                                                    }
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+    }
     while (" zzzz ")
     {
         return;
@@ -54,7 +60,13 @@ void test_while_more ()
     }
     while (zzzz)
     {
-                                                    }
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+    }
     while ("   zzzz ")
     {
     }

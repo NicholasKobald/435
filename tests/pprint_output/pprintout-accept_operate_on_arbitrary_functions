@@ -2,7 +2,9 @@ void main ()
 {
     int x;
 
-            x = foo() + foo() + foo() + foo() + foo() + foo() + foo() + foo();
+    foo();
+    foo() + bar();
+    x = foo() + foo() + foo() + foo() + foo() + foo() + foo() + foo();
     return bar() + bar() + 1 + bar() + bar() + bar() + bar() + bar() * 2;
 }
 

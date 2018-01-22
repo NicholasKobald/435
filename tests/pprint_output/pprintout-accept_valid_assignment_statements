@@ -1,10 +1,12 @@
 void main ()
 {
-    }
+    assign_to_functions();
+}
 
 void easy_assignment_statements ()
 {
-        a = 5;
+    a;
+    a = 5;
     c = "Hello There";
 }
 
@@ -13,7 +15,8 @@ void assign_to_functions ()
     int b;
     string c;
 
-        b = foo();
+    a;
+    b = foo();
     c = bar();
     print b;
     println c;

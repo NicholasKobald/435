@@ -9,10 +9,14 @@ public class ExpressionStatement extends BaseStatement {
         this.exp = exp; 
     }
 
-    public String toCodString() {
+    public String toCodeString() {
         if (exp == null) 
             return "";
 
         return String.format("%s", exp.toCodeString());
+    }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
     }
 }
