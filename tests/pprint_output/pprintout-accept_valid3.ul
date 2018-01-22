@@ -6,15 +6,15 @@ int foo (int x, float y, string z, char c, boolean a)
     boolean aa;
     int xx;
 
-    while (x < 10)
+    while (x<10)
     {
         ;
     }
-    if (zz == "abc")
+    if (zz=="abc")
     {
         ;
     }
-    if (yy < 2.3)
+    if (yy<2.3)
     {
         ;
     }

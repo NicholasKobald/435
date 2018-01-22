@@ -15,6 +15,6 @@ public abstract class BinaryExpression extends BaseExpression {
     }
 
     public String toCodeString() {
-        return String.format("%s %s %s", this.operand_one.toCodeString(), this.operator, this.operand_two.toCodeString()); 
+        return String.format("%s%s%s", this.operand_one.toCodeString(), this.operator, this.operand_two.toCodeString()); 
     }
 }

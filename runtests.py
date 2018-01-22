@@ -28,7 +28,7 @@ parser.add_argument('--check-pprint', default=False,
                     action="store_true")
 parser.add_argument('--check-ast', default=False,
                     help="Don't compare the existing, stored PPrint output to the latest one generated",
-                    action="store_false")
+                    action="store_true")
 
 
 class FailedToCompileError(Exception):
@@ -82,9 +82,10 @@ def run_on_test_file(test, reject, write_pprint, check_pprint):
     elif check_pprint and not reject:
         with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'r') as f:
             val = f.read()
+            print(val, out.decode('utf-8'))
             assert val == out.decode('utf-8'), "PPrint output was different from existing PPrint.\
                 Insure you have initialized the tests/pprint_output/ dir by running with --write-pprint"
-        
+            
 
 def compile_proj():
     global success_count, fail_count

@@ -14,7 +14,7 @@ void main ()
     }
     go = true;
     x = 0;
-    if (go == True)
+    if (go==True)
     {
         while (go)
         {
@@ -22,10 +22,10 @@ void main ()
     }
     else
     {
-        while (x < 10)
+        while (x<10)
         {
             println "Loops!";
-            x = x + 1;
+            x = x+1;
         }
     }
 }

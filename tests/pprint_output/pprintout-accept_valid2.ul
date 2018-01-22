@@ -3,25 +3,25 @@ void main (int x, float y)
     string s;
     int x;
 
-    x = s + x;
-    x = 1 + 2 + 3 + 4 + 5 + 6;
-    while (x == 1)
+    x = s+x;
+    x = 1+2+3+4+5+6;
+    while (x==1)
     {
-        x = x + 1;
-        x = x + 2;
+        x = x+1;
+        x = x+2;
         s = "Hello There!";
-        while (x < 50)
+        while (x<50)
         {
-            x = x + 21 * 4;
-            x = x - 21 * 3;
+            x = x+21*4;
+            x = x-21*3;
         }
     }
-    if (x == 50)
+    if (x==50)
     {
         s = "Nope";
-        x = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1;
+        x = 1+1+1+1+1+1+1+1+1+1+1+1+1;
     }
-    if (x == 25)
+    if (x==25)
     {
         s = "yes";
     }
@@ -38,10 +38,10 @@ void foobar (int a, int b, int c, int d, float c)
 
     x = 0;
     y = 5;
-    while (x < 5)
+    while (x<5)
     {
-        x = x + 1;
-        if (y == x)
+        x = x+1;
+        if (y==x)
         {
             return;
         }
