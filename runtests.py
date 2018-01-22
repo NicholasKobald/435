@@ -22,9 +22,13 @@ parser.add_argument('--write-pprint', default=False,
                     help="Write PPrint output from each test to a corresponding"
                          " file in tests/pprint_output/\{\}+pprintout.ul",
                     action="store_true")
+
 parser.add_argument('--check-pprint', default=False,
                     help="Insure all outputed pretty print files are valid",
-                    action="store_true") 
+                    action="store_true")
+parser.add_argument('--check-ast', default=False,
+                    help="Don't compare the existing, stored PPrint output to the latest one generated",
+                    action="store_false")
 
 
 class FailedToCompileError(Exception):
@@ -42,10 +46,10 @@ def collect_files(testdir):
     return accepts, rejects
 
 
-def run_tests(test_list, write_pprint=False):
+def run_tests(test_list, write_pprint=False, ignore_ast=False):
     failed_tests = []
     for test in test_list:
-        failed = run_on_test_file(test, 'reject' in test, write_pprint)
+        failed = run_on_test_file(test, 'reject' in test, write_pprint, ignore_ast)
         if failed is not None:
             failed_tests.append(failed)
     if failed_tests:
@@ -55,7 +59,7 @@ def run_tests(test_list, write_pprint=False):
         print("Wrote failed tests to Cache. Rerun with --failed")
 
 
-def run_on_test_file(test, reject, write_pprint):
+def run_on_test_file(test, reject, write_pprint, check_pprint):
     global success_count, fail_count
     prog = run(['java', 'Compiler', test], stdout=PIPE, stderr=PIPE)
     err = prog.stderr
@@ -75,7 +79,12 @@ def run_on_test_file(test, reject, write_pprint):
         with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'w') as f:
             f.write(out.decode('utf-8'))
             print("---> Successfully wrote", f.name)
-
+    elif check_pprint and not reject:
+        with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'r') as f:
+            val = f.read()
+            assert val == out.decode('utf-8'), "PPrint output was different from existing PPrint.\
+                Insure you have initialized the tests/pprint_output/ dir by running with --write-pprint"
+        
 
 def compile_proj():
     global success_count, fail_count
@@ -121,7 +130,7 @@ def main(args):
         accept, reject = collect_failed_files(accept, reject)
 
     accept.extend(reject)
-    run_tests(accept, args.write_pprint)
+    run_tests(accept, args.write_pprint, args.check_ast)
     end = time.time()
     num_tests = str(len(accept))
     print("=" * 70)
