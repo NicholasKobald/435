@@ -1,3 +1,37 @@
+void main ()
+{
+    int n;
+}
+
+void test_while ()
+{
+    while (abc)
+    {
+    }
+    while (true)
+    {
+        while (a)
+        {
+            while (false)
+            {
+            }
+            while (true)
+            {
+            }
+            while ("Hey")
+            {
+            }
+        }
+    }
+    while (zzzz)
+    {
+                                                    }
+    while (" zzzz ")
+    {
+        return;
+    }
+}
+
 void test_while_more ()
 {
     while (abc)
@@ -60,39 +94,5 @@ void while_with_expr (boolean go)
         println "Failure";
     }
     return;
-}
-
-void test_while ()
-{
-    while (abc)
-    {
-    }
-    while (true)
-    {
-        while (a)
-        {
-            while (false)
-            {
-            }
-            while (true)
-            {
-            }
-            while ("Hey")
-            {
-            }
-        }
-    }
-    while (zzzz)
-    {
-                                                    }
-    while (" zzzz ")
-    {
-        return;
-    }
-}
-
-void main ()
-{
-    int n;
 }
 

@@ -67,11 +67,11 @@ def run_on_test_file(test, reject, write_pprint):
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
-    print(test) 
-    test_name = re.search(r'/(.*)\.ul', test).group(1) 
-    with open('tests/pprint_output/pprintout-{}'.format(test_name), 'w') as f:
-        f.write(out.decode('utf-8'))
-        print("Successfully wrote", f.name)
+    test_name = re.search(r'/(.*)\.ul', test).group(1)
+    if not reject: 
+        with open('tests/pprint_output/pprintout-{}'.format(test_name), 'w') as f:
+            f.write(out.decode('utf-8'))
+            print("---> Successfully wrote", f.name)
 
 
 def compile_proj():

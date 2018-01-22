@@ -8,21 +8,21 @@ import java.util.HashSet;
 
 public class Program extends AST implements Iterable<Function> {
 
-    Set<Function> functionSet;
+    ArrayList<Function> functionList;
 
     public Program() {
         //System.out.println("Init Program.");
-        functionSet = new HashSet<Function>();
+        this.functionList = new ArrayList<Function>();
     }
 
     public void append(Function f) {
         //System.out.println("Adding this function!"); //only called for the last function found
-        this.functionSet.add(f);
+        this.functionList.add(f);
     }
 
     public String toString() {
         String r = "";
-        for (Function f : functionSet)
+        for (Function f : functionList)
             r += f.toString();
 
         return r;
@@ -30,7 +30,7 @@ public class Program extends AST implements Iterable<Function> {
 
     @Override
     public Iterator<Function> iterator() {
-        return functionSet.iterator(); 
+        return functionList.iterator(); 
     }
 
     void accept(PPVisitor v) {

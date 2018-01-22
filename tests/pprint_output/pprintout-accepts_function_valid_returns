@@ -8,9 +8,35 @@ string bar ()
     return "hello there!";
 }
 
+int z_3 ()
+{
+    int a;
+
+    return a;
+}
+
+void foo ()
+{
+    return;
+}
+
+float returnsfloat ()
+{
+    return 5.00000000;
+}
+
 float returnsfloat ()
 {
     return 1234567.1234567;
+}
+
+void main ()
+{
+    int x;
+
+    x = 5;
+    x = get_int;
+    x = 5 + get_int;
 }
 
 int more_wierd_returns ()
@@ -31,16 +57,6 @@ int get_int ()
     return 1;
 }
 
-void foo ()
-{
-    return;
-}
-
-float returnsfloat ()
-{
-    return 5.00000000;
-}
-
 float wierd_returns ()
 {
     if (true)
@@ -57,21 +73,5 @@ float wierd_returns ()
     {
         return 5 + returnsfloat;
     }
-}
-
-int z_3 ()
-{
-    int a;
-
-    return a;
-}
-
-void main ()
-{
-    int x;
-
-    x = 5;
-    x = get_int;
-    x = 5 + get_int;
 }
 

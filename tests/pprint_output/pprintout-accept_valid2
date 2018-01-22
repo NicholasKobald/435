@@ -1,31 +1,3 @@
-void foobar (int a, int b, int c, int d, float c)
-{
-    int x;
-    int y;
-
-    x = 0;
-    y = 5;
-    while (x < 5)
-    {
-        x = x + 1;
-        if (y == x)
-        {
-            return;
-        }
-    }
-}
-
-int z ()
-{
-    int[5] a;
-    int[3] b;
-    int x;
-
-    a[4] = 1;
-    a[3] = 2;
-    a[2] = b[2];
-}
-
 void main (int x, float y)
 {
     string s;
@@ -59,6 +31,28 @@ void main (int x, float y)
     }
 }
 
+void foobar (int a, int b, int c, int d, float c)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 5;
+    while (x < 5)
+    {
+        x = x + 1;
+        if (y == x)
+        {
+            return;
+        }
+    }
+}
+
+string bar (string z)
+{
+    return "bar";
+}
+
 float baz ()
 {
     print "About to return";
@@ -66,8 +60,14 @@ float baz ()
     return 1.0;
 }
 
-string bar (string z)
+int z ()
 {
-    return "bar";
+    int[5] a;
+    int[3] b;
+    int x;
+
+    a[4] = 1;
+    a[3] = 2;
+    a[2] = b[2];
 }
 

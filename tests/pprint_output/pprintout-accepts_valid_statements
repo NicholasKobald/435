@@ -1,19 +1,6 @@
-int baz ()
+void return_function_result ()
 {
-        return 5;
-}
-
-int call_functions_in_many_ways ()
-{
-                }
-
-int fib (int n)
-{
-    if (true)
-    {
-        return 1;
-    }
-    return fib1;
+    return baz;
 }
 
 void main ()
@@ -23,6 +10,15 @@ void main ()
     int c;
 
     }
+
+int baz ()
+{
+        return 5;
+}
+
+int call_functions_in_many_ways ()
+{
+                }
 
 int return_function_after_if_statement (int n)
 {
@@ -38,8 +34,12 @@ int return_function_passing_in_multiple_arguements (int b)
     return baz1,2,3,4,5,6,7,8,9;
 }
 
-void return_function_result ()
+int fib (int n)
 {
-    return baz;
+    if (true)
+    {
+        return 1;
+    }
+    return fib1;
 }
 

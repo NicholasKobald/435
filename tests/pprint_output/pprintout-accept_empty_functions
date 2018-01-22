@@ -1,21 +1,28 @@
-char _ ()
-{}
-
-int aA11111111__________1999999 ()
-{}
-
-void A ()
-{}
-
-string bar ()
-{}
+void main ()
+{
+}
 
 int foo ()
-{}
+{
+}
 
-void main ()
-{}
+string bar ()
+{
+}
+
+char _ ()
+{
+}
 
 void z ()
-{}
+{
+}
+
+int aA11111111__________1999999 ()
+{
+}
+
+void A ()
+{
+}
 

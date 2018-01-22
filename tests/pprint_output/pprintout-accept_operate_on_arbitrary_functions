@@ -16,13 +16,13 @@ int bar ()
     return 2;
 }
 
-int multiply_numbers (int a, int b)
-{
-    return a * b;
-}
-
 void some_wierd_shit ()
 {
     return multiply_numbers50000,3000;
+}
+
+int multiply_numbers (int a, int b)
+{
+    return a * b;
 }
 

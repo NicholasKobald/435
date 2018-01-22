@@ -1,3 +1,8 @@
+int foo (int a)
+{
+    int b;
+}
+
 void foo ()
 {
     int i;
@@ -11,12 +16,17 @@ void foo ()
     boolean m;
 }
 
-int func (int a, string b, char d, float x)
-{}
-
-int foo (int a)
+void ________ ()
 {
+    int a;
     int b;
+    int c;
+    int d;
+    int e;
+}
+
+int func (int a, string b, char d, float x)
+{
 }
 
 int declare_compound_types (int a, string b, char d, float x)
@@ -26,14 +36,5 @@ int declare_compound_types (int a, string b, char d, float x)
     float[5000] _;
     boolean[2222] _1;
     void[0] voidarrrrrr;
-}
-
-void ________ ()
-{
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
 }
 

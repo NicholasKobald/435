@@ -30,10 +30,13 @@ public class PPVisitor {
         if (body.variableList.iterator().hasNext())
             System.out.println(); 
         body.variableList.forEach(vd->vd.accept(this));
-        if (body.statementList.iterator().hasNext())
+        if (body.statementList.iterator().hasNext()) 
             System.out.println(); 
         body.statementList.forEach(st->st.accept(this));
-        this.indent_level -= 4;  
+        this.indent_level -= 4;
+        // degenerative case 
+        if (!body.variableList.iterator().hasNext() && !body.statementList.iterator().hasNext())
+            System.out.println();   
         System.out.println("}"); 
     }
 

@@ -1,3 +1,13 @@
+void main ()
+{
+    }
+
+void easy_assignment_statements ()
+{
+        a = 5;
+    c = "Hello There";
+}
+
 void assign_to_functions ()
 {
     int b;
@@ -9,15 +19,14 @@ void assign_to_functions ()
     println c;
 }
 
-void easy_assignment_statements ()
-{
-        a = 5;
-    c = "Hello There";
-}
-
 int foo ()
 {
     return 5;
+}
+
+string bar ()
+{
+    return "Assign me!";
 }
 
 void assign_arrays ()
@@ -27,17 +36,8 @@ void assign_arrays ()
     _[a] = _;
 }
 
-string bar ()
-{
-    return "Assign me!";
-}
-
 int get_index ()
 {
     return 1111;
 }
-
-void main ()
-{
-    }
 

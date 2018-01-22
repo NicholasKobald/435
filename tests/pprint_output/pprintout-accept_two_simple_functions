@@ -1,3 +1,9 @@
+int foo ()
+{
+    float float_var_name;
+    char char_var_name;
+}
+
 int bar ()
 {
     int integer_var_name;
@@ -6,12 +12,6 @@ int bar ()
 
     integer_var_name = 5;
     string_var_name = "Hello World";
-}
-
-int foo ()
-{
-    float float_var_name;
-    char char_var_name;
 }
 
 string hello_world ()

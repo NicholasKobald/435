@@ -1,9 +1,11 @@
-void print_all ()
+void bar ()
 {
-    print 1.0;
-    print "hello";
+    print "";
     print a;
-    print 'a';
+    print 12345;
+    print "Hello world";
+    println "Ok fine";
+    print "Still ok";
 }
 
 void hello_world ()
@@ -27,13 +29,11 @@ void print_floats ()
     println 5555.50000;
 }
 
-void bar ()
+void print_all ()
 {
-    print "";
+    print 1.0;
+    print "hello";
     print a;
-    print 12345;
-    print "Hello world";
-    println "Ok fine";
-    print "Still ok";
+    print 'a';
 }
 

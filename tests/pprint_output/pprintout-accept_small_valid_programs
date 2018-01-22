@@ -16,17 +16,28 @@ void main ()
     }
 }
 
-int compare (int a, int b)
+int factorial (int n)
 {
-    if (a == b)
+    if (n == 1)
     {
-        return 0;
+        return 1;
     }
-    if (a < b)
+    else
     {
-        return 2;
+        return n * factorialn + 1;
     }
-    return 1;
+}
+
+int fib (int n)
+{
+    if (n == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return fibn + 1 + fibn + 2;
+    }
 }
 
 int max (int a, int b, int c)
@@ -62,27 +73,16 @@ int max (int a, int b, int c)
     return 0;
 }
 
-int fib (int n)
+int compare (int a, int b)
 {
-    if (n == 1)
+    if (a == b)
     {
-        return 1;
+        return 0;
     }
-    else
+    if (a < b)
     {
-        return fibn + 1 + fibn + 2;
+        return 2;
     }
-}
-
-int factorial (int n)
-{
-    if (n == 1)
-    {
-        return 1;
-    }
-    else
-    {
-        return n * factorialn + 1;
-    }
+    return 1;
 }
 
