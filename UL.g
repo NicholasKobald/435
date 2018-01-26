@@ -24,7 +24,7 @@ options {
         StringType _str = new StringType();
         BoolType _bool = new BoolType(); 
         VoidType _void = new VoidType(); 
-        CharType _char = new CharType(); 
+        CharType _char = new CharType() ; 
         // note we don't make an arraytype here 
 
         protected void mismatch (IntStream input, int ttype, BitSet follow)
@@ -49,7 +49,6 @@ options {
         }
 }
 
-/* Lexer */
 program returns [Program prog]
         @init{
                 prog = new Program();

@@ -22,7 +22,6 @@ parser.add_argument('--write-pprint', default=False,
                     help="Write PPrint output from each test to a corresponding"
                          " file in tests/pprint_output/\{\}+pprintout.ul",
                     action="store_true")
-
 parser.add_argument('--check-pprint', default=False,
                     help="Insure all outputed pretty print files are valid",
                     action="store_true")
