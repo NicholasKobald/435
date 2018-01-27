@@ -122,7 +122,8 @@ public class PPVisitor {
         String indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "{"); 
         this.indent_level += 4;
-        statements.forEach(st->st.accept(this));
+        for (BaseStatement st: statements)
+            st.accept(this); 
         this.indent_level -= 4;
         indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "}");
