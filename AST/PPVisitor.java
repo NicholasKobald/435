@@ -9,7 +9,8 @@ public class PPVisitor {
     private static int indent_level = 0;
 
     public void visit(Program program) {
-        program.forEach(func->func.accept(this)); 
+        for (Function f: program)
+            f.accept(this); 
     }
 
     void visit(Function f) {
@@ -27,16 +28,24 @@ public class PPVisitor {
     void visit(FunctionBody body) {
         System.out.print("{");
         indent_level += 4;
+
         if (body.variableList.iterator().hasNext())
             System.out.println(); 
-        body.variableList.forEach(vd->vd.accept(this));
+            
+        for (VariableDeclaration dec: body.variableList)
+            dec.accept(this); 
+
         if (body.statementList.iterator().hasNext()) 
             System.out.println(); 
-        body.statementList.forEach(st->st.accept(this));
+        
+        for (BaseStatement st: body.statementList) 
+            st.accept(this); 
+
         indent_level -= 4;
 
         if (!body.variableList.iterator().hasNext() && !body.statementList.iterator().hasNext())
-            System.out.println();   
+            System.out.println();
+
         System.out.println("}"); 
     }
 
