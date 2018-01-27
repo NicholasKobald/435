@@ -19,8 +19,8 @@ import org.antlr.runtime.tree.TreeAdaptor;
 import org.antlr.runtime.tree.CommonTreeAdaptor; */
 
 import ast.Program;
-import types.*;
-import types.BoolType;
+import Types.*;
+import Types.BoolType;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 

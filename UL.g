@@ -6,14 +6,14 @@ options {
 //thank god, but why does it behave differently?? 
 @header {
     import ast.*;
-    import types.Type;
-    import types.BoolType; 
-    import types.IntegerType;
-    import types.CharType;
-    import types.StringType;
-    import types.ArrayType;
-    import types.FloatType; 
-    import types.VoidType; 
+    import Types.Type;
+    import Types.BoolType; 
+    import Types.IntegerType;
+    import Types.CharType;
+    import Types.StringType;
+    import Types.ArrayType;
+    import Types.FloatType; 
+    import Types.VoidType; 
 }
 
 @members

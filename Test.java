@@ -1,5 +1,5 @@
-import types.Type; 
-import types.BoolType;
+import Types.Type; 
+import Types.BoolType;
 
 
 public class Test {
