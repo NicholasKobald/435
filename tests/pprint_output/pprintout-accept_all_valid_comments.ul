@@ -2,7 +2,7 @@ void main (int a, int b)
 {
     int c;
 
-    c = func(c);
+     c = func(c);
     print c;
 }
 

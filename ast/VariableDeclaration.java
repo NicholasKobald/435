@@ -17,8 +17,7 @@ public class VariableDeclaration {
 
     public String toCodeString(int indent_num) {
         //ie: int my_variable;
-        String indent = String.join("", Collections.nCopies(indent_num, " ")); 
-        return String.format("%s%s %s;\n", indent, type.toCodeString(), id.toString());
+        return String.format("%s %s;\n", type.toCodeString(), id.toString());
     }
 
     void accept(PPVisitor v) {
