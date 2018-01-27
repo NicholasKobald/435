@@ -69,13 +69,13 @@ public class PPVisitor {
     }
 
     void visit(While w) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + w.toCodeString());
         this.printBlock(w.statements);
     }
 
     void visit(BaseStatement st) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.print(indent + st.toCodeString()); 
     }
 
@@ -84,7 +84,7 @@ public class PPVisitor {
     }
 
     void visit(If if_block) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + if_block.toCodeString());
         this.printBlock(if_block.statements);
         if (if_block.elseStatements != null) {
@@ -94,38 +94,46 @@ public class PPVisitor {
     }
 
     void visit(Return ret) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + ret.toCodeString()); 
     }
 
     void visit(Print ps) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + ps.toCodeString());
     }
 
     void visit(ArrayAssignment as) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + as.toCodeString() + ";"); 
     }
 
     void visit(ArrayExpression ae) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + ae.toCodeString() + ";"); 
     }
 
     void visit(ExpressionStatement et) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + et.toCodeString() + ";");
     }
 
     void printBlock(StatementList statements) {
-        String indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        String indent = get_indent(indent_level);
         System.out.println(indent + "{"); 
         this.indent_level += 4;
         for (BaseStatement st: statements)
             st.accept(this); 
         this.indent_level -= 4;
-        indent = String.join("", Collections.nCopies(indent_level, " ")); 
+        indent = get_indent(indent_level);
         System.out.println(indent + "}");
+    }
+
+    private static String get_indent(int indent_depth) {
+        String ind = "";
+        for (int i = 0; i < indent_depth; i++) {
+            ind += " "; 
+        }
+        return ind; 
     }
 }
