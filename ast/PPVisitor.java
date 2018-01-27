@@ -80,7 +80,8 @@ public class PPVisitor {
     }
 
     void visit(VariableDeclaration dec) {
-        System.out.print(dec.toCodeString(this.indent_level)); 
+        String indent = get_indent(indent_level);
+        System.out.print(indent + dec.toCodeString(this.indent_level)); 
     }
 
     void visit(If if_block) {
