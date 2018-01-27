@@ -27,20 +27,22 @@ public class PPVisitor {
 
     void visit(FunctionBody body) {
         System.out.print("{");
-
         indent_level += 4;
+
         if (body.variableList.iterator().hasNext())
             System.out.println(); 
-
+            
         for (VariableDeclaration dec: body.variableList)
             dec.accept(this); 
 
-        if (body.statementList.iterator().hasNext()) System.out.println(); 
+        if (body.statementList.iterator().hasNext()) 
+            System.out.println(); 
         
         for (BaseStatement st: body.statementList) 
             st.accept(this); 
 
         indent_level -= 4;
+
         if (!body.variableList.iterator().hasNext() && !body.statementList.iterator().hasNext())
             System.out.println();
 
@@ -120,8 +122,7 @@ public class PPVisitor {
         String indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "{"); 
         this.indent_level += 4;
-        for (BaseStatement st: statements)
-            st.accept(this);
+        statements.forEach(st->st.accept(this));
         this.indent_level -= 4;
         indent = String.join("", Collections.nCopies(indent_level, " ")); 
         System.out.println(indent + "}");
