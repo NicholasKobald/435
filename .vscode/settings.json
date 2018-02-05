@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.thor": "ruby",
+        "*.gs": "javascript",
+        "stdlib.h": "c"
+    }
+}

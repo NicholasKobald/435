@@ -5,7 +5,7 @@ import org.antlr.runtime.Token;
 
 public abstract class UnaryExpression extends BaseExpression {
 
-    Token token;
+    protected Token token;
 
     public UnaryExpression(Token token) {
         this.token = token;

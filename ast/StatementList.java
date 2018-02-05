@@ -26,7 +26,7 @@ public class StatementList extends AST implements Iterable<BaseStatement> {
         if (this.sl == null || this.sl.size() == 0)
             return statementString;
 
-        String indent = "    "; //four spaces
+        String indent = "    ";
         for (BaseStatement s: sl)
             statementString += indent + s.toString();
 
