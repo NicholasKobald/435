@@ -1,24 +1,13 @@
 /*
  * Compiler.java
  *
- *
+ * N. Kobald Jan, 2018 
  */
 import java.io.*;
 
 import ast.PPVisitor;
-
-/* prolly fix this
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.TreeAdaptor;
-import org.antlr.runtime.tree.CommonTreeAdaptor; */
-
 import ast.Program;
+import ast.TypeCheckVisitor;
 import types.*;
 import types.BoolType;
 import org.antlr.runtime.*;
@@ -54,10 +43,9 @@ public class Compiler {
             return;
         }
 
-        PPVisitor visitor = new PPVisitor(); 
-        visitor.visit(prog); 
-        //System.out.println("PPrint Output:\n");
-        //System.out.println(prog);
-        // org.antlr.runtime.tree
+        //PPVisitor visitor = new PPVisitor(); 
+        //visitor.visit(prog); 
+        TypeCheckVisitor tcvisitor = new TypeCheckVisitor(); 
+        tcvisitor.verify(prog); 
     }
 }

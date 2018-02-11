@@ -2,10 +2,6 @@ void foo(int a1, char b2) {
 
 }
 
-void main() {
-    
-}
-
 string bar(boolean b_) {
 
 }

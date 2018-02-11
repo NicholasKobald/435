@@ -2,21 +2,53 @@
 
 Lets make a compiler!
 
+#### Build the class files
+
+This version should be Java7 friendly, so we can build with the following two commands: 
+
+```
+source uviccp # point to class files in jasons directory 
+make
+```
+
+#### Run on some file
+
+Skip ahead to the next section if you have Python3.6 or higher. 
+
+`java Compiler path/to/UL/file`
+
+A number of tests are in `/tests`/, for example
+
+`java Compiler tests/accept_complicated_expressions.ul` 
+
+
+## Running the Tests Automaticly 
+
+The test running script requires Python3.6. The lab machines run version 3.4.
+
 ### Run the tests  (this will also build the project from scratch each time)
 
 `python3 runtests.py`
 
-#### Build the class files
+###  Test commands:
 
-`make`
+#### Checking the AST/PPrinter 
 
-#### Run Compiler on some file
+```
+    mkdir tests/pprint_output 
+    python3 runtests.py --write-pprint # populate tests/pprint_output/ with corresponding PPrint outputs 
+``` 
+Then, we can always check against the existing pprint output by running tests with 
+```
+    python3 runtests.py --check-ast 
+``` 
 
-`java Compiler /path/to/ULfile`
-
-#### Test commands:
+#### Other test commands 
+Run compiler on a specific file 
 
 `python3 runtests.py -n <name_of_file> # run a specific test, you don't need to indiciate the directory`
+
+The test runner creates a `.tests_cache` of the previously failed tests. To re-run only the tests that failed on the last run, use
 
 `python3 runtests.py --failed # run the tests that failed last time`
 

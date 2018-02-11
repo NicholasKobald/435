@@ -2,8 +2,8 @@ package ast;
 
 public class Function extends AST {
 
-    FunctionDeclaration declaration;
-    FunctionBody body;
+    public FunctionDeclaration declaration;
+    public FunctionBody body;
 
     public void fillFunction(FunctionDeclaration declaration, FunctionBody body) {
         this.declaration = declaration;

@@ -11,12 +11,10 @@ public class Program extends AST implements Iterable<Function> {
     ArrayList<Function> functionList;
 
     public Program() {
-        //System.out.println("Init Program.");
         this.functionList = new ArrayList<Function>();
     }
 
     public void append(Function f) {
-        //System.out.println("Adding this function!"); //only called for the last function found
         this.functionList.add(f);
     }
 
