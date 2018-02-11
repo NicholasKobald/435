@@ -1,11 +1,14 @@
 package ast;
 
 import ast.BaseULException;
+import ast.Function;
+import types.VoidType;
 
 public class TypeCheckVisitor {
 
-    void verify(Program p) {
-
+    public void verify(Program p) throws BaseULException { 
+        System.out.println("Verifying contains main..");
+        verifyContainsValidMain(p);
     }
 
     void verify(Function f) {
@@ -22,12 +25,21 @@ public class TypeCheckVisitor {
 
     // ad nauseum ... 
 
-    private static void verify_contains_valid_main(Program p) throws BaseULException {
-        for (Function f: p) 
-            if (f.declaration.id.equals("main")) {
-                if (f.declaration.type == VoidType )
+    /*
+     * Verifies Program p contains a main that is of VoidType, and takes no paramaters. 
+     */
+    private static void verifyContainsValidMain(Program p) throws BaseULException {
+        for (Function f: p) {
+            if(isValidMain(f.declaration)) {
+                return; 
             }
+        }
+           
+        throw new MissingMainException("", 0); // does 0 make sense?  --> negative number that gets handled by the printing maybe
+        // potentailly I can make MME take only 1 param without fuckingshitup
+    }
 
-        throw new MissingMainException("", f.declaration.id.getLineNumber()); 
+    private static boolean isValidMain(FunctionDeclaration fd) {
+        return fd.id.equals("main") && fd.type instanceof VoidType && fd.params.size() == 0; 
     }
 }
