@@ -2,6 +2,7 @@
     "files.associations": {
         "*.thor": "ruby",
         "*.gs": "javascript",
+        "*.ul": "c", 
         "stdlib.h": "c"
     }
 }
