@@ -1,7 +1,7 @@
 package ast;
 
 import java.util.Iterator;
-import java.util.Collections; 
+import java.util.Collections;
 
 
 public class PPVisitor {
@@ -16,13 +16,13 @@ public class PPVisitor {
     void visit(Function f) {
         f.declaration.accept(this);
         f.body.accept(this);
-        System.out.println(); 
+        System.out.println();
     }
 
     void visit(FunctionDeclaration dec) {
-        System.out.print(String.format("%s %s (", dec.type.toCodeString(), dec.id.toString())); 
+        System.out.print(String.format("%s %s (", dec.type.toCodeString(), dec.id.toString()));
         dec.params.accept(this);
-        System.out.println(")"); 
+        System.out.println(")");
     }
 
     void visit(FunctionBody body) {
@@ -50,22 +50,22 @@ public class PPVisitor {
     }
 
     void visit(ParamList params) {
-        Iterator<Param> paramIt = params.iterator(); 
+        Iterator<Param> paramIt = params.iterator();
         if (paramIt.hasNext()) {
             paramIt.next().accept(this);
             while (paramIt.hasNext()) {
-                System.out.print(", "); 
-                paramIt.next().accept(this); 
+                System.out.print(", ");
+                paramIt.next().accept(this);
             }
         }
     }
 
     void visit(FunctionCall fc) {
-        System.out.println(fc.toString()); 
+        System.out.println(fc.toString());
     }
 
     void visit(Param p) {
-        System.out.print(p.toString()); 
+        System.out.print(p.toString());
     }
 
     void visit(While w) {
