@@ -1,0 +1,31 @@
+void main() {
+
+}
+
+int zah(string s, int a, char b) {
+
+}
+
+int bar(int a) {
+
+}
+
+ // fine cause its void 
+void zah(string s, int a, char b) {
+
+}
+
+// fine cause diff param type 
+int bar(char b) {
+    
+}
+
+// want crash on line below (24) 
+int zah(string s, int a, char b) {
+
+
+}
+
+int aaaaaa() {
+
+}

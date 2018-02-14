@@ -30,5 +30,4 @@ public class Function extends AST {
     void accept(TypeCheckVisitor v) {
         v.verify(this); 
     }
-     
 }

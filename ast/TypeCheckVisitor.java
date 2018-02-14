@@ -19,8 +19,10 @@ public class TypeCheckVisitor {
         return; 
     }
 
-    void verify(Function f) {
+    Type verify(Function f) {
+        FunctionEnvironment functionEnv = new FunctionEnvironment(f.declaration, this.globals); 
 
+        return new VoidType(); 
     }
 
     void verify(FunctionDeclaration fd) {

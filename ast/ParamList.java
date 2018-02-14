@@ -33,7 +33,17 @@ public class ParamList extends AST implements Iterable<Param> {
         if (!(o instanceof ParamList)) return false; 
         
         ParamList pl = (ParamList)o; 
-        // do comp FIXME 
+
+        // concern ourselves with the types of the parameters 
+        // if same number of params, and the types of each are the same
+        // consider them to be identical 
+        if (pl.size() != this.size) return false; 
+        for (int i = 0; i < this.size; i++) {
+            if (this.formals.get(i).type != pl.formals.get(i).type) {
+                return false; 
+            }   
+        }
+
         return true; 
     }
 
