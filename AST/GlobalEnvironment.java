@@ -1,10 +1,12 @@
+package ast; 
+
 import java.util.*;
 
 public class GlobalEnvironment {
 
     LinkedList<FunctionDeclaration> functionList; 
 
-    public FunctionEnvironment() {
+    public GlobalEnvironment() {
         this.functionList = new LinkedList<FunctionDeclaration>(); 
     }
 

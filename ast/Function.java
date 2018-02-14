@@ -18,7 +18,7 @@ public class Function extends AST {
         v.visit(this);
     }
     
-    
+    /*
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true; 
@@ -26,4 +26,5 @@ public class Function extends AST {
         
         return this.declaration.equals(obj.declaration); 
     }
+    */ 
 }

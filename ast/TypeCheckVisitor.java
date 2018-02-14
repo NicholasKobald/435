@@ -6,9 +6,15 @@ import types.VoidType;
 
 public class TypeCheckVisitor {
 
+    GlobalEnvironment globals; 
+
     public void verify(Program p) throws BaseULException { 
         System.out.println("Verifying contains main..");
         verifyContainsValidMain(p);
+        globals = new GlobalEnvironment();
+        for (Function f: p) {
+            globals.add(f.declaration); 
+        }
     }
 
     void verify(Function f) {

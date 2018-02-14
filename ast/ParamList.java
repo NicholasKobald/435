@@ -30,4 +30,14 @@ public class ParamList extends AST implements Iterable<Param> {
     public int size() {
         return this.size; 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; 
+        if (!(o instanceof ParamList)) return false; 
+        
+        ParamList pl = (ParamList)o; 
+        // do comp 
+        return true; 
+    }
 }

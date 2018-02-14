@@ -19,5 +19,14 @@ public class Param extends AST {
 
     void accept(PPVisitor v) {
         v.visit(this);
-    }   
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; 
+        if (!(o instanceof Param)) return false; 
+        
+        Param param = (Param)o; 
+        return this.id.equals(param.id.toString()) && this.type == param.type; 
+    }
 }

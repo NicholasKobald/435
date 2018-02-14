@@ -17,5 +17,14 @@ public class FunctionDeclaration extends AST {
 
     void accept(PPVisitor v) {
         v.visit(this);
-    }   
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; 
+        if (!(o instanceof FunctionDeclaration)) return false; 
+        
+        FunctionDeclaration declaration = (FunctionDeclaration)o;
+        return declaration.id.equals(this.id) && declaration.type == this.type && declaration.params.equals(this.params); 
+    }
 }
