@@ -11,6 +11,8 @@ public class ULIdentifier extends UnaryExpression {
         super(token);
     }
 
+    // I'm a bad bad person
+    // fixme! 
     public boolean equals(Object o) {
         return this.token.getText().equals(o); 
     }

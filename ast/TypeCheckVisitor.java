@@ -29,13 +29,14 @@ public class TypeCheckVisitor {
      * Verifies Program p contains a main that is of VoidType, and takes no paramaters. 
      */
     private static void verifyContainsValidMain(Program p) throws BaseULException {
+        int valid_main_count = 0;
         for (Function f: p) {
             if(isValidMain(f.declaration)) {
-                return; 
+                valid_main_count += 1; 
             }
         }
-           
-        throw new MissingMainException("", 0); // does 0 make sense?  --> negative number that gets handled by the printing maybe
+        if (valid_main_count != 1)       
+            throw new MissingMainException("", 0); // does 0 make sense?  --> negative number that gets handled by the printing maybe
         // potentailly I can make MME take only 1 param without fuckingshitup
     }
 
