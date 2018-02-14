@@ -14,10 +14,6 @@ public class Function extends AST {
         return this.declaration.toString() + "\n" + this.body.toString();
     }
 
-    void accept(PPVisitor v) {
-        v.visit(this);
-    }
-    
     /*
     @Override
     public boolean equals(Object obj) {
@@ -26,5 +22,13 @@ public class Function extends AST {
         
         return this.declaration.equals(obj.declaration); 
     }
-    */ 
+    */
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
+    
+    void accept(TypeCheckVisitor v) {
+        v.verify(this); 
+    }
+     
 }

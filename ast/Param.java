@@ -17,10 +17,6 @@ public class Param extends AST {
         return String.format("%s %s", this.type.toCodeString(), this.id.toString()); 
     }
 
-    void accept(PPVisitor v) {
-        v.visit(this);
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; 
@@ -29,4 +25,13 @@ public class Param extends AST {
         Param param = (Param)o; 
         return this.id.equals(param.id.toString()) && this.type == param.type; 
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
+    
+    void accept(TypeCheckVisitor v) {
+        v.verify(this); 
+    }
+    
 }

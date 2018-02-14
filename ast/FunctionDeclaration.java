@@ -18,6 +18,10 @@ public class FunctionDeclaration extends AST {
     void accept(PPVisitor v) {
         v.visit(this);
     }
+
+    void accept(TypeCheckVisitor v) {
+        v.verify(this); 
+    }
     
     @Override
     public boolean equals(Object o) {
@@ -25,6 +29,6 @@ public class FunctionDeclaration extends AST {
         if (!(o instanceof FunctionDeclaration)) return false; 
         
         FunctionDeclaration declaration = (FunctionDeclaration)o;
-        return declaration.id.equals(this.id) && declaration.type == this.type && declaration.params.equals(this.params); 
+        return declaration.id.equals(this.id.toString()) && declaration.type == this.type && declaration.params.equals(this.params); 
     }
 }

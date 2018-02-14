@@ -10,13 +10,15 @@ public class GlobalEnvironment {
         this.functionList = new LinkedList<FunctionDeclaration>(); 
     }
 
-    public void add(FunctionDeclaration fd) {
+    public void add(FunctionDeclaration fd) throws DuplicateFunctionException {
+        if (this.exists(fd)) 
+            throw new DuplicateFunctionException("Duplicate Function Found", fd.id.getLineNumber());
         functionList.add(fd); 
     }
 
-    public boolean exists(FunctionDeclaration function) {
+    public boolean exists(FunctionDeclaration functionDec) {
         for (FunctionDeclaration fd: functionList) {
-            if (fd.equals(function)) {
+            if (fd.equals(functionDec)) {
                 return true; 
             }
         }

@@ -2,6 +2,7 @@ package ast;
 
 import ast.BaseULException;
 import ast.Function;
+import types.Type; 
 import types.VoidType;
 
 public class TypeCheckVisitor {
@@ -9,12 +10,13 @@ public class TypeCheckVisitor {
     GlobalEnvironment globals; 
 
     public void verify(Program p) throws BaseULException { 
-        System.out.println("Verifying contains main..");
         verifyContainsValidMain(p);
         globals = new GlobalEnvironment();
         for (Function f: p) {
             globals.add(f.declaration); 
         }
+
+        return; 
     }
 
     void verify(Function f) {
@@ -26,6 +28,14 @@ public class TypeCheckVisitor {
     }
 
     void verify(FunctionBody fb) {
+
+    }
+
+    void verify(ParamList pl) {
+
+    }
+
+    void verify(Param p) {
 
     }
 

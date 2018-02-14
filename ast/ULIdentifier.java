@@ -13,6 +13,14 @@ public class ULIdentifier extends UnaryExpression {
 
     // this is how u HACK
     public boolean equals(Object o) {
-        return this.toString().equals(o); 
+        if (o instanceof ULIdentifier) {
+            return this.toString().equals(o.toString()); 
+        } else {
+            return this.toString().equals(o); 
+        }
+    }
+
+    public boolean idEquals(String s) {
+        return this.toString().equals(s); 
     }
 }

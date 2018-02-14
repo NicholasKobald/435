@@ -23,10 +23,6 @@ public class ParamList extends AST implements Iterable<Param> {
         return formals.iterator(); 
     }
 
-    void accept(PPVisitor v) {
-        v.visit(this);
-    }
-    
     public int size() {
         return this.size; 
     }
@@ -37,7 +33,16 @@ public class ParamList extends AST implements Iterable<Param> {
         if (!(o instanceof ParamList)) return false; 
         
         ParamList pl = (ParamList)o; 
-        // do comp 
+        // do comp FIXME 
         return true; 
     }
+
+    void accept(PPVisitor v) {
+        v.visit(this);
+    }
+    
+    void accept(TypeCheckVisitor v) {
+        v.verify(this); 
+    }
+    
 }
