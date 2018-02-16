@@ -8,7 +8,7 @@ import types.ArrayType;
 public class VariableDeclaration {
 
     Type type;
-    ULIdentifier id;
+    public ULIdentifier id;
 
     public VariableDeclaration(Type type, ULIdentifier id) {
         this.type = type;

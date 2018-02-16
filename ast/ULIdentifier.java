@@ -12,6 +12,7 @@ public class ULIdentifier extends UnaryExpression {
     }
 
     // this is how u HACK
+    // starting to be worried about how much depends on this
     public boolean equals(Object o) {
         if (o instanceof ULIdentifier) {
             return this.toString().equals(o.toString()); 
