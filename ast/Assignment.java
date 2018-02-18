@@ -1,5 +1,6 @@
 package ast;
 
+import types.Type; 
 
 public class Assignment extends BaseStatement {
 
@@ -14,5 +15,9 @@ public class Assignment extends BaseStatement {
     public String toCodeString() {
         // ex: `identifier = 5 + (5);`
         return String.format("%s = %s;\n", this.identifier.toString(), this.exp.toCodeString());
+    }
+
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
     }
 }

@@ -7,6 +7,7 @@ import ast.ULIdentifier;
 import ast.UndeclaredIdentifierException;
 import ast.VariableDeclaration;
 import types.Type; 
+import types.VoidType; 
 
 public class FunctionEnvironment {
 
@@ -42,7 +43,8 @@ public class FunctionEnvironment {
     public void add(Param p) throws RedefinitionException {
         if (this.isUsed(p))
             throw new RedefinitionException("Duplicate Param Ids", p.id.getLineNumber());
-        else
+        if (p.type instanceof VoidType)
+            throw new RedefinitionException("This SHOULD BE A VOIDTYPE EXCEPTION BUT IM Z", p.id.getLineNumber());
             usedParams.add(p); 
     }
 
@@ -50,8 +52,10 @@ public class FunctionEnvironment {
                                   throws RedefinitionException {
         if (this.isUsed(vardec))
             throw new RedefinitionException("Duplicate Variable Declaration", vardec.id.getLineNumber());
-        else
-            this.usedVariables.add(vardec); 
+        if (vardec.type instanceof VoidType)
+            throw new RedefinitionException("This SHOULD BE A VOIDTYPE EXCEPTION BUT IM Z", vardec.id.getLineNumber());
+
+        this.usedVariables.add(vardec); 
     }
     public boolean isUsed(AST p) {
         /*

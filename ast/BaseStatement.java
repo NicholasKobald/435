@@ -8,7 +8,8 @@ public abstract class BaseStatement extends AST {
         v.visit(this);
     }
 
-    Type accept(TypeCheckVisitor v) {
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        System.out.println("Verifying a statement:");
         return v.verify(this);
     }
 

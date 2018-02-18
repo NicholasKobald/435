@@ -234,12 +234,12 @@ type returns [Type t]
         ;
 
 literal returns [BaseExpression exp]
-        : t = STRINGCONST  { exp = new ULString(t);  }
-        | t = INTEGERCONST { exp = new ULInteger(t); }
-        | t = FLOATCONST   { exp = new ULFloat(t);   }
-        | t = CHARCONST    { exp = new ULChar(t);    }
-        | t = TRUE         { exp = new ULBool(t);    }
-        | t = FALSE        { exp = new ULBool(t);    }
+        : t = STRINGCONST  { exp = new ULString(t, _str);  }
+        | t = INTEGERCONST { exp = new ULInteger(t, _int); }
+        | t = FLOATCONST   { exp = new ULFloat(t, _float);   }
+        | t = CHARCONST    { exp = new ULChar(t, _char);    }
+        | t = TRUE         { exp = new ULBool(t, _bool);    }
+        | t = FALSE        { exp = new ULBool(t, _bool);    }
         ;
 
 IF      : 'if'
@@ -281,7 +281,7 @@ STRINGCONST  : '"'('a'..'z'|'A'..'Z'|'_'|' '|'0'..'9'|'.'|','|'!')*'"'
 ID	: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
-WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN;}
+WS      : ( '\t' | ' ' | ('\r' | '\n') )+ { $channel = HIDDEN; }
         ;
 
 COMMENT : '//' ~('\r' | '\n')* ('\r' | '\n')? { $channel = HIDDEN;}

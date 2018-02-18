@@ -1,5 +1,7 @@
 package ast;
 
+import types.Type; 
+
 public class Function extends AST {
 
     public FunctionDeclaration declaration;
@@ -12,6 +14,10 @@ public class Function extends AST {
 
     public String toString() {
         return this.declaration.toString() + "\n" + this.body.toString();
+    }
+
+    public Type type() {
+        return this.declaration.type; 
     }
 
     /*

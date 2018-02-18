@@ -36,23 +36,35 @@ public class TypeCheckVisitor {
         for (BaseStatement s: f.body.statementList) {
             s.accept(this); 
         }
-        return new VoidType(); 
+        return new VoidType();
     }
 
     Type verify(Assignment assignmentStatement) throws BaseULException {
         // verify type of LHS matches RHS i guess
         ULIdentifier lhsid = assignmentStatement.identifier; 
-        Type lhsType = this.currentFunction.getVariableType(lhsid);
-        Type rhstype = assignmentStatement.exp.accept(this);
+        Type lhs = this.currentFunction.getVariableType(lhsid);
+        Type rhs = assignmentStatement.exp.accept(this);
+        if (lhs == rhs)
+            return lhs;
+        String err = String.format("assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
+        throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
+    }
+
+    Type verify(ExpressionStatement e) {
         return new VoidType(); 
     }
 
-    Type verify(BaseExpression be) {
-        return new VoidType();
+    Type verify(BaseStatement s) {
+        System.out.println("Wrong bs");
+        return new VoidType(); 
     }
 
-    Type verify(BaseStatement bs) {
+    Type verify(UnaryExpression e) {
+        System.out.println("Returning type:" + e.type.toCodeString());
+        return e.type; 
+    }
 
+    Type verify(BaseExpression be) {
         return new VoidType();
     }
 

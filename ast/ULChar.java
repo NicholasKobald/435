@@ -2,10 +2,14 @@ package ast;
 
 import org.antlr.runtime.Token;
 
+import types.CharType;
 
 public class ULChar extends UnaryExpression {
 
-    public ULChar(Token token) {
+    private CharType type; 
+
+    public ULChar(Token token, CharType ct) {
         super(token);
+        this.type = ct; 
     }
 }

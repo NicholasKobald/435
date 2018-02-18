@@ -2,13 +2,16 @@ package ast;
 
 import org.antlr.runtime.Token;
 
+import types.Type; 
 
 public abstract class UnaryExpression extends BaseExpression {
 
     protected Token token;
+    Type type; 
 
     public UnaryExpression(Token token) {
         this.token = token;
+        this.type = null; // trick java into thinking its ok to be accessing the childrens 'type' (which it sort of is)
     }
 
     public int getLineNumber() {
@@ -25,5 +28,9 @@ public abstract class UnaryExpression extends BaseExpression {
 
     public String toCodeString() {
         return this.toString(); 
+    }
+    
+    public Type accepts(TypeCheckVisitor v) {
+        return v.verify(this);
     }
 }
