@@ -3,8 +3,8 @@ package ast;
 
 public class Assignment extends BaseStatement {
 
-    ULIdentifier identifier;
-    BaseExpression exp;
+    public ULIdentifier identifier;
+    public BaseExpression exp;
 
     public Assignment(ULIdentifier id, BaseExpression exp) {
             this.identifier = id;

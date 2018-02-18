@@ -5,9 +5,9 @@ import java.util.Collections;
 import types.Type;
 import types.ArrayType;
 
-public class VariableDeclaration {
+public class VariableDeclaration extends AST {
 
-    Type type;
+    public Type type;
     public ULIdentifier id;
 
     public VariableDeclaration(Type type, ULIdentifier id) {

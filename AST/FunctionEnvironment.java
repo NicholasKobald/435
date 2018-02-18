@@ -4,15 +4,14 @@ import java.util.*;
 
 import ast.RedefinitionException;
 import ast.ULIdentifier;
+import ast.UndeclaredIdentifierException;
 import ast.VariableDeclaration;
-import sun.tools.tree.VarDeclarationStatement;
 import types.Type; 
 
 public class FunctionEnvironment {
 
     GlobalEnvironment globals;
     Type returnType;
-
     /* List of local params */ 
     LinkedList<Param> usedParams;
     /* List of local variables */ 
@@ -29,76 +28,71 @@ public class FunctionEnvironment {
                                GlobalEnvironment globals) 
                                throws RedefinitionException {
         this.returnType = fd.type; 
-        this.globals = globals; 
-        for (Param p: fd.formalParams) {
+        this.globals = globals;
+        this.usedParams = new LinkedList<Param>();
+        this.usedVariables = new LinkedList<VariableDeclaration>();
+        for (Param p: fd.params) {
             this.add(p); 
         }
         for (VariableDeclaration varDec: varDecList) {
-            this.addVarDec(varDec); 
+            this.addVarDeclaration(varDec); 
         }
     }
 
-    public void add(ULIdentifier id) throws RedefinitionException {
-        if (idUsed(id))
-            throw new RedefinitionError("Duplicate Param Ids", id.getLineNumber());
-        usedIds.add(id); 
+    public void add(Param p) throws RedefinitionException {
+        if (this.isUsed(p))
+            throw new RedefinitionException("Duplicate Param Ids", p.id.getLineNumber());
+        else
+            usedParams.add(p); 
     }
 
     public void addVarDeclaration(VariableDeclaration vardec)
                                   throws RedefinitionException {
-        if (isUsed(varDec))
-            throw new RedefinitionError("Duplicate Variable Declaration", varDec.id.getLineNumber());
-        this.usedVariables.add(varDec); 
+        if (this.isUsed(vardec))
+            throw new RedefinitionException("Duplicate Variable Declaration", vardec.id.getLineNumber());
+        else
+            this.usedVariables.add(vardec); 
     }
     public boolean isUsed(AST p) {
-    /*
-    * TODO: learn generics (kidding, I'll just keep telling everyone how 
-    * bad of a programming language Java is) 
-    */
-    ULIdentifier target; 
-    if (p instanceof Param) {
-        Param param = (Param)p; 
-        target = param.id; 
-    } else if (p instanceof VariableDeclaration) {
-        VariableDeclaration varDec = (VariableDeclaration)p;
-        target = varDec.id; 
-    }
-
-    for (Param seen: this.usedParams) {
-        if (target.equals(seen.id)) {
-            return true; 
-        }
-    }
-    for (VariableDeclaration seen: this.usedVariables) {
-        if (target.equals(seen.id)) {
-            return true; 
-        }
-    }  
-    return false;
-   }
-}
-    /* 
-    public boolean isUsed(AST p) {
-         * TODO: learn generics (kidding, I'll just keep telling everyone how 
-         * bad of a programming language Java is) 
-    
+        /*
+        * TODO: learn generics (kidding, I'll just keep telling everyone how 
+        * bad of a programming language Java is) 
+        */
+        ULIdentifier target = null; // java is honestly a garbage language 
         if (p instanceof Param) {
             Param param = (Param)p; 
-            for (Param seen: this.usedParams) {
-                if (param.equals(seen)) {
-                    return true; 
-                }
-            }
-            return false;
+            target = param.id; 
         } else if (p instanceof VariableDeclaration) {
             VariableDeclaration varDec = (VariableDeclaration)p;
-            for (VariableDeclaration seen: this.usedVariables) {
-                if (varDec.equals(seen)) {
-                    return true; 
-                }
-            }
-            return false;
+            target = varDec.id; 
         }
-        return true;  // crash? 
+    
+        // System.out.println("Checking: " + target.toString());
+        for (Param seen: this.usedParams) {
+            if (target.equals(seen.id)) {
+                return true; 
+            }
+        }
+        for (VariableDeclaration seen: this.usedVariables) {
+            if (target.equals(seen.id)) {
+                return true; 
+            }
+        }  
+        return false;
     }
-    */
+
+    public Type getVariableType(ULIdentifier target) throws UndeclaredIdentifierException {
+        for (Param seen: this.usedParams) {
+            if (target.equals(seen.id)) {
+                return seen.type; 
+            }
+        }
+        for (VariableDeclaration seen: this.usedVariables) {
+            if (target.equals(seen.id)) {
+                return seen.type; 
+            }
+        }
+        String err = String.format("Use of undeclared identifier %s", target.toString());  
+        throw new UndeclaredIdentifierException(err, target.getLineNumber()); 
+    }
+}

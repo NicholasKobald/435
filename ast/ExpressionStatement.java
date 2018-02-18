@@ -1,5 +1,6 @@
 package ast;
 
+import types.Type; 
 
 public class ExpressionStatement extends BaseStatement {
 
@@ -18,5 +19,9 @@ public class ExpressionStatement extends BaseStatement {
 
     void accept(PPVisitor v) {
         v.visit(this);
+    }
+
+    Type accept(TypeCheckVisitor v) {
+        return v.verify(this);
     }
 }

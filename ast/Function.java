@@ -27,7 +27,7 @@ public class Function extends AST {
         v.visit(this);
     }
     
-    void accept(TypeCheckVisitor v) {
+    void accept(TypeCheckVisitor v) throws BaseULException {
         v.verify(this); 
     }
 }

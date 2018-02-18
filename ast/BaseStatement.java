@@ -1,9 +1,15 @@
 package ast;
 
-public abstract class BaseStatement {
+import types.Type; 
+
+public abstract class BaseStatement extends AST {
 
     void accept(PPVisitor v) {
         v.visit(this);
+    }
+
+    Type accept(TypeCheckVisitor v) {
+        return v.verify(this);
     }
 
     public String toCodeString() {
@@ -13,4 +19,5 @@ public abstract class BaseStatement {
     public String toCodeString(int indent) {
         return ""; 
     }
+
 }

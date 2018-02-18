@@ -1,0 +1,5 @@
+void main() {} 
+
+int foobaz(int a, string a) {
+    return 1; 
+}
