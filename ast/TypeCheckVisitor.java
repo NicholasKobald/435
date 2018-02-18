@@ -4,10 +4,24 @@ import com.sun.jdi.VirtualMachine;
 
 import ast.BaseULException;
 import ast.Function;
-import types.Type; 
-import types.VoidType;
+import types.*;
 
 public class TypeCheckVisitor {
+
+    FloatType float_type;
+    IntegerType int_type;
+    BoolType bool_type;
+    CharType char_type;
+    StringType string_type;
+    
+    
+    public TypeCheckVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st) {
+        this.float_type = ft;
+        this.int_type = int_type;
+        this.bool_type = bool_type;
+        this.char_type = ct;
+        this.string_type = st; 
+    }
 
     GlobalEnvironment globals;
     FunctionEnvironment currentFunction;  
@@ -49,22 +63,26 @@ public class TypeCheckVisitor {
         String err = String.format("assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
     }
+    
+    Type verify(AddExp e) {
+        if (e.operand_one.type == e.operand_two.type) {
+            if (e.operand_one.type == this.int_type || 
+                e.operand_one.type == this.float_type) {
+                    return e.operand_one.type; 
+                }
+        }
+    }
 
     Type verify(ExpressionStatement e) {
         return new VoidType(); 
     }
 
     Type verify(BaseStatement s) {
-        System.out.println("Wrong bs");
         return new VoidType(); 
     }
 
-    Type verify(UnaryExpression e) {
-        System.out.println("Returning type:" + e.type.toCodeString());
-        return e.type; 
-    }
-
     Type verify(BaseExpression be) {
+        //throw?
         return new VoidType();
     }
 
@@ -103,5 +121,20 @@ public class TypeCheckVisitor {
 
     private static boolean isValidMain(FunctionDeclaration fd) {
         return fd.id.equals("main") && fd.type instanceof VoidType && fd.params.size() == 0; 
+    }
+    Type verify(ULString s) {
+        return s.type; 
+    }
+    Type verify(ULInteger s) {
+        return s.type; 
+    }
+    Type verify(ULChar s) {
+        return s.type; 
+    }
+    Type verify(ULFloat s) {
+        return s.type; 
+    }
+    Type verify(ULBool s) {
+        return s.type; 
     }
 }

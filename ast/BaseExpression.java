@@ -6,7 +6,8 @@ public abstract class BaseExpression {
 
     public abstract String toCodeString();
 
-    public Type accept(TypeCheckVisitor v) {
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        System.out.println("BE accept TCV called");
         return v.verify(this); 
     }
 }

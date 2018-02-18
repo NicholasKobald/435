@@ -31,6 +31,7 @@ public abstract class UnaryExpression extends BaseExpression {
     }
     
     public Type accepts(TypeCheckVisitor v) {
+        System.out.println("UE TCV called");
         return v.verify(this);
     }
 }
