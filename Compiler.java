@@ -1,8 +1,3 @@
-/*
- * Compiler.java
- *
- * N. Kobald Jan, 2018 
- */
 import java.io.*;
 
 import ast.PPVisitor;
@@ -29,7 +24,6 @@ public class Compiler {
         ULLexer lexer = new ULLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ULParser parser = new ULParser(tokens);
-        //ULParser.program_return prog = null; // fuck off java
         Program prog = null;
         try {
             prog = (Program)parser.program();
@@ -42,10 +36,9 @@ public class Compiler {
             e.printStackTrace();
             return;
         }
-
         //PPVisitor visitor = new PPVisitor(); 
         //visitor.visit(prog); 
-        TypeCheckVisitor tcvisitor = new TypeCheckVisitor(); 
+        TypeCheckVisitor tcvisitor = new TypeCheckVisitor(parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
         tcvisitor.verify(prog); 
     }
 }

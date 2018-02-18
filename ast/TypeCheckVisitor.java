@@ -13,14 +13,16 @@ public class TypeCheckVisitor {
     BoolType bool_type;
     CharType char_type;
     StringType string_type;
+    VoidType void_type; 
     
     
-    public TypeCheckVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st) {
+    public TypeCheckVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st, VoidType vt) {
         this.float_type = ft;
         this.int_type = int_type;
         this.bool_type = bool_type;
         this.char_type = ct;
         this.string_type = st; 
+        this.void_type = vt; 
     }
 
     GlobalEnvironment globals;
@@ -63,14 +65,23 @@ public class TypeCheckVisitor {
         String err = String.format("assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
     }
+
+    Type verify(AddExp e) throws BaseULException {
+        return this.verifyBinaryMathExp(e); 
+    }
     
-    Type verify(AddExp e) {
-        if (e.operand_one.type == e.operand_two.type) {
-            if (e.operand_one.type == this.int_type || 
-                e.operand_one.type == this.float_type) {
-                    return e.operand_one.type; 
-                }
-        }
+    Type verify(SubExp e) throws BaseULException {
+        return this.verifyBinaryMathExp(e); 
+    }
+
+    Type verify(EqualityEqExp e) throws BaseULException {
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this); 
+        if (lhs == rhs) 
+            return new this
+
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
     }
 
     Type verify(ExpressionStatement e) {
@@ -81,8 +92,7 @@ public class TypeCheckVisitor {
         return new VoidType(); 
     }
 
-    Type verify(BaseExpression be) {
-        //throw?
+    Type verify(BaseExpression be) throws BaseULException {
         return new VoidType();
     }
 
@@ -122,6 +132,20 @@ public class TypeCheckVisitor {
     private static boolean isValidMain(FunctionDeclaration fd) {
         return fd.id.equals("main") && fd.type instanceof VoidType && fd.params.size() == 0; 
     }
+
+    private Type verifyBinaryMathExp(BinaryExpression e) throws BaseULException {
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this); 
+        if (lhs == rhs) {
+            if (lhs == this.int_type || 
+                lhs == this.float_type) {
+                    return lhs; 
+                }
+        }
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, 0); // TODO
+    }
+
     Type verify(ULString s) {
         return s.type; 
     }

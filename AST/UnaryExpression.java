@@ -14,10 +14,11 @@ public abstract class UnaryExpression extends BaseExpression {
         this.type = null; // trick java into thinking its ok to be accessing the childrens 'type' (which it sort of is)
     }
 
+    @Override
     public int getLineNumber() {
         return this.token.getLine();
     }
-
+    
     public int getCharPositionInLine() {
         return this.token.getCharPositionInLine();
     }
@@ -30,7 +31,7 @@ public abstract class UnaryExpression extends BaseExpression {
         return this.toString(); 
     }
     
-    public Type accepts(TypeCheckVisitor v) {
+    public Type accepts(TypeCheckVisitor v) throws BaseULException {
         System.out.println("UE TCV called");
         return v.verify(this);
     }

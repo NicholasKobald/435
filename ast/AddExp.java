@@ -9,8 +9,8 @@ public class AddExp extends BinaryExpression {
         this.operator = "+";         
     }
 
-    Type accepts(TypeCheckVisitor v) {
-        System.out.println("accepting add exp");
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        System.out.println("Checking addexp");
         return v.verify(this); 
     }
 } 
