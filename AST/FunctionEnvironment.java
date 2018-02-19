@@ -25,8 +25,7 @@ public class FunctionEnvironment {
      */
     public FunctionEnvironment(FunctionDeclaration fd, 
                                VariableDeclarationList varDecList, 
-                               GlobalEnvironment globals) 
-                               throws RedefinitionException {
+                               GlobalEnvironment globals) throws BaseULException {
         this.returnType = fd.type; 
         this.globals = globals;
         this.usedParams = new LinkedList<Param>();
@@ -39,20 +38,20 @@ public class FunctionEnvironment {
         }
     }
 
-    public void add(Param p) throws RedefinitionException {
+    public void add(Param p) throws BaseULException {
         if (this.isUsed(p))
             throw new RedefinitionException("Duplicate Param Ids", p.id.getLineNumber());
         if (p.type instanceof VoidType)
-            throw new RedefinitionException("This SHOULD BE A VOIDTYPE EXCEPTION BUT IM Z", p.id.getLineNumber());
+            throw new InvalidTypeException("Paramter may not be of type 'void'", p.id.getLineNumber());
             usedParams.add(p); 
     }
 
     public void addVarDeclaration(VariableDeclaration vardec)
-                                  throws RedefinitionException {
+                                  throws BaseULException {
         if (this.isUsed(vardec))
             throw new RedefinitionException("Duplicate Variable Declaration", vardec.id.getLineNumber());
         if (vardec.type instanceof VoidType)
-            throw new RedefinitionException("This SHOULD BE A VOIDTYPE EXCEPTION BUT IM Z", vardec.id.getLineNumber());
+            throw new InvalidTypeException("Variable may not be of type 'void'", vardec.id.getLineNumber());
 
         this.usedVariables.add(vardec); 
     }
