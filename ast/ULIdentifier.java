@@ -3,9 +3,10 @@ package ast;
 
 import org.antlr.runtime.Token;
 
+import types.Type; 
 
 public class ULIdentifier extends UnaryExpression {
-    
+
     public ULIdentifier(Token token) {
         super(token);
     }
@@ -22,5 +23,9 @@ public class ULIdentifier extends UnaryExpression {
 
     public boolean idEquals(String s) {
         return this.toString().equals(s); 
+    }
+
+    public Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
     }
 }

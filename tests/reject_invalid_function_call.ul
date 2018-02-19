@@ -1,0 +1,20 @@
+void main() {
+    int x;
+    string y;
+    boolean z;
+    char a;
+    int capture_ret; 
+
+    a = 'a';
+    x = 1; 
+    z = true; 
+    y = "Hello world"; 
+
+    capture_ret = foo("HELLO", x, z, y, "string2");
+}
+
+int foo(char a, int b, boolean c, string d, string e) {
+    return b + 1; 
+}
+
+

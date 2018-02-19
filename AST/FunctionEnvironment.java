@@ -12,7 +12,7 @@ import types.VoidType;
 public class FunctionEnvironment {
 
     GlobalEnvironment globals;
-    Type returnType;
+    public Type returnType;
     LinkedList<Param> usedParams;
     LinkedList<VariableDeclaration> usedVariables;
     LinkedList<ULIdentifier> hasValue; 

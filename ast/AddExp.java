@@ -10,7 +10,6 @@ public class AddExp extends BinaryExpression {
     }
 
     Type accept(TypeCheckVisitor v) throws BaseULException {
-        System.out.println("Checking addexp");
         return v.verify(this); 
     }
 } 

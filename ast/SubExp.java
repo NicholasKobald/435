@@ -1,5 +1,8 @@
 package ast;
 
+import types.Type;
+
+
 import org.antlr.runtime.Token;
 
 

@@ -24,4 +24,14 @@ public class GlobalEnvironment {
         }
         return false; 
     }
+
+    public FunctionDeclaration getFunctionById(ULIdentifier id) throws BaseULException {
+        for (FunctionDeclaration f: functionList) {
+            if (f.id.equals(id)) {
+                return f; 
+            }
+        }
+        String err = String.format("Function '%s' is not defined", id.toString());
+        throw new UndeclaredIdentifierException(err, 0); // TODO THO FUCK
+    }
 }

@@ -1,21 +1,27 @@
 void foo(int a1, char b2) {
 
+    return;
 }
 
 void main() {
-    
+    return; 
 }
 
 string bar(boolean b_) {
 
+    return "hello"; 
 }
 
 int baz(float _) {
 
+    return 1;
 }
 
 float boozle(float c1234_) {
 
+    return 1.0; 
 }
 
-boolean sum(int a, int b) {}
+boolean sum(int a, int b) {
+    return a == b; 
+}

@@ -1,8 +1,11 @@
 package ast;
 
+import java.util.ArrayList;
+
 import ast.BaseULException;
 import ast.Function;
 import types.*;
+
 
 public class TypeCheckVisitor {
 
@@ -64,7 +67,7 @@ public class TypeCheckVisitor {
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
     }
 
-    Type verify(MultExp e) {
+    Type verify(MultExp e) throws BaseULException {
         Type lhs = e.operand_one.accept(this); 
         Type rhs = e.operand_two.accept(this); 
         if (lhs == rhs) {
@@ -88,12 +91,21 @@ public class TypeCheckVisitor {
     Type verify(EqualityEqExp e) throws BaseULException {
         return this.verifyBooleanExp(e);
     }
+
     Type verify(EqualityLTExp e) throws BaseULException {
         return this.verifyBooleanExp(e);
     }
 
+    Type verify(Print p) throws BaseULException {
+        Type t = p.exp.accept(this); 
+        if (t == void_type) {
+            String err = String.format("Incompatible type for print statement. Type may not be void"); 
+            throw new IncompatibleTypesException(err, p.exp.getLineNumber()); // TODO
+        }
+        return void_type; 
+    }
+
     Type verify(If iff) throws BaseULException {
-        System.out.println("Verifying If..");
         Type cond = iff.cond.accept(this);
         if (cond != bool_type) {
             String err = String.format("Expected 'boolean' got %s in if statement expression.", cond); 
@@ -122,32 +134,56 @@ public class TypeCheckVisitor {
         return void_type; // ?   
     }
 
+    Type verify(Return r) throws BaseULException {
+        if (r.exp == null && this.currentFunction.returnType == void_type) {
+            return void_type;
+        }
+        Type t = r.exp.accept(this);
+        if (t == this.currentFunction.returnType) {
+            return t; 
+        } 
+        String err = String.format("Incompatible return type '%s'. Expected '%s'", 
+            t.toCodeString(), this.currentFunction.returnType.toCodeString()); 
+        throw new IncompatibleTypesException(err, r.exp.getLineNumber()); 
+    }
+
+    Type verify(ULIdentifier e) throws BaseULException {
+        Type t = this.currentFunction.getVariableType(e);
+        return t; 
+    }
+
+    Type verify(FunctionCall fc) throws BaseULException {
+        FunctionDeclaration fd = this.globals.getFunctionById(fc.id); 
+        ArrayList<Type> tl = new ArrayList<Type>(); 
+        for (BaseExpression e: fc.expList.expList) {
+            Type t = e.accept(this);
+            tl.add(t); 
+        }
+        int index = 0;
+        for (Param p: fd.params) {
+            if (!(p.type == tl.get(index))) {
+                String err = String.format("Paramater of type '%s' cannot be coerced to '%s'", tl.get(index).toCodeString(), p.type.toCodeString()); 
+                throw new IncompatibleTypesException(err, 0); // TODO  
+            }
+            index += 1;
+        }
+
+        return fd.type; 
+    }
+
     Type verify(ExpressionStatement e) {
+        System.out.println("Something went terribly terribly wrong");
         return new VoidType(); 
     }
 
     Type verify(BaseStatement s) {
+        System.out.println("Something went terribly terribly wrong");
         return new VoidType(); 
     }
 
     Type verify(BaseExpression be) throws BaseULException {
+        System.out.println("Something went terribly terribly wrong");
         return new VoidType();
-    }
-
-    void verify(FunctionDeclaration fd) {
-
-    }
-
-    void verify(FunctionBody fb) {
-
-    }
-
-    void verify(ParamList pl) {
-
-    }
-
-    void verify(Param p) {
-
     }
 
     // ad nauseum ... 
@@ -186,7 +222,6 @@ public class TypeCheckVisitor {
     }
 
     private Type verifyBooleanExp(BinaryExpression e) throws BaseULException {
-        System.out.println("Verifying equality exp");
         Type lhs = e.operand_one.accept(this); 
         Type rhs = e.operand_two.accept(this);
         if ((lhs == float_type || lhs == int_type) && (rhs == float_type || rhs == int_type)) {
@@ -202,15 +237,19 @@ public class TypeCheckVisitor {
     Type verify(ULString s) {
         return s.type; 
     }
+
     Type verify(ULInteger s) {
         return s.type; 
     }
+
     Type verify(ULChar s) {
         return s.type; 
     }
+
     Type verify(ULFloat s) {
         return s.type; 
     }
+
     Type verify(ULBool s) {
         return s.type; 
     }

@@ -29,9 +29,4 @@ public class Param extends AST {
     void accept(PPVisitor v) {
         v.visit(this);
     }
-    
-    void accept(TypeCheckVisitor v) {
-        v.verify(this); 
-    }
-    
 }

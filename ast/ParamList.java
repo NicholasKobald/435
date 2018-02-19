@@ -50,9 +50,4 @@ public class ParamList extends AST implements Iterable<Param> {
     void accept(PPVisitor v) {
         v.visit(this);
     }
-    
-    void accept(TypeCheckVisitor v) {
-        v.verify(this); 
-    }
-    
 }

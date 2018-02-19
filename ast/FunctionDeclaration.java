@@ -18,10 +18,6 @@ public class FunctionDeclaration extends AST {
     void accept(PPVisitor v) {
         v.visit(this);
     }
-
-    void accept(TypeCheckVisitor v) {
-        v.verify(this); 
-    }
     
     @Override
     public boolean equals(Object o) {

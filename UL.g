@@ -184,7 +184,7 @@ addExp returns [BaseExpression exp]
         }                                 
         : e1 = multExp { subtree = e1; } (ch = ('+'|'-') e2 = addExp {
                  if (ch.getText().charAt(0) == '+') subtree = new AddExp(e1, e2); 
-                                                                                  else subtree = new SubExp(e1, e2); })*
+                                               else subtree = new SubExp(e1, e2); })*
         ;
 
 

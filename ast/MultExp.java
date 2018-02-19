@@ -1,6 +1,6 @@
 package ast;
 
-import org.antlr.runtime.Token;
+import types.Type;
 
 
 public class MultExp extends BinaryExpression { 
