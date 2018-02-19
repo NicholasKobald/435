@@ -17,4 +17,8 @@ public class While extends BaseStatement {
     void accept(PPVisitor v) {
         v.visit(this);
     }
+
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
+    }
 }

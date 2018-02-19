@@ -2,6 +2,7 @@ package ast;
 
 import ast.StatementList;
 
+import types.Type; 
 
 public class If extends BaseStatement {
 
@@ -29,5 +30,9 @@ public class If extends BaseStatement {
 
     void accept(PPVisitor v) {
         v.visit(this);
+    }
+
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
     }
 }

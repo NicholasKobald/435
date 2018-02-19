@@ -10,4 +10,9 @@ public class MultExp extends BinaryExpression {
         super(exp, exp1);
         this.operator = "*"; 
     }
+
+
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
+    }
 }

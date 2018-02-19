@@ -1,7 +1,5 @@
 package ast;
 
-import com.sun.jdi.VirtualMachine;
-
 import ast.BaseULException;
 import ast.Function;
 import types.*;
@@ -66,6 +64,19 @@ public class TypeCheckVisitor {
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
     }
 
+    Type verify(MultExp e) {
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this); 
+        if (lhs == rhs) {
+            if (lhs == this.int_type || 
+                lhs == this.float_type) {
+                    return lhs; 
+                }
+        }
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO
+    }
+
     Type verify(AddExp e) throws BaseULException {
         return this.verifyBinaryMathExp(e); 
     }
@@ -75,13 +86,40 @@ public class TypeCheckVisitor {
     }
 
     Type verify(EqualityEqExp e) throws BaseULException {
-        Type lhs = e.operand_one.accept(this); 
-        Type rhs = e.operand_two.accept(this); 
-        if (lhs == rhs) 
-            return new this
+        return this.verifyBooleanExp(e);
+    }
+    Type verify(EqualityLTExp e) throws BaseULException {
+        return this.verifyBooleanExp(e);
+    }
 
-        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
+    Type verify(If iff) throws BaseULException {
+        System.out.println("Verifying If..");
+        Type cond = iff.cond.accept(this);
+        if (cond != bool_type) {
+            String err = String.format("Expected 'boolean' got %s in if statement expression.", cond); 
+            throw new IncompatibleTypesException(err, iff.cond.getLineNumber()); // TODO      
+        }
+        for (BaseStatement s: iff.statements) {
+            s.accept(this); 
+        }
+        if (iff.elseStatements != null) {
+            for (BaseStatement s: iff.elseStatements) {
+                s.accept(this); 
+            }
+        }
+        return void_type; // ?
+    }
+
+    Type verify(While ws) throws BaseULException {
+        Type cond = ws.cond.accept(this);
+        if (cond != bool_type) {
+            String err = String.format("Expected 'boolean' got %s in while statement expression.", cond); 
+            throw new IncompatibleTypesException(err, ws.cond.getLineNumber());           
+        }
+        for (BaseStatement s: ws.statements) {
+            s.accept(this); 
+        } 
+        return void_type; // ?   
     }
 
     Type verify(ExpressionStatement e) {
@@ -142,8 +180,23 @@ public class TypeCheckVisitor {
                     return lhs; 
                 }
         }
+        // todo Char and Int stuff?
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, 0); // TODO
+    }
+
+    private Type verifyBooleanExp(BinaryExpression e) throws BaseULException {
+        System.out.println("Verifying equality exp");
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this);
+        if ((lhs == float_type || lhs == int_type) && (rhs == float_type || rhs == int_type)) {
+            return bool_type;
+        } 
+        if (lhs == rhs) 
+            return bool_type; 
+
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
     }
 
     Type verify(ULString s) {

@@ -13,10 +13,9 @@ public class FunctionEnvironment {
 
     GlobalEnvironment globals;
     Type returnType;
-    /* List of local params */ 
     LinkedList<Param> usedParams;
-    /* List of local variables */ 
-    LinkedList<VariableDeclaration> usedVariables;  
+    LinkedList<VariableDeclaration> usedVariables;
+    LinkedList<ULIdentifier> hasValue; 
 
     /*
      * A function environment gets initialized with a function declaration,
