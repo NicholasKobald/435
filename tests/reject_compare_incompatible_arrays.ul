@@ -1,0 +1,10 @@
+void main() {
+    int [5] a;
+    int [4] b; 
+
+    if (a == b) {
+        print "FooBaz!"; 
+    } else {
+        print "FooBar!"; 
+    }
+}

@@ -21,7 +21,7 @@ void main() {
         a = 1;
     } else {
         a = 2;
-        println "hello world2"   ;
+        println "hello world2";
     }
     print a;
     b = _get_b_val();

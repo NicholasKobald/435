@@ -25,5 +25,7 @@ int foo (int x, float y, string z, char c, boolean a) {
 
 	return aa;
 
-	return;
+	return 3;
 }
+
+void main() {}

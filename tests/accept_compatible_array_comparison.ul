@@ -1,0 +1,8 @@
+void main() {
+    int [5] a;
+    int [5] b;
+
+    //if (a == b) {
+    //   println "foooz"; 
+    // } wait till we hear about array comparisons
+}

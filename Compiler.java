@@ -41,7 +41,8 @@ public class Compiler {
         }
         //PPVisitor visitor = new PPVisitor(); 
         //visitor.visit(prog); 
-        TypeCheckVisitor tcvisitor = new TypeCheckVisitor(parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
+        TypeCheckVisitor tcvisitor = new TypeCheckVisitor(
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
         
         try {
             tcvisitor.verify(prog);

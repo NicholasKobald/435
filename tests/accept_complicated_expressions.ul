@@ -1,5 +1,8 @@
 void main() {
     int a;
+    int x; 
+
+    a = 5;
     x = a * a;
     x = 10 * 50;
     y = 255 * 2123;

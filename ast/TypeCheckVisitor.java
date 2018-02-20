@@ -81,7 +81,8 @@ public class TypeCheckVisitor {
 
     Type verify(Assignment assignmentStatement) throws BaseULException {
         // verify type of LHS matches RHS i guess
-        ULIdentifier lhsid = assignmentStatement.identifier; 
+        ULIdentifier lhsid = assignmentStatement.identifier;
+        this.currentFunction.setUsed(lhsid); 
         Type lhs = this.currentFunction.getVariableType(lhsid);
         Type rhs = assignmentStatement.exp.accept(this);
         if (lhs == rhs)
@@ -107,31 +108,105 @@ public class TypeCheckVisitor {
 
     Type verify(MultExp e) throws BaseULException {
         Type lhs = e.operand_one.accept(this); 
-        Type rhs = e.operand_two.accept(this); 
-        if (lhs == rhs) {
-            if (lhs == this.int_type || 
-                lhs == this.float_type) {
-                    return lhs; 
-                }
+        Type rhs = e.operand_two.accept(this);
+        // int + int 
+        if (lhs == int_type && rhs == int_type) {
+            return int_type; 
         }
+        // int|float + int|float  
+        if (rhs == int_type || rhs == float_type) {
+            if (lhs == this.int_type || lhs == this.float_type) {
+                return float_type; 
+            }
+        } 
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
     }
 
     Type verify(AddExp e) throws BaseULException {
-        return this.verifyBinaryMathExp(e); 
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this);
+        // int + int 
+        if (lhs == int_type && rhs == int_type) {
+            return int_type; 
+        }
+        // int|float + int|float  
+        if (rhs == int_type || rhs == float_type) {
+            if (lhs == this.int_type || lhs == this.float_type) {
+                return float_type; 
+            }
+        } // (int|char + int)|(int + int|char)
+        else if ((rhs == char_type && lhs == int_type) || lhs == char_type && rhs == int_type) {
+            return char_type; 
+        } else if (lhs == rhs && lhs == string_type) {
+            return string_type;
+        }
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, 0); // TODO
     }
     
     Type verify(SubExp e) throws BaseULException {
-        return this.verifyBinaryMathExp(e); 
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this);
+        // int + int 
+        if (lhs == int_type && rhs == int_type) {
+            return int_type; 
+        }
+        // int|float + int|float  
+        if (rhs == int_type || rhs == float_type) {
+            if (lhs == this.int_type || lhs == this.float_type) {
+                return float_type; 
+            }
+        } // (int|char + int)|(int + int|char)
+        else if ((rhs == char_type && lhs == int_type) || lhs == char_type && rhs == int_type) {
+            return char_type; 
+        } else if (lhs == rhs && lhs == char_type) {
+            return int_type; 
+        }
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, 0); // TODO
     }
 
     Type verify(EqualityEqExp e) throws BaseULException {
-        return this.verifyBooleanExp(e);
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this);
+        if (rhs == int_type || rhs == float_type) {
+            if (lhs == this.int_type || lhs == this.float_type) {
+                return bool_type; 
+            }
+        }
+        if (lhs == rhs && lhs != void_type) {
+            return bool_type; 
+        } 
+
+        // arraytype case -- is this correct? 
+        // TODO:
+        // ask -- arrays should be compared?
+        //     -- or nope? 
+        // --  and can array indices be used prior to assigned val 
+        if (lhs.equals(rhs)) {
+            System.out.println("here?");
+            return bool_type; 
+        }
+
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, e.getLineNumber());
     }
 
     Type verify(EqualityLTExp e) throws BaseULException {
-        return this.verifyBooleanExp(e);
+        Type lhs = e.operand_one.accept(this); 
+        Type rhs = e.operand_two.accept(this);
+        if (rhs == int_type || rhs == float_type) {
+            if (lhs == this.int_type || lhs == this.float_type) {
+                return bool_type; 
+            }
+        }
+        if (lhs == rhs && lhs != void_type) {
+            return bool_type; 
+        } 
+        // array type?
+        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
+        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
     }
 
     Type verify(Print p) throws BaseULException {
@@ -200,7 +275,10 @@ public class TypeCheckVisitor {
 
     Type verify(ULIdentifier e) throws BaseULException {
         Type t = this.currentFunction.getVariableType(e);
-        return t; 
+        if (this.currentFunction.doesIdHaveValue(e))
+            return t;
+        String err = String.format("Variable '%s' used before being assigned a value", e); 
+        throw new UndefinedValueException(err, e.getLineNumber());  
     }
 
     Type verify(FunctionCall fc) throws BaseULException {
@@ -213,12 +291,11 @@ public class TypeCheckVisitor {
         int index = 0;
         for (Param p: fd.params) {
             if (!(p.type == tl.get(index))) {
-                String err = String.format("Paramater of type '%s' cannot be coerced to '%s'", tl.get(index).toCodeString(), p.type.toCodeString()); 
-                throw new IncompatibleTypesException(err, 0); // TODO  
+                String err = String.format("Parameter of type '%s' cannot be coerced to '%s'", tl.get(index).toCodeString(), p.type.toCodeString()); 
+                throw new IncompatibleTypesException(err, fc.id.getLineNumber());  
             }
             index += 1;
         }
-
         return fd.type; 
     }
 
@@ -233,7 +310,7 @@ public class TypeCheckVisitor {
     }
 
     Type verify(BaseExpression be) throws BaseULException {
-        System.out.println("Something went terribly terribly wrong");
+        System.out.println("Something went terribly terribly wrong (base expression version)");
         return new VoidType();
     }
 
@@ -270,19 +347,6 @@ public class TypeCheckVisitor {
         // todo Char and Int stuff?
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, 0); // TODO
-    }
-
-    private Type verifyBooleanExp(BinaryExpression e) throws BaseULException {
-        Type lhs = e.operand_one.accept(this); 
-        Type rhs = e.operand_two.accept(this);
-        if ((lhs == float_type || lhs == int_type) && (rhs == float_type || rhs == int_type)) {
-            return bool_type;
-        } 
-        if (lhs == rhs) 
-            return bool_type; 
-
-        String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
     }
 
     Type verify(ULString s) {

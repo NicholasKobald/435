@@ -17,54 +17,37 @@ void main() {
 
 // compute the factorial of n
 int factorial(int n) {
+    int val; 
     if (n == 1) {
-        return 1;
+        val =  1;
     } else {
-        return n * factorial(n + 1);
+        val = n * factorial(n + 1);
     }
+    return val; 
 }
 
 int fib(int n) {
+    int val; 
     if (n == 1) {
-        return 1;
+        val = 1;
     } else {
-        return fib(n - 1) + fib(n - 2);
+        val = fib(n - 1) + fib(n - 2);
     }
-}
-
-
-int max(int a, int b, int c) {
-    int flag;
-
-    if (compare(a, b) == 1) { // a > b
-        if (compare(a, c) == 1) { // a > c and a > b
-            return a;
-        }
-        if (compare(a, c) == 0) {
-            return c;  // a == c, but a > b so it doesn't matter
-        }
-        if (compare(c, a) == 1) { // c > a > b
-            return c;
-        }
-    }
-    if (compare(b, c) == 1) { // b > c
-        if (compare(c, a) == 1) { // c > a
-            return b;
-        }
-        if (compare(c, a) == 0) { // b > c, and c == a
-            return b;
-        }
-    }
-    return 0;
+    return val; 
 }
 
 
 int compare(int a, int b) {
+    int val; 
+
+    val = 0; 
     if (a == b) {
-        return 0;
+        rval =  0;
     }
     if (a < b) {
-        return 2; //because my language is garbage
+        val = val - 1;; //because my language is garbage
+    } else {
+        val = 1; 
     }
-    return 1;
+    return val;
 }

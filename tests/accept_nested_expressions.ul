@@ -5,7 +5,7 @@ void main() {
     a = (((5)));
     a = (((((5)))));
     foo();
-    return (5);
+    return;
 }
 
 // these cases likely need some work!

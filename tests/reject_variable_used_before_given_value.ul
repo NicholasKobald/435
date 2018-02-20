@@ -1,5 +1,6 @@
 void main() {
     int x;
+    int a;
 
-    x = 'a'; 
+    x = a; 
 }

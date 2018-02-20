@@ -7,6 +7,14 @@ void main() {
 void test_while()
 
 {
+
+    boolean abc;
+    boolean zzzz;
+    boolean a;
+
+    a = true; 
+    zzzz = true;
+    abc = false; 
     while (abc) {  }
 
     while(true) {
@@ -24,38 +32,14 @@ void test_while()
         ;;;;;;
     }
 
-    while ( " zzzz " )
+    while (a)
 
    {
-        return;
     }
+            return;
+
 }
 
-// this function returns a foo baz
-// wow!
-void test_while_more()
-
-{
-    while (abc) {  }
-
-    while(true) {  //comment!
-        while(a) {
-            while(false) {}
-
-            while(true) {}
-    //comment!
-            while("Hey") {}
-        }
-    }
-
-
-    while(zzzz) {
-        ;;;;;;
-    }
-
-    while ( "   zzzz " )
-                    {   }
-}
 void while_with_expr(boolean go) {
     int x;
 

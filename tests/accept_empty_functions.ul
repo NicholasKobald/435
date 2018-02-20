@@ -3,17 +3,18 @@ void main() {
 
 int foo() {
 
+    return 2;
 }
 
 string bar() {
 
-
+    return "hello world";
 }
 
-char _() { }  //inline comment!
+char _() { return 'a'; }  //inline comment!
 
 void z() { }
 
-int aA11111111__________1999999() {}
+int aA11111111__________1999999() { return 1; }
 
 void A() {} //no newline after this.

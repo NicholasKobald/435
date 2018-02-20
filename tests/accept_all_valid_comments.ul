@@ -1,10 +1,6 @@
 //comment at top of file is fine
 
-void main(int a, // this is an input input
-          int b //this is also that
-          //note that this doesn't effect the stuff
-
-          ) {
+void main() {
 
 
     //even in the middle of the function

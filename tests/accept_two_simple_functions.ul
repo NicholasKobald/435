@@ -10,6 +10,7 @@ int bar() {
 
     integer_var_name = 5;
     string_var_name = "Hello World";
+    return integer_var_name;
 }
 
 string hello_world() {

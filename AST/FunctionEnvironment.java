@@ -6,8 +6,10 @@ import ast.RedefinitionException;
 import ast.ULIdentifier;
 import ast.UndeclaredIdentifierException;
 import ast.VariableDeclaration;
+
 import types.Type; 
 import types.VoidType; 
+import types.ArrayType;;
 
 public class FunctionEnvironment {
 
@@ -15,7 +17,7 @@ public class FunctionEnvironment {
     public Type returnType;
     LinkedList<Param> usedParams;
     LinkedList<VariableDeclaration> usedVariables;
-    LinkedList<ULIdentifier> hasValue; 
+    HashSet<String> hasValue; // sue me
 
     /*
      * A function environment gets initialized with a function declaration,
@@ -30,11 +32,19 @@ public class FunctionEnvironment {
         this.globals = globals;
         this.usedParams = new LinkedList<Param>();
         this.usedVariables = new LinkedList<VariableDeclaration>();
+        this.hasValue = new HashSet<String>(); 
+
         for (Param p: fd.params) {
             this.add(p); 
+            if (p.type instanceof ArrayType) {
+                this.hasValue.add(p.id.toString()); 
+            }
         }
         for (VariableDeclaration varDec: varDecList) {
-            this.addVarDeclaration(varDec); 
+            this.addVarDeclaration(varDec);
+            if (varDec.type instanceof ArrayType) {
+                this.hasValue.add(varDec.id.toString()); 
+            }
         }
     }
 
@@ -69,7 +79,6 @@ public class FunctionEnvironment {
             target = varDec.id; 
         }
     
-        // System.out.println("Checking: " + target.toString());
         for (Param seen: this.usedParams) {
             if (target.equals(seen.id)) {
                 return true; 
@@ -96,5 +105,13 @@ public class FunctionEnvironment {
         }
         String err = String.format("Use of undeclared identifier %s", target.toString());  
         throw new UndeclaredIdentifierException(err, target.getLineNumber()); 
+    }
+    
+    public boolean doesIdHaveValue(ULIdentifier id) {
+        return this.hasValue.contains(id.toString()); 
+    }
+
+    public void setUsed(ULIdentifier id) {
+        this.hasValue.add(id.toString()); 
     }
 }

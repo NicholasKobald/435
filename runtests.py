@@ -61,27 +61,28 @@ def run_tests(test_list, write_pprint=False, ignore_ast=False):
 def run_on_test_file(test, reject, write_pprint, check_pprint):
     global success_count, fail_count
     prog = run(['java', 'Compiler', test], stdout=PIPE, stderr=PIPE)
-    err = prog.stderr
-    out = prog.stdout 
-    if err and not reject:
+    err = prog.stderr.decode('utf-8')
+    out = prog.stdout.decode('utf-8')
+    if (err and not reject):
         print("FAILED: {} - FAILURE TO ACCEPT. Output:".format(test))
         print(err.decode('utf-8'))
         fail_count += 1
         return test
-    elif reject and not err:
+    elif reject and not (err or 'Error' in out):
         print("FAILED: {} - FAILURE TO REJECT".format(test))
+        fail_count += 1
     else:
         print("Correctly {} {}".format('rejected' if reject else 'accepted', test.split('/')[-1]))
         success_count += 1
     test_name = re.search(r'/(.*)\.ul', test).group(1)
     if not reject and write_pprint: 
         with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'w') as f:
-            f.write(out.decode('utf-8'))
+            f.write(out)
             print("---> Successfully wrote", f.name)
     elif check_pprint and not reject:
         with open('tests/pprint_output/pprintout-{}.ul'.format(test_name), 'r') as f:
             val = f.read()
-            assert val == out.decode('utf-8'), "PPrint output was different from existing PPrint.\
+            assert val == out, "PPrint output was different from existing PPrint.\
                 Insure you have initialized the tests/pprint_output/ dir by running with --write-pprint"
             
 

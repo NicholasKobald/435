@@ -34,5 +34,5 @@ int declare_compound_types(int a, string b, char d, float x)
 
     float [5000] _;
     boolean [2222] _1;
-    void [0] voidarrrrrr;
+   //  void [0] voidarrrrrr; shouldn't allow this, TODO: make a reject case with this
 }
