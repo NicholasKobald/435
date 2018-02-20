@@ -12,6 +12,8 @@ public abstract class BinaryExpression extends BaseExpression {
     public BinaryExpression(BaseExpression exp, BaseExpression exp1) {
         this.operand_one = exp;
         this.operand_two = exp1;
+        this.lineNumber = exp.getLineNumber(); 
+        this.lineColumn = exp.getColumn();   
     }
 
     public String toCodeString() {

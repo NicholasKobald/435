@@ -10,6 +10,8 @@ public class VariableDeclaration extends AST {
     public Type type;
     public ULIdentifier id;
 
+    public boolean hasValue; 
+
     public VariableDeclaration(Type type, ULIdentifier id) {
         this.type = type;
         this.id = id;

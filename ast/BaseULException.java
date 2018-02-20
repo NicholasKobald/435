@@ -3,10 +3,12 @@ package ast;
 
 public class BaseULException extends Exception {
 
-    protected int lineCrashed;
+    public int lineCrashed;
+    public String msg; 
 
     public BaseULException(String msg, int lineNumber) {
         super(msg); 
-        this.lineCrashed = lineNumber; 
+        this.lineCrashed = lineNumber;
+        this.msg = msg; 
     }
 }

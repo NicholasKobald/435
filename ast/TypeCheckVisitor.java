@@ -50,10 +50,33 @@ public class TypeCheckVisitor {
         // declaration, and variable declarations
         // so at this point, our currently function should be acceptable
         // up until the statement list starts 
+        int retcount = 0;
+        BaseStatement cur = null; 
+        Type t = null; 
         for (BaseStatement s: f.body.statementList) {
-            s.accept(this); 
+            if (s instanceof Return) {
+                retcount += 1; 
+            }
+            cur = s; 
+            t = s.accept(this); 
         }
-        return new VoidType();
+
+        if (retcount == 1 && cur instanceof Return) {
+            // now, verify that the type of the return exp is the same
+            // as the function says it is
+            if (t == f.declaration.type) {
+                return t; 
+            } else {
+                String msg = String.format("Incompatible return type '%s'. Expected: '%s'", 
+                    t.toCodeString(), f.declaration.type.toCodeString()); 
+                throw new IncompatibleTypesException(msg, f.declaration.id.getLineNumber());
+            }
+        } else if (retcount == 0) {
+            return void_type; 
+        } else {
+            String msg = "Function may only have return as last statement"; 
+            throw new InvalidReturnException(msg, f.declaration.id.getLineNumber());
+        }
     }
 
     Type verify(Assignment assignmentStatement) throws BaseULException {
@@ -63,8 +86,23 @@ public class TypeCheckVisitor {
         Type rhs = assignmentStatement.exp.accept(this);
         if (lhs == rhs)
             return lhs;
-        String err = String.format("assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
+        String err = String.format("Assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
+    }
+
+    Type verify(ArrayAssignment as) throws BaseULException {
+        Type rhs = as.expression.accept(this);
+        Type indextype = as.indexExp.accept(this); 
+        if (indextype != int_type) {
+            String msg = String.format("Invalid type for array index. '%s' could not be coerced to 'int'", indextype.toCodeString());
+            throw new IncompatibleTypesException(msg, as.ulid.getLineNumber()); 
+        }
+        ArrayType lhs = (ArrayType)this.currentFunction.getVariableType(as.ulid);
+        if (lhs.type == rhs) {
+            return rhs; 
+        }
+        String err = String.format("Assigning to '%s' from incompatible type '%s'", lhs.type.toCodeString(), rhs.toCodeString());
+        throw new IncompatibleTypesException(err, as.ulid.getLineNumber()); 
     }
 
     Type verify(MultExp e) throws BaseULException {
@@ -77,7 +115,7 @@ public class TypeCheckVisitor {
                 }
         }
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO
+        throw new IncompatibleTypesException(err, e.getLineNumber());
     }
 
     Type verify(AddExp e) throws BaseULException {
@@ -123,6 +161,7 @@ public class TypeCheckVisitor {
     }
 
     Type verify(While ws) throws BaseULException {
+        //TODO: test this 
         Type cond = ws.cond.accept(this);
         if (cond != bool_type) {
             String err = String.format("Expected 'boolean' got %s in while statement expression.", cond); 
@@ -132,6 +171,18 @@ public class TypeCheckVisitor {
             s.accept(this); 
         } 
         return void_type; // ?   
+    }
+
+    Type verify(ArrayExpression e) throws BaseULException {
+        Type t = e.index.accept(this); 
+        if (t == int_type) {
+            ArrayType at = (ArrayType)this.currentFunction.getVariableType(e.id); 
+            // an array expression would evaluate to the type
+            // its build up out of 
+            return at.type;
+        }
+        String msg = String.format("Invalid type for array index. '%s' could not be coerced to 'int'", t.toCodeString());
+        throw new IncompatibleTypesException(msg, e.getLineNumber()); 
     }
 
     Type verify(Return r) throws BaseULException {
@@ -172,12 +223,12 @@ public class TypeCheckVisitor {
     }
 
     Type verify(ExpressionStatement e) {
-        System.out.println("Something went terribly terribly wrong");
+        System.out.println("Something went terribly terribly wrong (expression statement version)");
         return new VoidType(); 
     }
 
     Type verify(BaseStatement s) {
-        System.out.println("Something went terribly terribly wrong");
+        System.out.println("Something went terribly terribly wrong (base statement)");
         return new VoidType(); 
     }
 

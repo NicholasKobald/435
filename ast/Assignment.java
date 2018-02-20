@@ -10,6 +10,8 @@ public class Assignment extends BaseStatement {
     public Assignment(ULIdentifier id, BaseExpression exp) {
             this.identifier = id;
             this.exp = exp;
+            this.lineNumber = id.getLineNumber();
+            this.lineColumn = id.getColumn(); 
     }
 
     public String toCodeString() {

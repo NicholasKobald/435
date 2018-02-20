@@ -19,5 +19,4 @@ public abstract class BaseStatement extends AST {
     public String toCodeString(int indent) {
         return ""; 
     }
-
 }

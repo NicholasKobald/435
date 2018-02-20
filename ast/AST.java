@@ -1,6 +1,6 @@
  /*  
   *
-  *  This is enterprise coding, so, obviously we have an empty abstract class. 
+  *  This is enterprise coding! abstract classes!
   */
 
 package ast;
@@ -8,4 +8,14 @@ package ast;
 
 public abstract class AST {
 
+  protected int lineNumber = -1;
+  protected int lineColumn = -1; 
+
+  public int getLineNumber() {
+      return this.lineNumber; 
+  }
+
+  public int getColumn() {
+      return this.lineColumn;
+  }
 }

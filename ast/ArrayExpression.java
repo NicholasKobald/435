@@ -1,5 +1,8 @@
 package ast;
 
+import types.Type; 
+
+
 public class ArrayExpression extends BaseExpression {
 
     ULIdentifier id;
@@ -8,6 +11,8 @@ public class ArrayExpression extends BaseExpression {
     public ArrayExpression(ULIdentifier id, BaseExpression index) {
         this.id = id;
         this.index = index; 
+        this.lineNumber = id.getLineNumber();
+        this.lineColumn = id.getColumn(); 
     }
 
     public String toCodeString() {
@@ -16,5 +21,9 @@ public class ArrayExpression extends BaseExpression {
 
     void accept(PPVisitor v) {
         v.visit(this);
+    }
+
+    Type accept(TypeCheckVisitor v) throws BaseULException {
+        return v.verify(this);
     }
 }
