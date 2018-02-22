@@ -1,12 +1,12 @@
 # THIS SOFTWARE IS DISTRBUTED AS IS
 
-import time
-import json
-import sys
 import argparse
 import glob
-import re 
-from subprocess import Popen, PIPE, run
+import json
+import re
+import sys
+import time
+from subprocess import PIPE, Popen, run
 
 success_count, fail_count = 0, 0
 
@@ -63,12 +63,12 @@ def run_on_test_file(test, reject, write_pprint, check_pprint):
     prog = run(['java', 'Compiler', test], stdout=PIPE, stderr=PIPE)
     err = prog.stderr.decode('utf-8')
     out = prog.stdout.decode('utf-8')
-    if (err and not reject):
+    if ((err or 'Error' in out) and not reject):
         print("FAILED: {} - FAILURE TO ACCEPT. Output:".format(test))
-        print(err.decode('utf-8'))
+        print(out if 'Error' in out else err) 
         fail_count += 1
         return test
-    elif reject and not (err or 'Error' in out):
+    elif reject and not err and 'Error' not in out:
         print("FAILED: {} - FAILURE TO REJECT".format(test))
         fail_count += 1
     else:
@@ -84,7 +84,6 @@ def run_on_test_file(test, reject, write_pprint, check_pprint):
             val = f.read()
             assert val == out, "PPrint output was different from existing PPrint.\
                 Insure you have initialized the tests/pprint_output/ dir by running with --write-pprint"
-            
 
 def compile_proj():
     global success_count, fail_count

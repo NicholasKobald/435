@@ -48,7 +48,8 @@ public class Compiler {
             tcvisitor.verify(prog);
         } catch (BaseULException e) {
             String line = getFailureLine(e.lineCrashed, args[0]); 
-            String msg = String.format("%s:%s:Error: %s", args[0], String.valueOf(e.lineCrashed), e.msg); 
+            String msg = String.format("%s:%s:Error:%s: %s", 
+                args[0], String.valueOf(e.lineCrashed), e.getClass().getSimpleName(), e.msg); 
             System.out.println(msg); 
             System.out.println(String.format("Line %s:%s", String.valueOf(e.lineCrashed), line)); 
         } 

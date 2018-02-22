@@ -72,7 +72,10 @@ public class TypeCheckVisitor {
                 throw new IncompatibleTypesException(msg, f.declaration.id.getLineNumber());
             }
         } else if (retcount == 0) {
-            return void_type; 
+            if (this.currentFunction.returnType == void_type)
+                return void_type;
+            String msg = String.format("No return statement for function with type '%s'", this.currentFunction.returnType.toCodeString()); 
+            throw new InvalidReturnException(msg, f.declaration.id.getLineNumber()); 
         } else {
             String msg = "Function may only have return as last statement"; 
             throw new InvalidReturnException(msg, f.declaration.id.getLineNumber());
@@ -290,7 +293,12 @@ public class TypeCheckVisitor {
         }
         int index = 0;
         for (Param p: fd.params) {
-            if (!(p.type == tl.get(index))) {
+            if (index > tl.size() - 1) {
+                String err = String.format("Expected %s arguements. Got %s", 
+                    String.valueOf(fd.params.size()), String.valueOf(fc.expList.expList.size())); 
+                throw new InvalidFunctionInvocationException(err, fc.id.getLineNumber());  
+            }
+            if (index > tl.size() - 1 || !(p.type == tl.get(index))) {
                 String err = String.format("Parameter of type '%s' cannot be coerced to '%s'", tl.get(index).toCodeString(), p.type.toCodeString()); 
                 throw new IncompatibleTypesException(err, fc.id.getLineNumber());  
             }
@@ -299,9 +307,8 @@ public class TypeCheckVisitor {
         return fd.type; 
     }
 
-    Type verify(ExpressionStatement e) {
-        System.out.println("Something went terribly terribly wrong (expression statement version)");
-        return new VoidType(); 
+    Type verify(ExpressionStatement e) throws BaseULException {
+        return e.exp.accept(this); 
     }
 
     Type verify(BaseStatement s) {
@@ -327,7 +334,7 @@ public class TypeCheckVisitor {
             }
         }
         if (valid_main_count != 1)       
-            throw new MissingMainException("", 0); // does 0 make sense?  --> negative number that gets handled by the printing maybe
+            throw new MissingMainException("Program must contain function called 'main' which takes no parameters has has type 'void'", 0); // does 0 make sense?  --> negative number that gets handled by the printing maybe
         // potentailly I can make MME take only 1 param without fuckingshitup
     }
 

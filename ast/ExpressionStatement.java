@@ -21,7 +21,7 @@ public class ExpressionStatement extends BaseStatement {
         v.visit(this);
     }
 
-    Type accept(TypeCheckVisitor v) {
+    Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
     }
 }

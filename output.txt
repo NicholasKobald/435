@@ -1,0 +1,22 @@
+Javac Compiled with no Errors or warnings.
+
+a2test/accept_3.1_valid.ul:
+a2test/accept_3.1_valid.ul- Rejected due to grammar error.
+
+a2test/accept_2.2_valid.ul:
+a2test/accept_2.2_valid.ul- Rejected due to grammar error.
+
+a2test/accept_2.1.1_valid.ul:
+a2test/accept_2.1.1_valid.ul:0:Error: Program must contain function called 'main' which takes no parameters has has type 'void'
+Line 0:void main_like() {
+
+a2test/accept_2.1_valid.ul:
+a2test/accept_2.1_valid.ul:5:Error: No return statement for function with type 'int'
+Line 5:int foo1(float bar1) {
+
+a2test/accept_3.3_valid.ul:
+Unexpected argument of type 'int' expected 'float'. 
+Line 6:    foo(a, b); 
+
+a2test/accept_3.2_valid.ul:
+a2test/accept_3.2_valid.ul- Rejected due to grammar error.

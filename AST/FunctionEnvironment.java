@@ -35,7 +35,8 @@ public class FunctionEnvironment {
         this.hasValue = new HashSet<String>(); 
 
         for (Param p: fd.params) {
-            this.add(p); 
+            this.add(p);
+            this.hasValue.add(p.id.toString());
             if (p.type instanceof ArrayType) {
                 this.hasValue.add(p.id.toString()); 
             }
