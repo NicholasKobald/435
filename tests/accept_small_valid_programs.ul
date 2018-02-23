@@ -42,7 +42,7 @@ int compare(int a, int b) {
 
     val = 0; 
     if (a == b) {
-        rval =  0;
+        val =  0;
     }
     if (a < b) {
         val = val - 1;; //because my language is garbage

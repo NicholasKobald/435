@@ -12,6 +12,7 @@ void bar() {
     print "Still ok";
 }
 
+void main() {} 
 
 void hello_world() {
     print "helloWorld";

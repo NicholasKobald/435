@@ -2,6 +2,7 @@ int foo(int a) {
     int b;
 }
 
+void main() {} 
 
 void foo() {
     int i;

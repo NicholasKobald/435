@@ -60,7 +60,6 @@ public class TypeCheckVisitor {
             cur = s; 
             t = s.accept(this); 
         }
-
         if (retcount == 1 && cur instanceof Return) {
             // now, verify that the type of the return exp is the same
             // as the function says it is
@@ -134,18 +133,18 @@ public class TypeCheckVisitor {
             return int_type; 
         }
         // int|float + int|float  
-        if (rhs == int_type || rhs == float_type) {
-            if (lhs == this.int_type || lhs == this.float_type) {
-                return float_type; 
-            }
+        if ((rhs == int_type || rhs == float_type) && (lhs == int_type || lhs == float_type)) {
+            return float_type; 
         } // (int|char + int)|(int + int|char)
-        else if ((rhs == char_type && lhs == int_type) || lhs == char_type && rhs == int_type) {
+        else if ((rhs == char_type && lhs == int_type) || (lhs == char_type && rhs == int_type)) {
             return char_type; 
         } else if (lhs == rhs && lhs == string_type) {
             return string_type;
         }
+        System.out.println(lhs == char_type);
+        System.out.println(rhs == int_type);
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, 0); // TODO
+        throw new IncompatibleTypesException(err, e.getLineNumber());
     }
     
     Type verify(SubExp e) throws BaseULException {
@@ -156,18 +155,16 @@ public class TypeCheckVisitor {
             return int_type; 
         }
         // int|float + int|float  
-        if (rhs == int_type || rhs == float_type) {
-            if (lhs == this.int_type || lhs == this.float_type) {
-                return float_type; 
-            }
+        if (rhs == int_type || rhs == float_type && (lhs == this.int_type || lhs == this.float_type)) {
+            return float_type; 
         } // (int|char + int)|(int + int|char)
         else if ((rhs == char_type && lhs == int_type) || lhs == char_type && rhs == int_type) {
-            return char_type; 
-        } else if (lhs == rhs && lhs == char_type) {
-            return int_type; 
+            return char_type; // int type? 
+        } else if (lhs == rhs && lhs == char_type) { 
+            return int_type;  // we reject this right? 
         }
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, 0); // TODO
+        throw new IncompatibleTypesException(err, e.getLineNumber());
     }
 
     Type verify(EqualityEqExp e) throws BaseULException {
@@ -188,7 +185,6 @@ public class TypeCheckVisitor {
         //     -- or nope? 
         // --  and can array indices be used prior to assigned val 
         if (lhs.equals(rhs)) {
-            System.out.println("here?");
             return bool_type; 
         }
 
@@ -209,14 +205,14 @@ public class TypeCheckVisitor {
         } 
         // array type?
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, e.getLineNumber()); // TODO  
+        throw new IncompatibleTypesException(err, e.getLineNumber()); 
     }
 
     Type verify(Print p) throws BaseULException {
         Type t = p.exp.accept(this); 
         if (t == void_type) {
             String err = String.format("Incompatible type for print statement. Type may not be void"); 
-            throw new IncompatibleTypesException(err, p.exp.getLineNumber()); // TODO
+            throw new IncompatibleTypesException(err, p.exp.getLineNumber());
         }
         return void_type; 
     }
@@ -225,7 +221,7 @@ public class TypeCheckVisitor {
         Type cond = iff.cond.accept(this);
         if (cond != bool_type) {
             String err = String.format("Expected 'boolean' got %s in if statement expression.", cond); 
-            throw new IncompatibleTypesException(err, iff.cond.getLineNumber()); // TODO      
+            throw new IncompatibleTypesException(err, iff.cond.getLineNumber());     
         }
         for (BaseStatement s: iff.statements) {
             s.accept(this); 
@@ -307,7 +303,12 @@ public class TypeCheckVisitor {
         return fd.type; 
     }
 
+    Type verify(ParanthesisExpression e) throws BaseULException {
+        return e.wrapped_expr.accept(this); 
+    }
+
     Type verify(ExpressionStatement e) throws BaseULException {
+        if (e.exp == null) return void_type; // ? 
         return e.exp.accept(this); 
     }
 

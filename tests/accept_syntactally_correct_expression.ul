@@ -1,8 +1,9 @@
 void main( ) {
-    void v;
+    int v;
     int x;
     int y;
     int z;
+    char t; 
     boolean flag;
     float point;
 
@@ -19,7 +20,7 @@ void main( ) {
     y = (4 * 3) + (3 * 4);
     x = (x * 2 * 1 * y * x * x * (y - (x) + y)) - (x);
 
-    v = 'z' + 1234567 * 4000 - "400";
+    t = 'z' + 1234567 * 4000 - 5;
 
     v = (4 + 5) * 8;
 

@@ -4,7 +4,8 @@ void main() {
 }
 
 void easy_assignment_statements() {
-    a;
+    int a;
+    string c; 
     a = 5;
     c = "Hello There";
 }
@@ -13,9 +14,10 @@ void assign_to_functions() {
     int b;
     string c;
 
-    a;
+    int a;
     b = foo();
     c = bar();
+    
     print b;
     println c;
 }

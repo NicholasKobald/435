@@ -1,5 +1,5 @@
 void main() {
-    boolean abcdefgh;
+    boolean abc;
 
     if (true) { }
 
@@ -7,7 +7,7 @@ void main() {
 
     if (1 == 1) { }
 
-    if (abcdefghl) {
+    if (abc) {
         if (true) {
             if (false) {
 
@@ -18,7 +18,8 @@ void main() {
 }
 
 void go() {
-    int a;
+    boolean a; 
+    boolean abdefghl; 
 
     if (true) { }
 

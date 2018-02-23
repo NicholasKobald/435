@@ -1,6 +1,7 @@
 void main() {
     int a;
     int x; 
+    int y; 
 
     a = 5;
     x = a * a;

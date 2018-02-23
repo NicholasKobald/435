@@ -41,7 +41,7 @@ float _get_b_val() {
     char c;
     string d;
     boolean e;
-    void f;
+    int f;
 
 
 

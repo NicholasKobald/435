@@ -23,7 +23,7 @@ void test_while()
 
             while(true) {}
 
-            while("Hey") {}
+            while(false) {}
         }
     }
 

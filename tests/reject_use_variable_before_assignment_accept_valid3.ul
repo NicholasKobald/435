@@ -8,7 +8,7 @@ int foo (int x, float y, string z, char c, boolean a) {
 	while (x < 10) {
 		;
 	}
-
+	zz = "abc"; 
 	if (zz == "abc") {
 		;
 	}
