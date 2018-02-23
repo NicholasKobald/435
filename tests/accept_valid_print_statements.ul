@@ -1,4 +1,8 @@
 void bar() {
+    string a;
+
+    a = "hel";
+
     print "";
 
     print a;
@@ -42,6 +46,10 @@ void print_floats() {
 }
 
 void print_all() {
+    int a;
+
+    a = 1;
+
     print 1.0;
     print "hello";
     print a;

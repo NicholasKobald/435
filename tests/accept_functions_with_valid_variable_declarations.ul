@@ -1,5 +1,9 @@
 int foo(int a) {
     int b;
+
+    b = 3;
+
+    return 3; 
 }
 
 void main() {} 
@@ -13,7 +17,7 @@ void foo() {
     string b;
     char z;
     char x;
-    boolean m;
+    boolean mww;
 }
 
 void ________() { int a; int b; int c; int d; int e; }
@@ -22,7 +26,7 @@ void ________() { int a; int b; int c; int d; int e; }
 int func(int a, string b, char d, float x)
 
 {
-
+        return 12345;
 
 }
 
@@ -35,5 +39,7 @@ int declare_compound_types(int a, string b, char d, float x)
 
     float [5000] _;
     boolean [2222] _1;
+
+    return 1; 
    //  void [0] voidarrrrrr; shouldn't allow this, TODO: make a reject case with this
 }

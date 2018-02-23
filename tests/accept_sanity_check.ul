@@ -7,7 +7,6 @@ void main() {
     char c;
     string d;
     boolean e;
-    void f;
 
     d = "";
 
@@ -30,7 +29,6 @@ void main() {
         if (a == 10) {
 
             print "Look, the equality operator worked!";
-            return b;
         }
     }
 }
@@ -62,5 +60,5 @@ float _get_b_val() {
     c = '_';
 
     d = "a";
-
+    return 123.456;
 }

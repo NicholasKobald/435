@@ -10,6 +10,10 @@ void main() {
     print c;
 }
 
+//
+int 
+//
+func (int x) { return 1; } 
 // 🏁
 // this language does not support
 //

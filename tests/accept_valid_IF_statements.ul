@@ -6,7 +6,7 @@ void main() {
     if (false) { } else { }
 
     if (1 == 1) { }
-
+    abc = true; 
     if (abc) {
         if (true) {
             if (false) {
@@ -14,12 +14,14 @@ void main() {
             }
         }
     }
-    return 0;
+    return;
 }
 
 void go() {
     boolean a; 
-    boolean abdefghl; 
+    boolean ab; 
+
+    a = true; ab = false; 
 
     if (true) { }
 
@@ -28,7 +30,7 @@ void go() {
     if (a) {  }
 
     // if abcdefghl we should not do else
-    if (abcdefghl) {
+    if (ab) {
         if (1 == 1) { }
 
     } else {

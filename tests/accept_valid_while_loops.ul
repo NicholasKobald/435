@@ -44,7 +44,7 @@ void while_with_expr(boolean go) {
     int x;
 
     x = 0;
-    if (go == True) {
+    if (go == true) {
         while (go) {
 
         }

@@ -9,6 +9,7 @@ public class ParanthesisExpression extends BaseExpression {
 
     public ParanthesisExpression(BaseExpression e) {
         this.wrapped_expr = e; 
+        this.lineNumber = e.getLineNumber();
     }
     
     public String toCodeString() {

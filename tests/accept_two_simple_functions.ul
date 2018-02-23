@@ -1,6 +1,8 @@
 int foo() {
     float float_var_name;
     char char_var_name;
+
+    return 3; 
 }
 
 int bar() {
@@ -16,4 +18,9 @@ int bar() {
 string hello_world() {
     int x;
     string strrrrinnngname;
+
+    return "hello"; 
 }
+
+
+void main() {} 

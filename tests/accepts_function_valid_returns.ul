@@ -8,6 +8,7 @@ string bar() {
 
 int z_3() {
     int a;
+    a = 1;
     return a;
 }
 
@@ -20,7 +21,7 @@ float returnsfloat() {
     return 5.00000000;
 }
 
-float returnsfloat() {
+float returnsfloatah() {
     return 1234567.1234567;
 }
 
@@ -45,6 +46,7 @@ int more_wierd_returns() {
     }
 
     get_int() == get_int();
+    return 1; 
 }
 
 
@@ -54,12 +56,13 @@ float wierd_returns() {
        if (true) {
 
        } else {
-           return returnsfloat();
+
        }
 
         if (true) {
 
         } else {
-            return 5 + returnsfloat();
+
         }
-   }
+        return 5 + returnsfloat();
+}
