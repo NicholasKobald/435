@@ -1,5 +1,13 @@
 # Repo for 435 assignments
 
+#### Assignment 2 notes/bonus:
+    - I allow multiplying of int/float, which evaluates to float
+    - I allow math expressions on characters, which evaluate to character
+    - an attempt is made to prevent people from using variables before they have a value
+    - function return types are checked
+
+
+
 Lets make a compiler!
 
 #### Build the class files
