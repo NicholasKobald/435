@@ -1,0 +1,9 @@
+void main() {
+
+
+    print foo(); 
+}
+
+void foo() {
+    // im void 
+}

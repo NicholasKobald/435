@@ -28,6 +28,8 @@ parser.add_argument('--check-pprint', default=False,
 parser.add_argument('--check-ast', default=False,
                     help="Don't compare the existing, stored PPrint output to the latest one generated",
                     action="store_true")
+parser.add_argument('--custom-test-dir', default=None,
+                    help="Specify a different directory of tests than ./tests to run on") 
 
 
 class FailedToCompileError(Exception):
@@ -48,7 +50,7 @@ def collect_files(testdir):
 def run_tests(test_list, write_pprint=False, ignore_ast=False):
     failed_tests = []
     for test in test_list:
-        failed = run_on_test_file(test, 'reject' in test, write_pprint, ignore_ast)
+        failed = run_on_test_file(test, 'reject' in test or 'invalid' in test, write_pprint, ignore_ast)
         if failed is not None:
             failed_tests.append(failed)
     if failed_tests:

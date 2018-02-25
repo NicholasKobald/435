@@ -1,0 +1,6 @@
+void main() {} 
+
+
+int foo(int x) {
+    char x;
+}

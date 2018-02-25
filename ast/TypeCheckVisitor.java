@@ -89,6 +89,9 @@ public class TypeCheckVisitor {
         Type rhs = assignmentStatement.exp.accept(this);
         if (lhs == rhs)
             return lhs;
+        //if (lhs == float_type && rhs == int_type) 
+        //      return lhs; 
+
         String err = String.format("Assigning to '%s' from incompatible type '%s'", lhs.toCodeString(), rhs.toCodeString());
         throw new IncompatibleTypesException(err, lhsid.getLineNumber()); 
     }
@@ -161,7 +164,7 @@ public class TypeCheckVisitor {
         else if ((rhs == char_type && lhs == int_type) || lhs == char_type && rhs == int_type) {
             return char_type; // int type? 
         } else if (lhs == rhs && lhs == char_type) { 
-            return int_type;  // we reject this right? 
+            return char_type;  // we reject this right? 
         }
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
@@ -184,9 +187,9 @@ public class TypeCheckVisitor {
         // ask -- arrays should be compared?
         //     -- or nope? 
         // --  and can array indices be used prior to assigned val 
-        if (lhs.equals(rhs)) {
-            return bool_type; 
-        }
+        // if (lhs.equals(rhs)) {
+        //    return bool_type; 
+        // }
 
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
@@ -210,8 +213,8 @@ public class TypeCheckVisitor {
 
     Type verify(Print p) throws BaseULException {
         Type t = p.exp.accept(this); 
-        if (t == void_type) {
-            String err = String.format("Incompatible type for print statement. Type may not be void"); 
+        if (t == void_type || t instanceof ArrayType) {
+            String err = String.format("Incompatible type for print statement. Type may not be %s", t.toCodeString()); 
             throw new IncompatibleTypesException(err, p.exp.getLineNumber());
         }
         return void_type; 

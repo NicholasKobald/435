@@ -1,6 +1,6 @@
 void main() {
     float a;
-    a = 3;
+    a = 3.1;
     foo(a);
 }
 

@@ -1,6 +1,6 @@
 void main() {
     int c;
-    c = mult(sum(2,2),2);
+    c = mult(sum(2,2,9),2);
 }
 
 int sum(int a, int b, int sum) {
@@ -9,6 +9,7 @@ int sum(int a, int b, int sum) {
 }
 
 int mult(int a, int b) {
-    int result = a * b;
+    int result;
+    result = a * b;
     return result;
 }

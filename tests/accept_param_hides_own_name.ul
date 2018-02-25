@@ -1,7 +1,8 @@
 void main() {
 
+
 }
 
 int foo(int foo) {
-    return foo+1;
+    return foo + 1; 
 }

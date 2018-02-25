@@ -3,5 +3,5 @@ void main() {
     int i;
     boolean a;
     
-    a = (c == i);
+    a = (s1 == i);
 }
