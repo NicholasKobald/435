@@ -357,7 +357,7 @@ public class TypeCheckVisitor {
         }
         // todo Char and Int stuff?
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
-        throw new IncompatibleTypesException(err, 0); // TODO
+        throw new IncompatibleTypesException(err, e.getLineNumber()); 
     }
 
     Type verify(ULString s) {
