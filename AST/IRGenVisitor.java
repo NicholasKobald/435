@@ -3,10 +3,13 @@ package ast;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+
 import ast.Assignment;
 import ast.BaseULException;
 import ast.Function;
+import ast.IRAssignment;
 import ast.TempFactory;
+import ast.ULBool;
 import ast.VariableDeclaration;
 import types.*; 
 
@@ -81,13 +84,38 @@ public class IRGenVisitor {
         // need a temp to hold the value of the expression 
         Temp source = a.exp.accept(this); 
         Temp target = this.irFunction.getTempById(this.idToTempNumber.get(a.identifier.toCodeString())); 
+        IRAssignment irAssignment = new IRAssignment(source, target); 
+        return target;
+    }
 
-        return target; // ?? 
+    public Temp gen(BaseExpression be) {
+        System.out.println("This is BAD. BAD BAD.");
+        return null; 
     }
 
     public Temp gen(BaseStatement d) throws BaseULException {
         System.out.println("Something went terrible terribly wrong");
 
         return null; 
+    }
+
+    Temp gen(ULString s) {
+        return tf.getTemp(s.type);
+    }
+
+    Temp gen(ULInteger s) {
+        return tf.getTemp(s.type);
+    }
+
+    Temp gen(ULChar s) {
+        return tf.getTemp(s.type);
+    }
+
+    Temp gen(ULFloat s) {
+        return tf.getTemp(s.type);
+    }
+
+    Temp gen(ULBool s) {
+        return tf.getTemp(s.type);
     }
 }

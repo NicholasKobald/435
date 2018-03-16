@@ -1,6 +1,6 @@
 package ast; 
 
 
-public class Instruction {
+public class Instruction extends IRBase {
 
 }

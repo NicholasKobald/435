@@ -20,4 +20,8 @@ public class Temp extends IRBase {
     public String toString() {
         return this.declarationToString(); 
     }
+    
+    public String tempLabel() {
+        return String.format("T%s", Integer.toString(tempId)); 
+    }
 }

@@ -4,10 +4,10 @@ void main() {
 
 }
 
-int foo(int a, string b) {
+void foo(int a, string b) {
     int x;
     int y;
     int [5] words_BRO; 
 
-
+    x = 1; 
 }
