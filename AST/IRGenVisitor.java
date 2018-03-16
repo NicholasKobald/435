@@ -72,12 +72,13 @@ public class IRGenVisitor {
             irFunction.addTemp(t); 
         }
         this.irProgram.addFunction(irFunction); 
+
+        for (BaseStatement st: f.body.statementList) {
+           st.accept(this); 
+        }
+
         System.out.println("Finished processing a function"); 
-        // at this point we have made a temp for every parameter and variable declaration in
-        // the function.
-        // for (BaseStatement st: f.body.statementList) {
-        //    st.accept(this); 
-        // }
+
     }
 
     public Temp gen(Assignment a) throws BaseULException {
@@ -95,7 +96,6 @@ public class IRGenVisitor {
 
     public Temp gen(BaseStatement d) throws BaseULException {
         System.out.println("Something went terrible terribly wrong");
-
         return null; 
     }
 
