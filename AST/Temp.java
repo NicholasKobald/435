@@ -21,7 +21,7 @@ public class Temp extends IRBase {
         return this.declarationToString(); 
     }
     
-    public String tempLabel() {
+    public String toCodeString() {
         return String.format("T%s", Integer.toString(tempId)); 
     }
 }

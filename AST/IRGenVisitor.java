@@ -84,7 +84,7 @@ public class IRGenVisitor {
         // need a temp to hold the value of the expression 
         Temp source = a.exp.accept(this); 
         Temp target = this.irFunction.getTempById(this.idToTempNumber.get(a.identifier.toCodeString())); 
-        IRAssignment irAssignment = new IRAssignment(source, target); 
+        IRAssignment irAssignment = new IRAssignment(target, source); 
         return target;
     }
 
@@ -100,22 +100,37 @@ public class IRGenVisitor {
     }
 
     Temp gen(ULString s) {
-        return tf.getTemp(s.type);
+        Temp t = tf.getTemp(s.type);
+        IRAssignment a = new IRAssignment(t, s);
+        this.irFunction.addInstruction(a); 
+        return t; 
     }
 
     Temp gen(ULInteger s) {
-        return tf.getTemp(s.type);
+        Temp t = tf.getTemp(s.type);
+        IRAssignment a = new IRAssignment(t, s);
+        this.irFunction.addInstruction(a); 
+        return t;     
     }
 
     Temp gen(ULChar s) {
-        return tf.getTemp(s.type);
+        Temp t = tf.getTemp(s.type);
+        IRAssignment a = new IRAssignment(t, s);
+        this.irFunction.addInstruction(a); 
+        return t;    
     }
 
     Temp gen(ULFloat s) {
-        return tf.getTemp(s.type);
+        Temp t = tf.getTemp(s.type);
+        IRAssignment a = new IRAssignment(t, s);
+        this.irFunction.addInstruction(a); 
+        return t;     
     }
 
     Temp gen(ULBool s) {
-        return tf.getTemp(s.type);
+        Temp t = tf.getTemp(s.type);
+        IRAssignment a = new IRAssignment(t, s);
+        this.irFunction.addInstruction(a); 
+        return t; 
     }
 }

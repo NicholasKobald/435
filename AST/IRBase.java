@@ -4,6 +4,10 @@ import types.*;
 
 public class IRBase {
 
+    public String toCodeString() {
+        return "You have called the Base toCodeString(). Something probably went wrong"; 
+    }
+
     protected String convertTypeToIrString(Type t) {
         if (t instanceof BoolType) {
             return "Z"; 
