@@ -12,6 +12,10 @@ public abstract class BaseStatement extends AST {
         return v.verify(this);
     }
 
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
+    }
+    
     public String toCodeString() {
         return "";
     }

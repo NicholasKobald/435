@@ -33,5 +33,9 @@ public class Program extends AST implements Iterable<Function> {
 
     void accept(PPVisitor v) {
         v.visit(this);
-    }   
+    }
+    
+    void accept(IRGenVisitor v) throws BaseULException {
+        v.gen(this); 
+    }
 }

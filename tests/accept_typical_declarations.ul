@@ -1,0 +1,13 @@
+void main() {
+    int x;
+    char a;
+
+}
+
+int foo(int a, string b) {
+    int x;
+    int y;
+    int [5] words_BRO; 
+
+
+}

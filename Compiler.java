@@ -4,6 +4,7 @@ import ast.PPVisitor;
 import ast.Program;
 import ast.TypeCheckVisitor;
 import ast.BaseULException;
+import ast.IRGenVisitor;
 import types.*;
 import types.BoolType;
 import org.antlr.runtime.*;
@@ -43,7 +44,7 @@ public class Compiler {
         //visitor.visit(prog); 
         TypeCheckVisitor tcvisitor = new TypeCheckVisitor(
             parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
-        
+
         try {
             tcvisitor.verify(prog);
         } catch (BaseULException e) {
@@ -52,7 +53,19 @@ public class Compiler {
                 args[0], String.valueOf(e.lineCrashed), e.getClass().getSimpleName(), e.msg); 
             System.out.println(msg); 
             System.out.println(String.format("Line %s:%s", String.valueOf(e.lineCrashed), line)); 
-        } 
+            return; // 
+        }
+        IRGenVisitor irvisitor = new IRGenVisitor(
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
+
+        try {
+            irvisitor.gen(prog); 
+        } catch(BaseULException e) {
+            System.out.println("Any error occured when generating the IR");
+            e.printStackTrace(); 
+        }
+        String iRRepresentation = irvisitor.getIRRepresenation(); 
+        System.out.println(iRRepresentation); 
     }
 
 

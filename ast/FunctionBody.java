@@ -1,9 +1,11 @@
 package ast;
 
+import java.util.Iterator;
+
 public class FunctionBody extends AST {
 
     VariableDeclarationList variableList;
-    StatementList statementList;
+    public StatementList statementList;
 
     public FunctionBody() {
         variableList = new VariableDeclarationList();
@@ -16,6 +18,10 @@ public class FunctionBody extends AST {
 
     public void addStatement(BaseStatement statement) {
         statementList.append(statement); // see, its like python 
+    }
+
+    public Iterator<VariableDeclaration> varDecs() {
+        return this.variableList.iterator(); 
     }
 
     public String toString() {
