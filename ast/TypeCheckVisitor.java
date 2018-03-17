@@ -194,7 +194,7 @@ public class TypeCheckVisitor {
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
     }
-
+    
     Type verify(EqualityLTExp e) throws BaseULException {
         Type lhs = e.operand_one.accept(this); 
         Type rhs = e.operand_two.accept(this);
@@ -213,6 +213,7 @@ public class TypeCheckVisitor {
 
     Type verify(Print p) throws BaseULException {
         Type t = p.exp.accept(this); 
+        p.exp_type = t; // hack, but the iR generator needs it i guess 
         if (t == void_type || t instanceof ArrayType) {
             String err = String.format("Incompatible type for print statement. Type may not be %s", t.toCodeString()); 
             throw new IncompatibleTypesException(err, p.exp.getLineNumber());
@@ -223,7 +224,7 @@ public class TypeCheckVisitor {
     Type verify(If iff) throws BaseULException {
         Type cond = iff.cond.accept(this);
         if (cond != bool_type) {
-            String err = String.format("Expected 'boolean' got %s in if statement expression.", cond); 
+            String err = String.format("Expected 'boolean' got '%s' in if statement expression.", cond); 
             throw new IncompatibleTypesException(err, iff.cond.getLineNumber());     
         }
         for (BaseStatement s: iff.statements) {

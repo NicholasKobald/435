@@ -4,9 +4,25 @@ void main() {
 
 }
 
-void foo(int a, string b) {
+void foo() {
     int x;
     int y;
     int [5] words_BRO; 
-    
+
+    y = 2; 
+    x = 1;
+
+    if (x == 1) {
+        println x; 
+    } else {
+        println "X was not 1"; 
+    }
+
+    if (y == 2) {
+        println y;
+    } else {
+        println "Y was not 2"; 
+    }
+
+    println "Done!"; 
 }

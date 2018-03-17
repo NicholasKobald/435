@@ -6,6 +6,7 @@ public class Print extends BaseStatement {
 
     BaseExpression exp;
     boolean newLine; 
+    public Type exp_type; 
 
     public Print(BaseExpression exp, boolean newLine) {
         this.exp = exp;
@@ -25,5 +26,9 @@ public class Print extends BaseStatement {
 
     Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
+    }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
     }
 }

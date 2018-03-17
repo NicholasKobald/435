@@ -192,7 +192,6 @@ public class IRGenVisitor {
             s.accept(this); 
         }
 
-        // dont all the IF statements, skip the 'else' block 
         this.irFunction.addInstruction(new IRGoto(l2));   
         this.irFunction.addInstruction(l1);
 
@@ -201,8 +200,15 @@ public class IRGenVisitor {
                 s.accept(this); 
             }
         }
-
         this.irFunction.addInstruction(l2); 
+        return null; 
+    }
+
+    public Temp gen(Print ps) throws BaseULException {
+        Instruction ins; 
+        Temp t = ps.exp.accept(this);
+        ins = new IRPrint(t, ps.exp_type, ps.newLine); 
+        this.irFunction.addInstruction(ins); 
         return null; 
     }
 

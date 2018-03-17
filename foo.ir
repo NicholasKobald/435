@@ -1,0 +1,16 @@
+FUNC main ()V
+{
+    TEMP 0:I;
+    TEMP 1:C;
+}
+
+FUNC foo (IU)V
+{
+    TEMP 0:I;
+    TEMP 1:U;
+    TEMP 2:I;
+    TEMP 3:I;
+    TEMP 4:AI;
+}
+
+
