@@ -3,5 +3,18 @@ void main() {
     char a;
     
     print "Hello there!"; 
+
+    x = 1;
+
+    if (x == 1) {
+        println "X was 1";
+    }
+
+
+    if (x == 2) {
+        println "noope";
+    } else {
+        println "X WAS 2!!";
+    } 
 }
 
