@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import ast.Assignment;
 import ast.BaseULException;
 import ast.Function;
+import ast.IRAssignment;
 import ast.IRConstantAssignment;
+import ast.Instruction;
 import ast.TempFactory;
 import ast.ULBool;
 import ast.ULIdentifier;
@@ -19,6 +21,7 @@ public class IRGenVisitor {
     IRProgram irProgram; 
     IRFunction irFunction;
     TempFactory tf; 
+    IRLabelFactory lf; 
     HashMap<String, Integer> idToTempNumber; 
 
     GlobalEnvironment globals; 
@@ -46,10 +49,12 @@ public class IRGenVisitor {
 
     public void gen(Program p) throws BaseULException {
         this.irProgram = new IRProgram();  
+        this.lf = new IRLabelFactory(); 
         globals = new GlobalEnvironment();
         for (Function f: p) {       
             globals.add(f.declaration); 
         }
+
         for (Function f: p) {
             f.accept(this); 
         }   
@@ -97,8 +102,9 @@ public class IRGenVisitor {
         } else {
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(result, lhs, rhs, optype, "-");
-        this.irFunction.addInstruction(irBin);
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "-");
+        IRAssignment a = new IRAssignment(result, irBin); 
+        this.irFunction.addInstruction(a);
         return result; 
     }
 
@@ -115,8 +121,9 @@ public class IRGenVisitor {
         } else {
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(result, lhs, rhs, optype, "+");
-        this.irFunction.addInstruction(irBin);
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "+");
+        IRAssignment a = new IRAssignment(result, irBin); 
+        this.irFunction.addInstruction(a);
         return result; 
     }
 
@@ -125,15 +132,14 @@ public class IRGenVisitor {
         Temp rhs = ae.operand_two.accept(this);
         Temp result; 
         Type optype = lhs.type; 
-        // if either are a float, the expression is coerced into a float
-        // lets worry about chars later, maybe?
         if (lhs.type == float_type || rhs.type == float_type) {
                 result = tf.getTemp(float_type);
         } else {
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(result, lhs, rhs, optype, "*");
-        this.irFunction.addInstruction(irBin);
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "*");
+        IRAssignment a = new IRAssignment(result, irBin); 
+        this.irFunction.addInstruction(a);
         return result; 
     }
 
@@ -142,11 +148,10 @@ public class IRGenVisitor {
         Temp rhs = e.operand_two.accept(this);
         Temp result; 
         Type optype = lhs.type; 
-        // if either are a float, the expression is coerced into a float
-        // lets worry about chars later, maybe?
         result = tf.getTemp(bool_type); 
-        IRBinaryExp irBin = new IRBinaryExp(result, lhs, rhs, optype, "==");
-        this.irFunction.addInstruction(irBin);
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "==");
+        IRAssignment a = new IRAssignment(result, irBin); 
+        this.irFunction.addInstruction(a);
         return result; 
     }
 
@@ -155,12 +160,26 @@ public class IRGenVisitor {
         Temp rhs = e.operand_two.accept(this);
         Temp result; 
         Type optype = lhs.type; 
-        // if either are a float, the expression is coerced into a float
-        // lets worry about chars later, maybe?
         result = tf.getTemp(bool_type); 
-        IRBinaryExp irBin = new IRBinaryExp(result, lhs, rhs, optype, "<");
-        this.irFunction.addInstruction(irBin);
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "<");
+        IRAssignment a = new IRAssignment(result, irBin); 
+        this.irFunction.addInstruction(a);
         return result; 
+    }
+
+    public Temp gen(If iff) throws BaseULException {
+        Instruction ins; 
+        IRLabel l1 = lf.getLabel();
+        IRLabel l2 = lf.getLabel(); 
+
+        Temp t = iff.cond.accept(this); 
+
+        // this stores the result of the boolean expression
+        Temp exp = this.tf.getTemp(bool_type);
+        ins = new IRTempToTempAssignment(exp, t);
+        this.irFunction.addInstruction(ins);
+
+        return null; 
     }
 
     public Temp gen(ULIdentifier id) throws BaseULException {

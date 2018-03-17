@@ -2,16 +2,14 @@ package ast;
 
 import types.Type; 
 
-public class IRBinaryExp extends IRAssignment {
+public class IRBinaryExp extends IRExpression {
 
-    Temp lhs;
     Temp op1;
     Temp op2;
     String operand;
     Type optype; 
 
-    public IRBinaryExp(Temp lhs, Temp op1, Temp op2, Type optype, String operand) {
-        this.lhs = lhs;
+    public IRBinaryExp(Temp op1, Temp op2, Type optype, String operand) {
         this.op1 = op1;
         this.op2 = op2;
         this.operand = operand;  
@@ -19,7 +17,7 @@ public class IRBinaryExp extends IRAssignment {
     }
 
     public String toString() {
-        return String.format("%s := %s %s%s %s;",
-            lhs.toCodeString(), op1.toCodeString(), this.convertTypeToIrString(optype), operand, op2.toCodeString());
+        return String.format("%s %s%s %s",
+            op1.toCodeString(), this.convertTypeToIrString(optype), operand, op2.toCodeString());
     }
 }

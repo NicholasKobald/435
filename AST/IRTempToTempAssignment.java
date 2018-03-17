@@ -1,6 +1,6 @@
 package ast;
 
-public class IRTempToTempAssignment extends IRAssignment { 
+public class IRTempToTempAssignment extends Instruction { 
     
     Temp lhs;
     Temp rhs;

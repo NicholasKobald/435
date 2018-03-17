@@ -1,6 +1,6 @@
 package ast;
 
-public class IRConstantAssignment extends IRAssignment {
+public class IRConstantAssignment extends Instruction {
 
     Temp lhs;
     UnaryExpression rhs;
