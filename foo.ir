@@ -1,61 +1,9 @@
-TEMP 1:I;
-TEMP 3:I;
-TEMP 0:I;
-TEMP 4:I;
-TEMP 7:Z;
-TEMP 6:Z;
-TEMP 11:Z;
-TEMP 10:Z;
+PROG
+myclassname
 FUNC main ()V
 {
     TEMP 0:I;
     TEMP 1:C;
-}
-
-FUNC foo ()V
-{
-    TEMP 0:I;
-    TEMP 1:I;
-    TEMP 2:AI;
-    TEMP 3:I;
-    TEMP 4:I;
-    TEMP 5:I;
-    TEMP 6:Z;
-    TEMP 7:Z;
-    TEMP 8:U;
-    TEMP 9:I;
-    TEMP 10:Z;
-    TEMP 11:Z;
-    TEMP 12:U;
-    TEMP 13:U;
-    T3 := 2;
-    T1 := T3;
-    T4 := 1;
-    T0 := T4;
-    T5 := 1;
-    T6 := T0 I== T5;
-    T7 := T6;
-    T7 := !T7;
-    IF T7 GOTO L0;
-    PRINTLNI T0;
-    GOTO L1;
-    L0:
-    T8 := "X was not 1";
-    PRINTLNU T8;
-    L1:
-    T9 := 2;
-    T10 := T1 I== T9;
-    T11 := T10;
-    T11 := !T11;
-    IF T11 GOTO L2;
-    PRINTLNI T1;
-    GOTO L3;
-    L2:
-    T12 := "Y was not 2";
-    PRINTLNU T12;
-    L3:
-    T13 := "Done!";
-    PRINTLNU T13;
 }
 
 
