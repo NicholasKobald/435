@@ -40,7 +40,7 @@ public class IRFunction extends IRBase {
                 s += "\n"; 
             }
             for (Instruction i: instructionList) {
-                s += i.toString(); 
+                s += "    " + i.toString(); 
                 s += "\n"; 
             }
             s += "}\n"; 

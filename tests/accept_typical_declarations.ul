@@ -9,5 +9,7 @@ void foo(int a, string b) {
     int y;
     int [5] words_BRO; 
 
-    x = 1; 
+    x = 3 + 2 - 1; 
+    x = x; 
+    y = x; 
 }

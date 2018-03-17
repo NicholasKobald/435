@@ -19,6 +19,7 @@ public class IRProgram extends IRBase {
         String s = ""; 
         for (IRFunction f: functionList) {
             s += f.toString(); 
+            s += "\n"; 
         }
         return s; 
     }

@@ -10,13 +10,16 @@ import types.Type;
 public class TempFactory {
 
     int count;
+    IRFunction f;
 
-    public TempFactory() {
+    public TempFactory(IRFunction f) {
         this.count = 0;
+        this.f = f; 
     }
 
     public Temp getTemp(Type t) {
         Temp temp = new Temp(t, this.count); 
+        this.f.addTemp(temp); 
         this.count += 1;
         return temp;  
     }
