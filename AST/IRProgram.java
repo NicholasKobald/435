@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import ast.IRFunction;
 
 public class IRProgram extends IRBase {
+
     LinkedList<IRFunction> functionList;
 
     public IRProgram() {
@@ -16,7 +17,7 @@ public class IRProgram extends IRBase {
     }
 
     public String toString() {
-        String s = ""; 
+        String s = "PROG\nmyclassname\n"; 
         for (IRFunction f: functionList) {
             s += f.toString(); 
             s += "\n"; 

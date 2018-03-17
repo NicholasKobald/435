@@ -11,8 +11,6 @@ public class IRTempToTempAssignment extends Instruction {
     }
 
     public String toString() {
-        System.out.println(lhs);
-        System.out.println(rhs); 
         return String.format("%s := %s;", lhs.toCodeString(), rhs.toCodeString()); 
     }
 }
