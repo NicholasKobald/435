@@ -14,4 +14,8 @@ public class EqualityLTExp extends BinaryExpression {
     Type accept(TypeCheckVisitor v) throws BaseULException { 
         return v.verify(this);
     }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this);
+    }
 }

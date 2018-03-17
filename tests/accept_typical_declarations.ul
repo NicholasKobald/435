@@ -8,8 +8,5 @@ void foo(int a, string b) {
     int x;
     int y;
     int [5] words_BRO; 
-
-    x = 3 + 2 - 1; 
-    x = x; 
-    y = x; 
+    
 }

@@ -1,6 +1,7 @@
 package ast;
 
-public class IRLabel {
+
+public class IRLabel extends Instruction {
     
     int idNumber;
 
@@ -9,6 +10,10 @@ public class IRLabel {
     }
 
     public String toString() {
-        return String.format("L%s", Integer.toString(this.idNumber)); 
+        return String.format("L%s:", Integer.toString(this.idNumber)); 
+    }
+    
+    public String refToString() {
+        return String.format("L%s", Integer.toString(this.idNumber));
     }
 }

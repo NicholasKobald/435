@@ -8,6 +8,7 @@ import ast.BaseULException;
 import ast.Function;
 import ast.IRAssignment;
 import ast.IRConstantAssignment;
+import ast.IRInvert;
 import ast.Instruction;
 import ast.TempFactory;
 import ast.ULBool;
@@ -179,6 +180,29 @@ public class IRGenVisitor {
         ins = new IRTempToTempAssignment(exp, t);
         this.irFunction.addInstruction(ins);
 
+        // invert it, 
+        ins = new IRAssignment(exp, new IRUnaryExp(new IRInvert(), exp)); 
+        this.irFunction.addInstruction(ins);
+
+        // if it's true now, take the GOTO to the end of the IF block
+        ins = new IRIf(exp, l1);
+        this.irFunction.addInstruction(ins); 
+
+        for (BaseStatement s: iff.statements) {
+            s.accept(this); 
+        }
+
+        // dont all the IF statements, skip the 'else' block 
+        this.irFunction.addInstruction(new IRGoto(l2));   
+        this.irFunction.addInstruction(l1);
+
+        if (iff.elseStatements != null) {
+            for (BaseStatement s: iff.elseStatements) {
+                s.accept(this); 
+            }
+        }
+
+        this.irFunction.addInstruction(l2); 
         return null; 
     }
 
@@ -187,17 +211,17 @@ public class IRGenVisitor {
     }
 
     public Temp gen(UnaryExpression ue) throws BaseULException {
-        System.out.println("Generating Unary Exp?"); 
+        System.out.println("Some unary expression might be missing its visitor methods."); 
         return null; 
     }
 
     public Temp gen(BaseExpression be) {
-        System.out.println("This is BAD. BAD BAD.");
+        System.out.println("Did you not implemenet the visitor methods on some expression?");
         return null; 
     }
 
     public Temp gen(BaseStatement d) throws BaseULException {
-        System.out.println("Something went terrible terribly wrong");
+        System.out.println("Could you have forgotten to implement the visitor method on some statement?");
         return null; 
     }
 
