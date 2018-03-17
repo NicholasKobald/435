@@ -204,6 +204,38 @@ public class IRGenVisitor {
         return null; 
     }
 
+    public Temp gen(While w) throws BaseULException {
+        Instruction ins; 
+        IRLabel l1 = lf.getLabel();
+        IRLabel l2 = lf.getLabel(); 
+        
+        //place a label at the top, before we check the condition, to loop
+        this.irFunction.addInstruction(l2); 
+
+        Temp t = w.cond.accept(this);
+        Temp exp = this.tf.getTemp(bool_type); 
+        ins = new IRTempToTempAssignment(exp, t);
+        this.irFunction.addInstruction(ins);
+
+        //invert the expression 
+        ins = new IRAssignment(exp, new IRUnaryExp(new IRInvert(), exp));
+        this.irFunction.addInstruction(ins); 
+        
+
+        // if it's true, take the GOTO to the end of the while block. 
+        ins = new IRIf(exp, l1); 
+        this.irFunction.addInstruction(ins);
+
+        for (BaseStatement s: w.statements) {
+            s.accept(this); 
+        }
+
+        this.irFunction.addInstruction(new IRGoto(l2)); 
+        this.irFunction.addInstruction(l1); 
+
+        return null; 
+    }
+
     public Temp gen(Print ps) throws BaseULException {
         Instruction ins; 
         Temp t = ps.exp.accept(this);

@@ -194,7 +194,7 @@ public class TypeCheckVisitor {
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
     }
-    
+
     Type verify(EqualityLTExp e) throws BaseULException {
         Type lhs = e.operand_one.accept(this); 
         Type rhs = e.operand_two.accept(this);
@@ -239,7 +239,6 @@ public class TypeCheckVisitor {
     }
 
     Type verify(While ws) throws BaseULException {
-        //TODO: test this 
         Type cond = ws.cond.accept(this);
         if (cond != bool_type) {
             String err = String.format("Expected 'boolean' got %s in while statement expression.", cond); 
