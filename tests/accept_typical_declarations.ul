@@ -1,5 +1,7 @@
 void main() {
     int x;
     char a;
+    
+    print "Hello there!"; 
 }
 
