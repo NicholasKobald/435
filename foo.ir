@@ -1,9 +1,0 @@
-PROG
-myclassname
-FUNC main ()V
-{
-    TEMP 0:I;
-    TEMP 1:C;
-}
-
-

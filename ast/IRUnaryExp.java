@@ -12,6 +12,6 @@ public class IRUnaryExp extends IRExpression {
 
     public String toString() {
         return String.format("%s%s%s", 
-            this.convertTypeToIrString(t.type), t.toString(), t.toCodeString()); 
+            this.convertTypeToIrString(t.type), op.toString(), t.toCodeString()); 
     }
 }

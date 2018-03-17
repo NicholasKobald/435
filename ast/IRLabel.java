@@ -10,7 +10,7 @@ public class IRLabel extends Instruction {
     }
 
     public String toString() {
-        return String.format("L%s:", Integer.toString(this.idNumber)); 
+        return String.format("L%s:;", Integer.toString(this.idNumber)); 
     }
     
     public String refToString() {
