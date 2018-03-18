@@ -138,7 +138,7 @@ public class IRGenVisitor {
         Temp result; 
         Type optype = lhs.type; 
         if (lhs.type == float_type || rhs.type == float_type) {
-                result = tf.getTemp(float_type);
+            result = tf.getTemp(float_type);
         } else {
             result = tf.getTemp(int_type); 
         }
@@ -315,6 +315,10 @@ public class IRGenVisitor {
         return null; 
     }
 
+    public Temp gen(ExpressionStatement es) throws BaseULException {
+        return es.exp.accept(this);
+    }
+
     public Temp gen(BaseExpression be) {
         System.out.println("Did you not implemenet the visitor methods on some expression?");
         return null; 
@@ -322,6 +326,7 @@ public class IRGenVisitor {
 
     public Temp gen(BaseStatement d) throws BaseULException {
         System.out.println("Could you have forgotten to implement the visitor method on some statement?");
+        System.out.println("Called with" + d.getClass());
         return null; 
     }
 

@@ -34,12 +34,12 @@ public class Function extends AST {
     void accept(PPVisitor v) {
         v.visit(this);
     }
-    
-    void accept(IRGenVisitor v) throws BaseULException {
-        v.gen(this); 
-    }
 
     void accept(TypeCheckVisitor v) throws BaseULException {
         v.verify(this); 
+    }
+
+    void accept(IRGenVisitor v) throws BaseULException {
+        v.gen(this); 
     }
 }
