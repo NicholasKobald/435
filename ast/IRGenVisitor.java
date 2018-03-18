@@ -100,11 +100,16 @@ public class IRGenVisitor {
         Temp rhs = ae.operand_two.accept(this);
         Temp result; 
         Type optype = lhs.type; 
-        // if either are a float, the expression is coerced into a float
-        // lets worry about chars later, maybe?
         if (lhs.type == float_type || rhs.type == float_type) {
-            result = tf.getTemp(float_type); 
+            optype = float_type; 
+            if (rhs.type == int_type) {
+                rhs = this.convertTemp(rhs, int_type, float_type); 
+            } else if (lhs.type == int_type) {
+                lhs = this.convertTemp(lhs, int_type, float_type); 
+            }
+            result = tf.getTemp(float_type);
         } else {
+            optype = int_type; 
             result = tf.getTemp(int_type); 
         }
         IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "-");
@@ -120,10 +125,16 @@ public class IRGenVisitor {
         Temp result; 
         Type optype = lhs.type; 
         // if either are a float, the expression is coerced into a float
-        // lets worry about chars later, maybe?
         if (lhs.type == float_type || rhs.type == float_type) {
-            result = tf.getTemp(float_type); 
+            optype = float_type; 
+            if (rhs.type == int_type) {
+                rhs = this.convertTemp(rhs, int_type, float_type); 
+            } else if (lhs.type == int_type) {
+                lhs = this.convertTemp(lhs, int_type, float_type); 
+            }
+            result = tf.getTemp(float_type);
         } else {
+            optype = int_type; 
             result = tf.getTemp(int_type); 
         }
         IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "+");
@@ -133,19 +144,35 @@ public class IRGenVisitor {
     }
 
     public Temp gen(MultExp ae) throws BaseULException {
+        Instruction ins; 
         Temp lhs = ae.operand_one.accept(this); 
         Temp rhs = ae.operand_two.accept(this);
         Temp result; 
-        Type optype = lhs.type; 
+        Type optype; 
         if (lhs.type == float_type || rhs.type == float_type) {
+            optype = float_type; 
+            if (rhs.type == int_type) {
+                rhs = this.convertTemp(rhs, int_type, float_type); 
+            } else if (lhs.type == int_type) {
+                lhs = this.convertTemp(lhs, int_type, float_type); 
+            }
             result = tf.getTemp(float_type);
         } else {
+            optype = int_type; 
             result = tf.getTemp(int_type); 
         }
         IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "*");
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
+    }
+
+    private Temp convertTemp(Temp t, Type from, Type to) {
+        Instruction ins; 
+        Temp new_rh = this.tf.getTemp(float_type);
+        ins = new IRConversion(new_rh, from, to, t); 
+        this.irFunction.addInstruction(ins); 
+        return new_rh;  
     }
 
     public Temp gen(EqualityEqExp e) throws BaseULException {
@@ -158,6 +185,10 @@ public class IRGenVisitor {
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
+    }
+
+    public Temp gen(ParanthesisExpression pe) throws BaseULException {
+        return pe.wrapped_expr.accept(this); 
     }
 
     public Temp gen(EqualityLTExp e) throws BaseULException {
@@ -316,7 +347,9 @@ public class IRGenVisitor {
     }
 
     public Temp gen(ExpressionStatement es) throws BaseULException {
-        return es.exp.accept(this);
+        if (es.exp != null) 
+            return es.exp.accept(this);
+        return null; 
     }
 
     public Temp gen(BaseExpression be) {
@@ -326,7 +359,6 @@ public class IRGenVisitor {
 
     public Temp gen(BaseStatement d) throws BaseULException {
         System.out.println("Could you have forgotten to implement the visitor method on some statement?");
-        System.out.println("Called with" + d.getClass());
         return null; 
     }
 

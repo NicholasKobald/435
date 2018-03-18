@@ -144,8 +144,6 @@ public class TypeCheckVisitor {
         } else if (lhs == rhs && lhs == string_type) {
             return string_type;
         }
-        System.out.println(lhs == char_type);
-        System.out.println(rhs == int_type);
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
     }

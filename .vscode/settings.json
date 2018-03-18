@@ -4,5 +4,6 @@
         "*.gs": "javascript",
         "*.ul": "c", 
         "stdlib.h": "c"
-    }
+    },
+    "python.linting.pylintEnabled": false
 }

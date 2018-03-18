@@ -16,8 +16,12 @@ public class IRFunctionCall extends Instruction {
     }
 
     public String toString() {
-        return String.format("%s := CALL %s(%s);", 
-            operand.toCodeString(), funcName, this.getTempListString());
+        if (operand != null) 
+            return String.format("%s := CALL %s(%s);", 
+                operand.toCodeString(), funcName, this.getTempListString());
+        else
+            return String.format("CALL %s(%s);",
+                funcName, this.getTempListString()); 
     }
 
     private String getTempListString() {
