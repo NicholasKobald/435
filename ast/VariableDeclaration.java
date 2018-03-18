@@ -24,5 +24,9 @@ public class VariableDeclaration extends AST {
 
     void accept(PPVisitor v) {
         v.visit(this);
-    } 
+    }
+    
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
+    }
 }

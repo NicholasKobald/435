@@ -72,8 +72,12 @@ public class IRGenVisitor {
             idToTempNumber.put(p.id.toString(), t.tempId); 
         }
         for (VariableDeclaration vd: f.body.variableList) {
-            Temp t = tf.getTemp(vd.type); 
-            idToTempNumber.put(vd.id.toString(), t.tempId); 
+            if (vd.type instanceof ArrayType) {
+                vd.accept(this); 
+            } else {
+                Temp t = tf.getTemp(vd.type); 
+                idToTempNumber.put(vd.id.toString(), t.tempId); 
+            }
         }
         this.irProgram.addFunction(irFunction); 
 
@@ -272,9 +276,39 @@ public class IRGenVisitor {
         return null; 
     }
 
+    public Temp gen(ArrayAssignment as) throws BaseULException {
+        Temp rhs = as.expression.accept(this);
+        Temp indexOp = as.indexExp.accept(this);
+        Temp lhs = this.irFunction.getTempById(this.idToTempNumber.get(as.ulid.toCodeString()));
+        Instruction ins = new IRArrayAssignment(lhs, indexOp, rhs);
+        this.irFunction.addInstruction(ins);
+        return null;
+    }
+
+    public Temp gen(ArrayExpression ae) throws BaseULException {
+        Temp array = this.irFunction.getTempById(this.idToTempNumber.get(ae.id.toCodeString()));
+        Temp index = ae.index.accept(this); 
+        Temp result = tf.getTemp(ae.atomicType);
+        Instruction ins = new IRArrayExpression(result, array, index);
+        this.irFunction.addInstruction(ins);
+        return result; 
+    }
+
+    public Temp gen(VariableDeclaration v) {
+        // this should only be called with an array declaration
+        ArrayType at = (ArrayType)v.type;
+        Type atomicType = at.type; 
+        Temp res = tf.getTemp(v.type); 
+        IRArrayDec ins = new IRArrayDec(res, atomicType, at.size);
+        this.irFunction.addArrayDec(ins); 
+        this.idToTempNumber.put(v.id.toString(), res.tempId); 
+        return res; 
+    }
+
     public Temp gen(ULIdentifier id) throws BaseULException {
         return this.irFunction.getTempById(idToTempNumber.get(id.toCodeString())); 
     }
+
 
     public Temp gen(UnaryExpression ue) throws BaseULException {
         System.out.println("Some unary expression might be missing its visitor methods."); 

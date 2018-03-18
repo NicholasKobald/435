@@ -48,7 +48,7 @@ public class TypeCheckVisitor {
         // creating the function environment checks for 
         // identity uniqueness, so we omit calling `accept` on the function
         // declaration, and variable declarations
-        // so at this point, our currently function should be acceptable
+        // so at this point, our current function should be acceptable
         // up until the statement list starts 
         int retcount = 0;
         BaseStatement cur = null; 
@@ -256,6 +256,7 @@ public class TypeCheckVisitor {
             ArrayType at = (ArrayType)this.currentFunction.getVariableType(e.id); 
             // an array expression would evaluate to the type
             // its build up out of 
+            e.atomicType = at.type; 
             return at.type;
         }
         String msg = String.format("Invalid type for array index. '%s' could not be coerced to 'int'", t.toCodeString());

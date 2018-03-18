@@ -8,6 +8,7 @@ public class IRFunction extends IRBase {
 
         LinkedList<Temp> tempList;
         LinkedList<Instruction> instructionList;
+        LinkedList<IRArrayDec> arrayDecs; 
         Type t; 
         String functionName; 
         ParamList pl; 
@@ -15,6 +16,7 @@ public class IRFunction extends IRBase {
         public IRFunction(Type t, String n, ParamList pl) {
             this.tempList = new LinkedList<Temp>();
             this.instructionList = new LinkedList<Instruction>(); 
+            this.arrayDecs = new LinkedList<IRArrayDec>();
             this.t = t; 
             this.functionName = n; 
             this.pl = pl; 
@@ -28,6 +30,10 @@ public class IRFunction extends IRBase {
             instructionList.add(i); 
         }
 
+        public void addArrayDec(IRArrayDec ad) {
+            arrayDecs.add(ad); 
+        }
+
         public Temp getTempById(int id) {
             // hope this works? 
             return tempList.get(id); 
@@ -39,6 +45,12 @@ public class IRFunction extends IRBase {
                 s += "    " + t.toString();
                 s += "\n"; 
             }
+
+            for (IRArrayDec d: arrayDecs) {
+                s += "    " + d.toString();
+                s += "\n"; 
+            }
+
             for (Instruction i: instructionList) {
                 s += "    " + i.toString(); 
                 s += "\n"; 

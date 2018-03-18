@@ -1,0 +1,9 @@
+void main() {
+    int [5] a;
+
+    a[0] = 1;
+
+    println "and a of 0 is";
+
+    println a[0]; 
+}
