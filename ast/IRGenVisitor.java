@@ -244,6 +244,34 @@ public class IRGenVisitor {
         return null; 
     }
 
+    public Temp gen(FunctionCall fc) throws BaseULException {
+        Instruction ins;
+        LinkedList<Temp> params = new LinkedList<Temp>(); 
+        for (BaseExpression e: fc.expList.expList) {
+            Temp t = e.accept(this); 
+            params.add(t); 
+        }
+        FunctionDeclaration callee = this.globals.getFunctionById(fc.id); 
+        Temp result = null; 
+        if (callee.type != void_type)
+            result = tf.getTemp(callee.type); 
+        
+        ins = new IRFunctionCall(result, callee.id.toCodeString(), params);
+        this.irFunction.addInstruction(ins);
+        return result;  
+    }
+
+    public Temp gen(Return r) throws BaseULException {
+        Instruction ins;
+        Temp op = null; 
+        if (r.exp != null) {
+            op = r.exp.accept(this); 
+        }
+        ins = new IRReturn(op); 
+        this.irFunction.addInstruction(ins);
+        return null; 
+    }
+
     public Temp gen(ULIdentifier id) throws BaseULException {
         return this.irFunction.getTempById(idToTempNumber.get(id.toCodeString())); 
     }
