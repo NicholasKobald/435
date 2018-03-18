@@ -84,6 +84,8 @@ public class IRGenVisitor {
         for (BaseStatement st: f.body.statementList) {
            st.accept(this); 
         }
+
+        this.irFunction.addInstruction(new IRReturn(null)); 
     }
 
     public Temp gen(Assignment a) throws BaseULException {
