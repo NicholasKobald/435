@@ -16,8 +16,10 @@ public class IRProgram extends IRBase {
         this.functionList.add(f); 
     }
 
-    public String toString() {
-        String s = "PROG\nmyclassname\n"; 
+    public String toString(String sourceName) {
+        String s = "PROG\n";
+        s += sourceName;
+        s += "\n\n"; 
         for (IRFunction f: functionList) {
             s += f.toString(); 
             s += "\n"; 

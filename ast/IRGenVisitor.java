@@ -44,8 +44,8 @@ public class IRGenVisitor {
         this.void_type = vt;
     }
 
-    public String getIRRepresenation() {
-        return this.irProgram.toString(); 
+    public String getIRRepresenation(String sourceName) {
+        return this.irProgram.toString(sourceName); 
     }
 
     public void gen(Program p) throws BaseULException {

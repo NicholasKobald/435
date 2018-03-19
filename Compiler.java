@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.*; 
+
 
 import ast.PPVisitor;
 import ast.Program;
@@ -53,7 +55,7 @@ public class Compiler {
                 args[0], String.valueOf(e.lineCrashed), e.getClass().getSimpleName(), e.msg); 
             System.out.println(msg); 
             System.out.println(String.format("Line %s:%s", String.valueOf(e.lineCrashed), line)); 
-            return; // 
+            return;
         }
         IRGenVisitor irvisitor = new IRGenVisitor(
             parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
@@ -61,10 +63,12 @@ public class Compiler {
         try {
             irvisitor.gen(prog); 
         } catch(BaseULException e) {
-            System.out.println("Any error occured when generating the IR");
+            System.out.println("An error occured when generating the IR");
             e.printStackTrace(); 
         }
-        String iRRepresentation = irvisitor.getIRRepresenation(); 
+        Path p = Paths.get(args[0]);
+        String className = p.getFileName().toString();
+        String iRRepresentation = irvisitor.getIRRepresenation(className); 
         System.out.println(iRRepresentation); 
     }
 
