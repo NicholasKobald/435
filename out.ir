@@ -1,0 +1,46 @@
+PROG
+myclassname
+FUNC main ()V
+{
+    TEMP 0:I;
+    TEMP 1:C;
+    TEMP 2:U;
+    TEMP 3:I;
+    TEMP 4:I;
+    TEMP 5:Z;
+    TEMP 6:Z;
+    TEMP 7:U;
+    TEMP 8:I;
+    TEMP 9:Z;
+    TEMP 10:Z;
+    TEMP 11:U;
+    TEMP 12:U;
+    T2 := "Hello there!";
+    PRINTU T2;
+    T3 := 1;
+    T0 := T3;
+    T4 := 1;
+    T5 := T0 I== T4;
+    T6 := T5;
+    T6 := Z!T6;
+    IF T6 GOTO L0;
+    T7 := "X was 1";
+    PRINTLNU T7;
+    GOTO L1;
+    L0:;
+    L1:;
+    T8 := 2;
+    T9 := T0 I== T8;
+    T10 := T9;
+    T10 := Z!T10;
+    IF T10 GOTO L2;
+    T11 := "noope";
+    PRINTLNU T11;
+    GOTO L3;
+    L2:;
+    T12 := "X WAS 2!!";
+    PRINTLNU T12;
+    L3:;
+}
+
+

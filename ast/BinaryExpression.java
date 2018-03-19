@@ -2,6 +2,7 @@ package ast;
 
 import org.antlr.runtime.Token;
 
+import types.Type; 
 
 public abstract class BinaryExpression extends BaseExpression {
 

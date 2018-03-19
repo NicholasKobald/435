@@ -28,4 +28,8 @@ public class ULIdentifier extends UnaryExpression {
     public Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
     }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
+    }
 }

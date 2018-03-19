@@ -1,6 +1,9 @@
 package ast;
 
+import java.util.Iterator;
+
 import types.Type; 
+
 
 public class Function extends AST {
 
@@ -20,20 +23,23 @@ public class Function extends AST {
         return this.declaration.type; 
     }
 
-    /*
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true; 
-        if (!(obj instanceof Function)) return false; 
-        
-        return this.declaration.equals(obj.declaration); 
+    public Iterator<Param> params() {
+        return this.declaration.params.iterator(); 
     }
-    */
+
+    public String funcName() {
+        return this.declaration.id.toCodeString(); 
+    }
+
     void accept(PPVisitor v) {
         v.visit(this);
     }
-    
+
     void accept(TypeCheckVisitor v) throws BaseULException {
         v.verify(this); 
+    }
+
+    void accept(IRGenVisitor v) throws BaseULException {
+        v.gen(this); 
     }
 }

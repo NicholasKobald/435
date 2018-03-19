@@ -13,8 +13,11 @@ public class SubExp extends BinaryExpression {
         this.operator = "-";
     }
 
-
     Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
+    }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
     }
 }

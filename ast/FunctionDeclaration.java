@@ -7,7 +7,7 @@ public class FunctionDeclaration extends AST {
 
     ULIdentifier id;
     Type type;
-    ParamList params;
+    public ParamList params;
 
     public FunctionDeclaration(Type type, ULIdentifier id, ParamList params) {
         this.id = id;

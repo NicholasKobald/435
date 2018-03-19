@@ -30,6 +30,8 @@ parser.add_argument('--check-ast', default=False,
                     action="store_true")
 parser.add_argument('--custom-test-dir', default=None,
                     help="Specify a different directory of tests than ./tests to run on") 
+parser.add_argument('--store-ir', default=False, action="store_true") 
+parser.add_argument('--fail-fast', default=False, action="store_true") 
 
 
 class FailedToCompileError(Exception):

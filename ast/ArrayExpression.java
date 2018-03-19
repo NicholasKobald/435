@@ -7,6 +7,7 @@ public class ArrayExpression extends BaseExpression {
 
     ULIdentifier id;
     BaseExpression index; 
+    public Type atomicType; 
 
     public ArrayExpression(ULIdentifier id, BaseExpression index) {
         this.id = id;
@@ -25,5 +26,9 @@ public class ArrayExpression extends BaseExpression {
 
     Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
+    }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
     }
 }

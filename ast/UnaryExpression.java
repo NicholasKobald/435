@@ -38,4 +38,8 @@ public abstract class UnaryExpression extends BaseExpression {
     public Type accepts(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
     }
+
+    Temp accept(IRGenVisitor v) throws BaseULException {
+        return v.gen(this); 
+    }
 }

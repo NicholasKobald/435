@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class ParamList extends AST implements Iterable<Param> {
 
-    ArrayList<Param> formals;
+    public ArrayList<Param> formals;
     private int size; 
 
     public ParamList() {

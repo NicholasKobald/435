@@ -48,7 +48,7 @@ public class TypeCheckVisitor {
         // creating the function environment checks for 
         // identity uniqueness, so we omit calling `accept` on the function
         // declaration, and variable declarations
-        // so at this point, our currently function should be acceptable
+        // so at this point, our current function should be acceptable
         // up until the statement list starts 
         int retcount = 0;
         BaseStatement cur = null; 
@@ -144,8 +144,6 @@ public class TypeCheckVisitor {
         } else if (lhs == rhs && lhs == string_type) {
             return string_type;
         }
-        System.out.println(lhs == char_type);
-        System.out.println(rhs == int_type);
         String err = String.format("Incompatible operand '%s' for types '%s' and '%s'", e.operator, lhs.toCodeString(), rhs.toCodeString()); 
         throw new IncompatibleTypesException(err, e.getLineNumber());
     }
@@ -213,6 +211,7 @@ public class TypeCheckVisitor {
 
     Type verify(Print p) throws BaseULException {
         Type t = p.exp.accept(this); 
+        p.exp_type = t; // hack, but the iR generator needs it i guess 
         if (t == void_type || t instanceof ArrayType) {
             String err = String.format("Incompatible type for print statement. Type may not be %s", t.toCodeString()); 
             throw new IncompatibleTypesException(err, p.exp.getLineNumber());
@@ -223,7 +222,7 @@ public class TypeCheckVisitor {
     Type verify(If iff) throws BaseULException {
         Type cond = iff.cond.accept(this);
         if (cond != bool_type) {
-            String err = String.format("Expected 'boolean' got %s in if statement expression.", cond); 
+            String err = String.format("Expected 'boolean' got '%s' in if statement expression.", cond); 
             throw new IncompatibleTypesException(err, iff.cond.getLineNumber());     
         }
         for (BaseStatement s: iff.statements) {
@@ -238,7 +237,6 @@ public class TypeCheckVisitor {
     }
 
     Type verify(While ws) throws BaseULException {
-        //TODO: test this 
         Type cond = ws.cond.accept(this);
         if (cond != bool_type) {
             String err = String.format("Expected 'boolean' got %s in while statement expression.", cond); 
@@ -256,6 +254,7 @@ public class TypeCheckVisitor {
             ArrayType at = (ArrayType)this.currentFunction.getVariableType(e.id); 
             // an array expression would evaluate to the type
             // its build up out of 
+            e.atomicType = at.type; 
             return at.type;
         }
         String msg = String.format("Invalid type for array index. '%s' could not be coerced to 'int'", t.toCodeString());
