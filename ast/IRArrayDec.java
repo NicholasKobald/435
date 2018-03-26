@@ -4,9 +4,9 @@ import types.Type;
 
 public class IRArrayDec extends Instruction { 
 
-    Temp var;
-    Type at;
-    int size;
+    public Temp var;
+    public Type at;
+    public int size;
 
     public IRArrayDec(Temp var, Type at, int size) {
         this.var = var; 

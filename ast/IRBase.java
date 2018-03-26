@@ -8,6 +8,12 @@ public class IRBase {
         return "You have called the Base toCodeString(). Something probably went wrong"; 
     }
 
+    public String toJasminString() {
+        return "You have called the base toJasminString method"
+               + " Is it possible you have forgotten to implement this function" 
+               + " correctly on some IR class?"; 
+    }
+
     protected String convertTypeToIrString(Type t) {
         if (t instanceof BoolType) {
             return "Z"; 

@@ -14,4 +14,11 @@ public class IRReturn extends Instruction {
         else
             return String.format("RETURN %s;", t.toCodeString()); 
     }
+
+    public String toJasminString() {
+        if (t == null) 
+            return "return";
+        else 
+            return "RaiseNotImplementedException()"; 
+    }
 }
