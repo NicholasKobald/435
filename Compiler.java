@@ -78,9 +78,10 @@ public class Compiler {
         ULJVMGenerator uljvmgen = new ULJVMGenerator(irP, args[0], className, type_package); 
         uljvmgen.generate();
 
-        System.out.println(iRRepresentation); 
-
-        System.out.println(" -- converted to -- "); 
+        if (args.length > 1 && "--compare".equals(args[1])) { 
+            System.out.println(iRRepresentation); 
+            System.out.println(" -- converted to -- "); 
+        }
 
         System.out.println(uljvmgen.toString());
     }
