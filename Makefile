@@ -10,9 +10,11 @@ grammar: $(GSRCS)
 compiler:
 	javac types/*.java 
 	javac ast/*.java
+	javac jvmgen/*.java
 	javac *.java
 
 clean:
 	rm *.class $(GNAME)*.java $(GNAME)__.g $(GNAME).tokens
 	rm ast/*class
-	rm types/*class 
+	rm types/*class
+	rm jvmgen/*class  

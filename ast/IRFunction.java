@@ -6,12 +6,12 @@ import types.*;
 
 public class IRFunction extends IRBase {
 
-        LinkedList<Temp> tempList;
-        LinkedList<Instruction> instructionList;
-        LinkedList<IRArrayDec> arrayDecs; 
-        Type t; 
-        String functionName; 
-        ParamList pl; 
+        public LinkedList<Temp> tempList;
+        public LinkedList<Instruction> instructionList;
+        public LinkedList<IRArrayDec> arrayDecs; 
+        public Type t; 
+        public String functionName; 
+        public ParamList pl; 
 
         public IRFunction(Type t, String n, ParamList pl) {
             this.tempList = new LinkedList<Temp>();
@@ -20,6 +20,10 @@ public class IRFunction extends IRBase {
             this.t = t; 
             this.functionName = n; 
             this.pl = pl; 
+        }
+
+        public int numTemps() {
+            return this.tempList.size(); 
         }
 
         public void addTemp(Temp t) {
@@ -35,7 +39,6 @@ public class IRFunction extends IRBase {
         }
 
         public Temp getTempById(int id) {
-            // hope this works? 
             return tempList.get(id); 
         }
 
@@ -59,11 +62,12 @@ public class IRFunction extends IRBase {
             return s; 
         }
 
-        private String paramTypeString() {
+        public String paramTypeString() {
             String s = "";
             for (Param p: pl) {
                 s += this.convertTypeToIrString(p.type); 
             }
             return s; 
         }
+
 }

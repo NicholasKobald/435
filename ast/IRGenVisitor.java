@@ -9,6 +9,7 @@ import ast.Function;
 import ast.IRAssignment;
 import ast.IRConstantAssignment;
 import ast.IRInvert;
+import ast.IRProgram;
 import ast.Instruction;
 import ast.TempFactory;
 import ast.ULBool;
@@ -42,6 +43,10 @@ public class IRGenVisitor {
         this.char_type = ct;
         this.string_type = st; 
         this.void_type = vt;
+    }
+
+    public IRProgram getIRProgram() {
+        return this.irProgram; 
     }
 
     public String getIRRepresenation(String sourceName) {

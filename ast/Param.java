@@ -6,7 +6,7 @@ import types.Type;
 public class Param extends AST {
 
     ULIdentifier id;
-    Type type; 
+    public Type type; 
 
     public Param(ULIdentifier id, Type type) {
         this.id = id; 
