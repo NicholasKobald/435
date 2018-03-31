@@ -18,8 +18,6 @@ public abstract class UnaryExpression extends BaseExpression {
 
     public String toJasminString() {
         return this.toCodeString(); 
-        //return "The UnaryExpression to JasminString was called,"
-        //        + " Is it possible you forgot to implement it on one of your literals?"; 
     }
 
     public String toString() {

@@ -15,4 +15,11 @@ public class IRIf extends Instruction {
         return String.format("IF %s GOTO %s;", cond.toCodeString(), label.refToString());
     }
 
+
+    public String[] getJasminStrings() {
+        return new String[] {
+            String.format("iload %d", cond.tempId),
+            String.format("ifne %s", label.refToString())
+        };
+    }
 }

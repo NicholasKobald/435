@@ -11,4 +11,5 @@ public class Instruction extends IRBase {
         return "NotImplemented quite yet - you are trying to generate an instruction that you haven't"
              + " Implemented one of 'getJasminString' or 'getJasminStrings' on.";
     }
+
 }

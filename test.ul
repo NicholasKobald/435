@@ -5,9 +5,11 @@ void main() {
 
     z = true; 
     x = 1;
-
-    println "Helllllllo"; 
     
+    if (x == 1) {
+        println "Helllllllo";
+    } 
+
     println x; 
   
 }

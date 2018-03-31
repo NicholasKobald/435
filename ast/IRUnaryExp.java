@@ -11,8 +11,15 @@ public class IRUnaryExp extends IRExpression {
     }
 
     public String toJasminString() {
-        return String.format("not sure..");
+        String[] sa = new String[] {
+            String.format("%s %d", this.convertTypeToLoadString(t.type), t.tempId),
+            "ldc 1", 
+            String.format("%sxor", this.toJasminType(t.type)),
+        };
+        return this.strJoin(sa, "\n    ");
     }
+
+
     
     public String toString() {
         return String.format("%s%s%s", 

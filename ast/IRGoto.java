@@ -11,4 +11,11 @@ public class IRGoto extends Instruction {
     public String toString() {
         return String.format("GOTO %s;", label.refToString()); 
     }
+
+    @Override
+    public String[] getJasminStrings() {
+        return new String[] {
+            String.format("goto %s", label.refToString()),
+        };
+    }
 }

@@ -14,9 +14,10 @@ public class IRAssignment extends Instruction {
         return String.format("%s := %s;", lhs.toCodeString(), rhs.toString()); 
     }
 
-    public String[] toJasminStrings() {
+    @Override
+    public String[] getJasminStrings() {
         return new String[] {
-            String.format("ldc %s", rhs.toJasminString()),
+            rhs.toJasminString(),
             String.format("istore %d", lhs.tempId) 
         }; 
     }
