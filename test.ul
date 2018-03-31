@@ -1,15 +1,15 @@
 void main() {
     int x;
-    int y; 
-    boolean z;
 
-    z = true; 
     x = 1;
-    
-    if (x == 1) {
-        println "Helllllllo";
-    } 
 
-    println x; 
-  
+    while (x < 15) {
+        println "The next number in the sequence is";
+        println x;
+        x = x + 1; 
+    }
+
+
+    println "And we done!";
+
 }
