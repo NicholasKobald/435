@@ -15,10 +15,14 @@ public class IRReturn extends Instruction {
             return String.format("RETURN %s;", t.toCodeString()); 
     }
 
-    public String toJasminString() {
+    public String getJasminString() {
         if (t == null) 
             return "return";
         else 
-            return "RaiseNotImplementedException()"; 
+            return String.format("ret %d", t.tempId); 
+    }
+
+    public String[] getJasminStrings() {
+        return new String[] {this.getJasminString()};
     }
 }

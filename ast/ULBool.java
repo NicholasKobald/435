@@ -21,4 +21,16 @@ public class ULBool extends UnaryExpression {
     Temp accept(IRGenVisitor v) throws BaseULException {
         return v.gen(this); 
     }
+    
+    public String toString() {
+        return this.token.getText();
+    }
+
+    public String toCodeString() {
+        return this.toString().toUpperCase(); 
+    }
+    
+    public String toJasminString() {
+        return this.toString().equals("true") ? "1" : "0"; 
+    }
 }

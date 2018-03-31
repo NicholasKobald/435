@@ -14,4 +14,11 @@ public class IRConstantAssignment extends Instruction {
         return String.format("%s := %s;", lhs.toCodeString(), rhs.toCodeString()); 
     }
 
+    @Override
+    public String[] getJasminStrings() {
+        return new String[] {
+            String.format("ldc %s", rhs.toJasminString()),
+            String.format("%s %d", this.convertTypeToStoreString(lhs.type), this.lhs.tempId), 
+        }; 
+    }
 }
