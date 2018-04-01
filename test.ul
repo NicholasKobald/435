@@ -1,5 +1,6 @@
 void main() {
     int x;
+    int temp; 
 
     x = 1;
 
@@ -7,6 +8,19 @@ void main() {
         println "The next number in the sequence is";
         println x;
         x = x + 1; 
+        temp = x; 
+        while (1 < temp) {
+            temp = temp - 2;
+        }
+        if (1 -2 < temp) {
+            if (temp == 1) {
+                println "That x was even"; 
+            } else {
+                println "That x was odd"; 
+            }
+        } else {
+            println "That x was even"; 
+        }
     }
 
 

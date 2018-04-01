@@ -1,5 +1,40 @@
 # Repo for 435 assignments
 
+#### Language examples 
+FizzBuzz in .ul: 
+
+```
+void main() {
+    int n;
+    int temp_five;
+    int temp_three;
+
+    n = 1;
+
+    while (n < 101) {
+        temp_five = n;
+        temp_three = n;
+        while (0 < temp_three) { temp_three = temp_three - 3; }
+        while (0 < temp_five) { temp_five = temp_five - 5; }
+
+        if (temp_three == 0) {
+            if (temp_five == 0) {
+                print "FizzBuzz";
+            } else {
+                print "Fizz";
+            }
+        } else {
+            if (temp_five == 0) {
+                print "Buzz";
+            } else {
+                print n;
+            }
+        }
+        print " ";
+        n = n + 1;
+    }
+}
+```
 #### Assignment 2 notes/bonus:
     - I allow multiplying of int/float, which evaluates to float
     - I allow math expressions on characters, which evaluate to character
