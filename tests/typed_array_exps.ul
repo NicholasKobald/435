@@ -1,0 +1,30 @@
+void main() {
+    int [100]a;
+    char [100]x;
+    boolean [100]c;
+    string [100]n;
+    float [100]floats;
+
+    int index_guy;
+
+    index_guy = 0;
+
+    while (index_guy < 100) {
+        a[index_guy] = index_guy * 3;
+        x[index_guy] = 'a';
+        c[index_guy] = true;
+        n[index_guy] = "Helloworld";
+        floats[index_guy] = index_guy * 4.5;
+        index_guy = index_guy + 1;
+    }
+
+
+
+    println "Float number 50 is";
+    println floats[50];
+    println "Char 50 is";
+    println x[50];
+    println "The string is";
+    println n[50];
+
+}

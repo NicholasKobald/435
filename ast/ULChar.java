@@ -15,7 +15,7 @@ public class ULChar extends UnaryExpression {
     }
 
     public String toJasminString() {
-        return Integer.toString((int)(this.toCodeString().charAt(0))); 
+        return Integer.toString((int)(this.toCodeString().charAt(1))); // the literals include the " ' '" in the token 
     }
 
     public String toString() {

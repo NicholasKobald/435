@@ -30,7 +30,7 @@ public class IRBase {
             return "iload";
         if (t instanceof FloatType)
             return "fload";
-        if (t instanceof StringType) 
+        if (t instanceof StringType || t instanceof ArrayType)  
             return "aload"; 
         return "Called convert type to store string with an unsupported type";
     }

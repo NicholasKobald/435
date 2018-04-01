@@ -52,7 +52,7 @@ public class ULJVMGenerator {
 
     private void InitializeArray(IRArrayDec ad) {
         appendline("ldc %s", Integer.toString(ad.size));
-        appendline("newarray %s", ad.at.toJVMString());
+        appendline("%snewarray %s", ad.at == this.ultype._string ? "a" : "", ad.at.toJVMString());
         appendline("astore %s", Integer.toString(ad.var.tempId));  
     }
 

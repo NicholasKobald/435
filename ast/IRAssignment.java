@@ -18,7 +18,7 @@ public class IRAssignment extends Instruction {
     public String[] getJasminStrings() {
         return new String[] {
             rhs.toJasminString(),
-            String.format("istore %d", lhs.tempId) 
+            String.format("%s %d", this.convertTypeToStoreString(lhs.type), lhs.tempId) 
         }; 
     }
 }
