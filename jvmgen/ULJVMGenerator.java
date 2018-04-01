@@ -65,7 +65,8 @@ public class ULJVMGenerator {
             appendline("aconst_null"); 
             appendline("astore %s", Integer.toString(t.tempId));
         } else {
-            System.out.println("Could you have forgotten to support a particular type being declared?");
+            // System.out.println("Could you have forgotten to support a particular type being declared?");
+            // should be ok 
         }
     }
 
@@ -140,7 +141,7 @@ public class ULJVMGenerator {
             return "V"; 
         }
         if (t instanceof StringType) {
-            return "U"; // -> probably needs to be java.lang.String or something
+            return "Ljava/lang/String;"; // ?
         }
         if (t instanceof ArrayType) { 
             return "A" + this.convertTypeToJVMString(((ArrayType)t).type); 

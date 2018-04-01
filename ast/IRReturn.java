@@ -23,6 +23,12 @@ public class IRReturn extends Instruction {
     }
 
     public String[] getJasminStrings() {
-        return new String[] {this.getJasminString()};
+        if (t == null)
+            return new String[] {"return"}; 
+        
+        return new String[] {
+            String.format("%s %d", this.convertTypeToLoadString(t.type), t.tempId),
+            String.format("%sreturn", this.toJasminType(t.type)),
+        };
     }
 }

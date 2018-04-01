@@ -14,6 +14,18 @@ public class ULChar extends UnaryExpression {
         this.type = ct; 
     }
 
+    public String toJasminString() {
+        return Integer.toString((int)(this.toCodeString().charAt(0))); 
+    }
+
+    public String toString() {
+        return this.token.getText();
+    }
+
+    public String toCodeString() {
+        return this.toString(); 
+    }
+
     Type accept(TypeCheckVisitor v) throws BaseULException {
         return v.verify(this);
     }

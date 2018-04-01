@@ -36,14 +36,17 @@ public class IRGenVisitor {
     CharType char_type;
     StringType string_type;
     VoidType void_type; 
+
+    String cn; 
     
-    public IRGenVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st, VoidType vt) {
+    public IRGenVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st, VoidType vt, String cn) {
         this.float_type = ft;
         this.int_type = int_type;
         this.bool_type = bool_type;
         this.char_type = ct;
         this.string_type = st; 
         this.void_type = vt;
+        this.cn = cn; 
     }
 
     public IRProgram getIRProgram() {
@@ -301,7 +304,7 @@ public class IRGenVisitor {
         if (callee.type != void_type)
             result = tf.getTemp(callee.type); 
         
-        ins = new IRFunctionCall(result, callee.id.toCodeString(), params);
+        ins = new IRFunctionCall(result, callee.id.toCodeString(), params, callee.type, this.cn);
         this.irFunction.addInstruction(ins);
         return result;  
     }

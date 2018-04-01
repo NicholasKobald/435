@@ -35,7 +35,16 @@ public class IRBase {
         return "Called convert type to store string with an unsupported type";
     }
 
+    public String toJasminType(Type t) {
+        if (t instanceof IntegerType || t instanceof CharType || t instanceof BoolType) 
+            return "i";
+        if (t instanceof FloatType)
+            return "f";
+        if (t instanceof StringType) 
+            return "a"; 
 
+        return "NO VALID JASMIN TYPE FOUND IREXP";
+    }
 
     protected String convertTypeToIrString(Type t) {
         if (t instanceof BoolType) {

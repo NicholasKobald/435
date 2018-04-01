@@ -59,7 +59,7 @@ public class Compiler {
             return;
         }
         IRGenVisitor irvisitor = new IRGenVisitor(
-            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void, args[0]); 
 
         try {
             irvisitor.gen(prog); 
