@@ -1,6 +1,8 @@
 void main() {
     int c;
     c = mult(sum(2,2,9),2);
+    
+    println c; 
 }
 
 int sum(int a, int b, int sum) {

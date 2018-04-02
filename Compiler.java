@@ -58,8 +58,11 @@ public class Compiler {
             System.out.println(String.format("Line %s:%s", String.valueOf(e.lineCrashed), line)); 
             return;
         }
+        Path p = Paths.get(args[0]);
+        String className = p.getFileName().toString();
+        
         IRGenVisitor irvisitor = new IRGenVisitor(
-            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void, args[0]); 
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void, className); 
 
         try {
             irvisitor.gen(prog); 
@@ -67,8 +70,6 @@ public class Compiler {
             System.out.println("An error occured when generating the IR");
             e.printStackTrace(); 
         }
-        Path p = Paths.get(args[0]);
-        String className = p.getFileName().toString();
         String iRRepresentation = irvisitor.getIRRepresenation(className); 
 
         ultype type_package = new ultype(
