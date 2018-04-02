@@ -1,0 +1,9 @@
+void main() {
+    int c;
+    c = two();
+    println c; 
+}
+
+int two() {
+    return 2;
+} 

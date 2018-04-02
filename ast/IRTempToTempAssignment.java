@@ -17,7 +17,7 @@ public class IRTempToTempAssignment extends Instruction {
     @Override
     public String[] getJasminStrings() {
         return new String [] {
-            String.format("iload %d", rhs.tempId),
+            String.format("%s %d", this.convertTypeToLoadString(rhs.type), rhs.tempId),
             String.format("%s %d", this.convertTypeToStoreString(lhs.type), lhs.tempId) 
         };
     }
