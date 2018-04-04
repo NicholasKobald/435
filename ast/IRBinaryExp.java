@@ -14,7 +14,7 @@ public class IRBinaryExp extends IRExpression {
         this.op1 = op1;
         this.op2 = op2;
         this.operand = operand;  
-        this.optype = optype; 
+        this.optype = optype;  
         this.n = n; // dw about me 
     }
 

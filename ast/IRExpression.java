@@ -8,17 +8,6 @@ public class IRExpression extends IRBase {
         return "Is it possible you did not implement the getJasminString method on some IRExpression?"; 
     }
 
-    public String toJasminType(Type t) {
-        if (t instanceof IntegerType || t instanceof CharType || t instanceof BoolType) 
-            return "i";
-        if (t instanceof FloatType)
-            return "f";
-        if (t instanceof StringType) 
-            return "a"; 
-
-        return "NO VALID JASMIN TYPE FOUND IREXP";
-    }
-
     // java7 compatibility cause uvic o7 
     // https://stackoverflow.com/questions/1978933/a-quick-and-easy-way-to-join-array-elements-with-a-separator-the-opposite-of-sp
     public static String strJoin(String[] aArr, String sSep) {
