@@ -1,0 +1,14 @@
+void main() {
+
+    println take_so_many_parameters(1, 'a', "hello world"); 
+}
+
+string take_so_many_parameters(int x, char y, string z) {
+
+    println("Here we go!");
+
+    return "world pls";
+}
+
+
+

@@ -16,4 +16,10 @@ public class IRLabel extends Instruction {
     public String refToString() {
         return String.format("L%s", Integer.toString(this.idNumber));
     }
+
+    public String[] getJasminStrings() {
+        return new String[] {
+            String.format("L%d:", idNumber)
+        };
+    }
 }

@@ -1,0 +1,17 @@
+void main() {
+    int x;
+
+    x = 1;
+}
+
+
+int foo(int x) {
+    int a;
+
+    a = x;
+
+    a = a + 1;
+
+    return a;
+
+}

@@ -19,4 +19,12 @@ public class IRPrint extends Instruction {
         return String.format("PRINT%s%s %s;",
             ln, this.convertTypeToIrString(t), op.toCodeString()); 
     }
+
+    public String[] getJasminStrings() {
+        String ln = this.nl ? "ln" : ""; 
+        return new String[] {"getstatic java/lang/System/out Ljava/io/PrintStream;",  
+                String.format("%s %s", this.convertTypeToLoadString(t),  Integer.toString(op.tempId)), 
+                String.format("invokevirtual java/io/PrintStream/print%s(%s)V", ln, this.convertTypeToIrString(t)),
+         };  
+    }
 }

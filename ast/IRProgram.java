@@ -6,7 +6,7 @@ import ast.IRFunction;
 
 public class IRProgram extends IRBase {
 
-    LinkedList<IRFunction> functionList;
+    public LinkedList<IRFunction> functionList;
 
     public IRProgram() {
         functionList = new LinkedList<IRFunction>();

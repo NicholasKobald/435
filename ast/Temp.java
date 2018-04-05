@@ -4,9 +4,8 @@ import types.*;
 
 public class Temp extends IRBase {
     
-    Type type;
-    String boundid;  
-    int tempId;
+    public Type type;
+    public int tempId;
 
     public Temp(Type t, int tempId) {
         this.type = t; 

@@ -20,7 +20,14 @@ public class IRConversion extends Instruction {
     @Override
     public String toString() {
         return String.format("%s := %s2%s %s;", res.toCodeString(), 
-            this.convertTypeToIrString(from), this.convertTypeToIrString(to),
-            t.toCodeString()); 
+            this.convertTypeToIrString(from), this.convertTypeToIrString(to), t.toCodeString()); 
+    }
+
+    public String[] getJasminStrings() {
+        return new String[] {
+            String.format("%s %d", this.convertTypeToLoadString(from), t.tempId), 
+            String.format("%s2%s", this.toJasminType(from), this.toJasminType(to)), 
+            String.format("%s %d", this.convertTypeToStoreString(to), res.tempId), 
+        };
     }
 }

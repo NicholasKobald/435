@@ -15,17 +15,10 @@ public abstract class UnaryExpression extends BaseExpression {
         this.lineNumber = this.token.getLine(); 
         this.lineColumn = this.token.getCharPositionInLine(); 
     }
-    /* 
-    @Override
-    public int getLineNumber() {
-        return this.token.getLine();
-    } 
- 
 
-    public int getCharPositionInLine() {
-        return this.token.getCharPositionInLine();
+    public String toJasminString() {
+        return this.toCodeString(); 
     }
-    */
 
     public String toString() {
         return this.token.getText();

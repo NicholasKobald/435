@@ -7,11 +7,12 @@ import ast.Program;
 import ast.TypeCheckVisitor;
 import ast.BaseULException;
 import ast.IRGenVisitor;
+import ast.IRProgram;
 import types.*;
 import types.BoolType;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
-
+import jvmgen.ULJVMGenerator; 
 
 public class Compiler {
 
@@ -57,8 +58,11 @@ public class Compiler {
             System.out.println(String.format("Line %s:%s", String.valueOf(e.lineCrashed), line)); 
             return;
         }
+        Path p = Paths.get(args[0]);
+        String className = p.getFileName().toString();
+        
         IRGenVisitor irvisitor = new IRGenVisitor(
-            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void, className); 
 
         try {
             irvisitor.gen(prog); 
@@ -66,10 +70,21 @@ public class Compiler {
             System.out.println("An error occured when generating the IR");
             e.printStackTrace(); 
         }
-        Path p = Paths.get(args[0]);
-        String className = p.getFileName().toString();
         String iRRepresentation = irvisitor.getIRRepresenation(className); 
-        System.out.println(iRRepresentation); 
+
+        ultype type_package = new ultype(
+            parser._float, parser._int, parser._bool, parser._char, parser._str, parser._void); 
+
+        IRProgram irP = irvisitor.getIRProgram(); 
+        ULJVMGenerator uljvmgen = new ULJVMGenerator(irP, args[0], className, type_package); 
+        uljvmgen.generate();
+
+        if (args.length > 1 && "--compare".equals(args[1])) { 
+            System.out.println(iRRepresentation); 
+            System.out.println(" -- converted to -- "); 
+        }
+
+        System.out.println(uljvmgen.toString());
     }
 
 

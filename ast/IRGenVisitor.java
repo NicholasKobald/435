@@ -9,6 +9,7 @@ import ast.Function;
 import ast.IRAssignment;
 import ast.IRConstantAssignment;
 import ast.IRInvert;
+import ast.IRProgram;
 import ast.Instruction;
 import ast.TempFactory;
 import ast.ULBool;
@@ -23,7 +24,8 @@ public class IRGenVisitor {
     IRFunction irFunction;
     TempFactory tf; 
     IRLabelFactory lf; 
-    HashMap<String, Integer> idToTempNumber; 
+    HashMap<String, Integer> idToTempNumber;
+    int helperLabelCount = 0; 
 
     GlobalEnvironment globals; 
     FunctionEnvironment currentFunction; 
@@ -34,14 +36,21 @@ public class IRGenVisitor {
     CharType char_type;
     StringType string_type;
     VoidType void_type; 
+
+    String cn; 
     
-    public IRGenVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st, VoidType vt) {
+    public IRGenVisitor(FloatType ft, IntegerType int_type, BoolType bool_type, CharType ct, StringType st, VoidType vt, String cn) {
         this.float_type = ft;
         this.int_type = int_type;
         this.bool_type = bool_type;
         this.char_type = ct;
         this.string_type = st; 
         this.void_type = vt;
+        this.cn = cn; 
+    }
+
+    public IRProgram getIRProgram() {
+        return this.irProgram; 
     }
 
     public String getIRRepresenation(String sourceName) {
@@ -114,7 +123,7 @@ public class IRGenVisitor {
             optype = int_type; 
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "-");
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "-", this.helperLabelCount);
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
@@ -139,7 +148,7 @@ public class IRGenVisitor {
             optype = int_type; 
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "+");
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "+", this.helperLabelCount);
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
@@ -163,7 +172,7 @@ public class IRGenVisitor {
             optype = int_type; 
             result = tf.getTemp(int_type); 
         }
-        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "*");
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "*", this.helperLabelCount);
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
@@ -183,7 +192,8 @@ public class IRGenVisitor {
         Temp result; 
         Type optype = lhs.type; 
         result = tf.getTemp(bool_type); 
-        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "==");
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "==", this.helperLabelCount);
+        this.helperLabelCount += 2; 
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
@@ -199,7 +209,8 @@ public class IRGenVisitor {
         Temp result; 
         Type optype = lhs.type; 
         result = tf.getTemp(bool_type); 
-        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "<");
+        IRBinaryExp irBin = new IRBinaryExp(lhs, rhs, optype, "<", this.helperLabelCount);
+        this.helperLabelCount += 2; 
         IRAssignment a = new IRAssignment(result, irBin); 
         this.irFunction.addInstruction(a);
         return result; 
@@ -293,7 +304,7 @@ public class IRGenVisitor {
         if (callee.type != void_type)
             result = tf.getTemp(callee.type); 
         
-        ins = new IRFunctionCall(result, callee.id.toCodeString(), params);
+        ins = new IRFunctionCall(result, callee.id.toCodeString(), params, callee.type, this.cn);
         this.irFunction.addInstruction(ins);
         return result;  
     }
