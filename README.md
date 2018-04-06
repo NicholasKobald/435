@@ -1,5 +1,7 @@
 # Repo for 435 assignments
 
+Can run the compiler on a particular UL file, and automaticly generate the `.j` with jasmin, as well as invoke the executeable with the script in `test.sh`. 
+
 #### Language examples 
 FizzBuzz in .ul: 
 
