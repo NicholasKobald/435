@@ -4,7 +4,9 @@ void main() {
     a = ((5));
     a = (((5)));
     a = (((((5)))));
-    foo();
+    println a;
+    a = foo();
+    println a; 
     return;
 }
 

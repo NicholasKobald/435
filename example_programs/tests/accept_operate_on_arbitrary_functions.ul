@@ -8,6 +8,13 @@ void main() {
     x = foo() + foo() + foo() + foo() + foo() + foo() + foo() + foo();
 
     x = bar() + bar() + 1 + bar() + bar() + bar() + bar() + bar() * 2;
+
+
+
+    println x; 
+
+    x = some_wierd_shit();
+    println x; 
 }
 
 int foo() {

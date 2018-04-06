@@ -12,7 +12,6 @@ java jasmin.Main out.j
 
 echo '* Running program!\n'
 file=${ul_input_file##*/}  
-java $file
-
+java $file 
 echo ''
 echo 'Done'

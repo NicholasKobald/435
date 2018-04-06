@@ -5,11 +5,17 @@ void main() {
 
    n = factorial(5);
 
+   println "The factorial of 5 is";
+   println n; 
+
+   println "The fibonnaci value of 9 is";
+
    fib_val = fib(9);
+
+   println fib_val; 
 
    if (n < fib_val) {
         println "it turns out the 5th factorial is larger than the 9th fibonacci number";
-
    } else {
         println("Or not!");
    }
@@ -21,18 +27,22 @@ int factorial(int n) {
     if (n == 1) {
         val =  1;
     } else {
-        val = n * factorial(n + 1);
+        val = n * factorial(n - 1);
     }
     return val; 
 }
 
 int fib(int n) {
     int val; 
-    if (n == 1) {
-        val = 1;
+    if (n == 0) {
+        val = 1; 
     } else {
-        val = fib(n - 1) + fib(n - 2);
-    }
+        if (n == 1) {
+            val = 1;
+        } else {
+            val = fib(n - 1) + fib(n - 2);
+        }
+    } 
     return val; 
 }
 
