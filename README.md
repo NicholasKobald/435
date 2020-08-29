@@ -37,7 +37,7 @@ void main() {
     }
 }
 ```
-#### Assignment 2 notes/bonus:
+#### Some notes not obvious from the eample:
     - I allow multiplying of int/float, which evaluates to float
     - I allow math expressions on characters, which evaluate to character
     - an attempt is made to prevent people from using variables before they have a value
